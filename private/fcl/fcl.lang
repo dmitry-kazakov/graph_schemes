@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<!--
+
+ Author: Dmitry A. Kazakov <mailbox@dmitry-kazakov.de>
+ Copyright (C) 2009 Dmitry A. Kazakov <mailbox@dmitry-kazakov.de>
+
+ This library is free software; you can redistribute it and/or modify it
+ under  the terms of the GNU Library General Public License as published
+ by  the  Free  Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+
+ This  library  is  distributed  in the hope that it will be useful, but
+ WITHOUT  ANY  WARRANTY;  without   even   the   implied   warranty   of
+ MERCHANTABILITY  or  FITNESS  FOR  A  PARTICULAR  PURPOSE.  See the GNU
+ Library General Public License for more details.
+
+ You should have received a copy  of  the  GNU  Library  General  Public
+ License along with this library; if not, write  to  the  Free  Software
+ Foundation,  Inc.,  59 Temple Place - Suite 330, Boston, MA 02111-1307,
+ USA.
+
+-->
+<language id="fcl" _name="Fuzzy Control Language"
+                   version="2.0" _section="Scientific">
+  <metadata>
+    <property name="mimetypes">text/x-fcl;text/plain</property>
+    <property name="globs">*.fcl</property>
+    <property name="line-comment-start">--</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" _name="Comment" map-to="def:comment"/>
+    <style id="string" _name="String" map-to="def:string"/>
+    <style id="keyword" _name="Keyword" map-to="def:keyword"/>
+    <style id="decimal" _name="Decimal number" map-to="def:decimal"/>
+    <style id="type" _name="Data Type" map-to="def:type"/>
+    <style id="base-n-number" _name="Arbitrary base number" map-to="def:base-n-integer"/>
+    <style id="real" _name="Real number" map-to="def:floating-point"/>
+    <style id="escaped-character" _name="Escaped Character" map-to="def:special-char"/>
+  </styles>
+
+  <default-regex-options case-sensitive="false"/>
+
+  <definitions>
+
+    <context id="line-comment" style-ref="comment" end-at-line-end="true">
+      <start>--</start>
+      <include>
+        <context ref="def:in-line-comment"/>
+      </include>
+    </context>
+
+    <context id="block-comment-1" style-ref="comment">
+      <start>\(\*</start>
+      <end>\*\)</end>
+      <include>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="string" style-ref="string" end-at-line-end="true">
+      <start>"</start>
+      <end>"</end>
+      <!-- no escapes possible except for "" = literal " -->
+      <include>
+         <context id="string-esc" style-ref="escaped-character" extend-parent="true">
+            <match>""</match>
+         </context>
+       </include>
+    </context>
+
+    <context id="character-constant" style-ref="string">
+      <match>'.'</match>
+    </context>
+
+    <context id="keyword" style-ref="keyword">
+      <keyword>abs</keyword>
+      <keyword>and</keyword>
+      <keyword>accu</keyword>
+      <keyword>act</keyword>
+      <keyword>asum</keyword>
+      <keyword>bdif</keyword>
+      <keyword>bsum</keyword>
+      <keyword>coa</keyword>
+      <keyword>cog</keyword>
+      <keyword>cogs</keyword>
+      <keyword>default</keyword>
+      <keyword>defuzzify</keyword>
+      <keyword>end_defuzzify</keyword>
+      <keyword>end_fuzzify</keyword>
+      <keyword>end_function_block</keyword>
+      <keyword>end_ruleblock</keyword>
+      <keyword>end_var</keyword>
+      <keyword>function_block</keyword>
+      <keyword>term</keyword>
+      <keyword>fuzzify</keyword>
+      <keyword>if</keyword>
+      <keyword>is</keyword>
+      <keyword>in</keyword>
+      <keyword>lm</keyword>
+      <keyword>max</keyword>
+      <keyword>method</keyword>
+      <keyword>min</keyword>
+      <keyword>not</keyword>
+      <keyword>or</keyword>
+      <keyword>prod</keyword>
+      <keyword>range</keyword>
+      <keyword>rm</keyword>
+      <keyword>rule</keyword>
+      <keyword>ruleblock</keyword>
+      <keyword>then</keyword>
+      <keyword>var_input</keyword>
+      <keyword>var_output</keyword>
+      <keyword>xor</keyword>
+    </context>
+
+    <define-regex id="hexnum">[0-9a-f][0-9a-f_]*</define-regex>
+    <define-regex id="exponent">[Ee][+-]?[0-9][0-9_]*</define-regex>
+
+    <context id="based-numeral" style-ref="base-n-number">
+      <match extended="true">
+        (?&lt;![\w\.])
+        [0-9][0-9_]*\#\%{hexnum}(\.\%{hexnum})?\#\%{exponent}?
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="real" style-ref="real">
+      <match extended="true">
+        (?&lt;![\w\.])
+        [0-9][0-9_]*\.[0-9][0-9_]*\%{exponent}?
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="number" style-ref="decimal">
+      <match extended="true">
+        (?&lt;![\w\.])
+        [0-9][0-9_]*(E[+]?[0-9][0-9_]*)?
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="type" style-ref="type">
+      <keyword>nominal</keyword>
+      <keyword>float</keyword>
+      <keyword>integer</keyword>
+      <keyword>real</keyword>
+    </context>
+
+    <context id="fcl">
+      <include>
+        <context ref="line-comment"/>
+        <context ref="block-comment-1"/>
+        <context ref="string"/>
+        <context ref="character-constant"/>
+        <context ref="keyword"/>
+        <context ref="type"/>
+        <context ref="based-numeral"/>
+        <context ref="real"/>
+        <context ref="number"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>

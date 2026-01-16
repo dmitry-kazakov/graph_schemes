@@ -1,0 +1,1549 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML lang="en">
+<HEAD>
+<link REL="SHORTCUT ICON" href="http://www.dmitry-kazakov.de/favicon.ico">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <META name="keywords" content="fuzzy, machine learning, learning with a teacher, graph, fuzzy graph, graph-scheme, artificial intelligence, possibility, necessity, intuitionistic set, feature, fuzzy feature,   GNU, GPL, free, ODBC, SQLite, public domain, OO, object-oriented, Ada, Ada 95, Ada 2005, Gtk, GtkAda, GLib, GUI">
+  <META name="Author" content="Dmitry Kazakov">
+  <META name="description" content="Machine learning framework based on fuzzy intuitionistic sets, possibility theory. Object oriented, written in Ada">
+  <TITLE>Fuzzy machine learning GUI</TITLE>
+</HEAD>
+<BODY>
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<tr>
+		<td valign="top"><font size=+8>FUZZY MACHINE LEARNING FRAMEWORK</font><BR>&nbsp;</td>
+		<td align="center" valign="bottom" rowspan="2">&nbsp;&nbsp;&nbsp;</td>
+		<td align="center" valign="bottom" rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+	<font size=+1>by Dmitry A. Kazakov</font><BR>
+(<A HREF="mailto:mailbox@dmitry-kazakov.de">mailbox@dmitry-kazakov.de</A>)<br>
+<a href="http://www.dmitry-kazakov.de"><img border="0" src="home.jpg" alt="[Home]" width="40" height="40"></a></td>
+		<td align="center" valign="bottom" rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;</td>
+		<td align="right" valign="top"><font size=+4>Graphical User Interface</font></td>
+	</tr>
+	<tr>
+		<td valign="top"><font size=+2>with fuzzy graph-schemes</font></td>
+		<td align="right" valign="bottom"><font size=+1><EM>version 1.12</EM></font></td>
+	</tr>
+	</table>
+<P>
+This program is free software: you can redistribute it and/or modify it under 
+the terms of the GNU General Public License as published by the Free Software 
+Foundation, either version 2 of the License, or (at your option) any later 
+version.<br>
+<br>
+This program is distributed in the hope that it will be useful, but WITHOUT ANY 
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
+PARTICULAR PURPOSE.&nbsp; See the
+<a href="http://www.gnu.org/licenses/gpl.html">GNU General Public License</a> 
+for more details.<br>
+<br>
+You should have received a copy of the GNU General Public License along with 
+this program. If not, see <a href="http://www.gnu.org/licenses/">
+http://www.gnu.org/licenses</a>.</P>
+<P>
+Fuzzy machine learning framework <a href="http://www.dmitry-kazakov.de/ada/fuzzy_ml_download.htm">downloading 
+page</a> <a href="http://www.dmitry-kazakov.de/ada/fuzzy_ml_download.htm">
+<img src="download.jpg" align=middle alt="[Download]" width="29" height="29"></a></P><HR>
+<P align="right">
+<A name="1"></A><A href="#8"><IMG src="index.gif" alt="[TOC]" width="29"
+    height="29"></A><a href="#1.1"><IMG src="next.gif" alt="[Next]" width="29"
+    height="29"></a>
+<H2>1. Introduction</H2>
+<P>The fuzzy machine learning frameworks comes with a cross-platform 
+graphical user interface that gives you access to the most important components of the 
+framework. The framework itself can be used with or without the interface. The 
+interface provides:<ul>
+	<li>Interactive creation of features;</li>
+	<li>Training set viewer and editor. Import of training sets from text files 
+	and files in fuzzy control language</li>
+	<li>Visual training, verification of classifiers</li>
+	<li>Project archiving backed by a database</li>
+	</ul>
+	<p>This document is an introduction to the graphical user interface.</p>
+	<p align="right">
+  <A name="1.1"></A><a href="#1"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></a><A href="#8"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><a href="#2"><IMG src="next.gif" alt="[Next]" width="29" height="29"></a>
+</p>
+<H3>1.1. Database</H3>
+	<P>The machine learning projects are stored in a database. In order to use 
+	the graphical user interface successfully a database must be installed 
+	first. There is a wide range of the database engines supported. Two major 
+	categories of are:<ul>
+	<li>External database engine accessed through ODBC.</li>
+	<li>Built-in SQLite engine.</li>
+	</ul>
+	<P>An external database engine like MySQL might be more robust, but need to 
+	be installed. An ODBC driver must be installed and configured as well. Then 
+	a databank has to be created and made known to the driver.<P>SQLite engine 
+	requires no installation. The database is basically just one file.<hr><P align="right">
+<A name="2"></A><a href="#1.1"><IMG src="prev.gif" alt="[Back]" width="29"
+    height="29"></a><A href="#8"><IMG src="index.gif" alt="[TOC]" width="29"
+    height="29"></A><A href="#2.1"><IMG src="next.gif" alt="[Next]" width="29"
+    height="29"></A>
+</p>
+<H2>2. Getting started</H2>
+<P>When you start the system for the first time, it looks like this:<P>
+<img border="0" src="fuzzy_ml_greeting.png" width="926" height="687" alt="greeting"><P>
+Note that the appearance depends on the theme. The button images may vary.<p align="right">
+  <A name="2.1"></A><A href="#2"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></A><A href="#8"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><A
+      href="#2.2"><IMG src="next.gif" alt="[Next]" width="29" height="29"></A>
+</p>
+<H3>2.1. Creating a project</H3>
+<P>The first thing you have to do is to connect to a database, which will hold 
+your project. The system can deal with almost any database which has an ODBC 
+driver it also supports single-file <a href="http://www.sqlite.org/index.html">SQLite</a> 
+data base.
+Press the button connect
+<img border="0" src="fuzzy_ml_connect_button.gif" width="16" height="16" alt="connect button"> to
+create a new project. This will prompt you with the type of the data base 
+connection, which can be selected at the tab: <P>
+<img border="0" src="fuzzy_ml_new_project.png" width="859" height="649" alt="new project"><H4>2.1.1.
+<a name="2.1.1"></a>ODBC data bases</H4>
+<P>
+When you select an ODBC interfaced data base the connection description dialog 
+contains fields: the name of the ODBC data 
+source, the user and the password required to access the source. You should know 
+these data come from your ODBC configuration:<P>
+<img border="0" src="fuzzy_ml_new_odbc_project.png" width="517" height="363" alt="new ODBC project"><blockquote>
+	<table border="1" cellpadding="5" cellspacing="0">
+		<tr>
+			<td><i>You have to configure your ODBC 
+driver to have a data source mapped to the database. Also you have to create a database 
+			where the project will reside</i></td>
+		</tr>
+	</table>
+</blockquote>
+<P>
+It is possible to use virtually any database management system (DBMS) that 
+supports ODBC. To name some widespread DBMS, which have ODBC drivers:<table border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td valign="top"><ul>
+	<li>Microsoft&nbsp;Access</li>
+	<li>Microsoft&nbsp;SQL&nbsp;Server</li>
+	<li>MySQL</li>
+	<li>Oracle</li>
+	<li>PostgreSQL</li>
+	<li>Sybase</li>
+</ul>
+		</td>
+		<td><blockquote><table border="1" cellpadding="5" cellspacing="0">
+			<tr>
+				<td><i>Note that though Microsoft Excel has an ODBC 
+driver it lacks necessary capacities to hold a project</i></td>
+			</tr>
+		</table></blockquote></td>
+	</tr>
+</table>
+<P>
+Refer to the DBMS documentation to learn how to create a database and configure 
+access to it. The next step is to configure the ODBC driver defining a data 
+source mapped to the database. Typically you would edit the <i>odbc.ini</i> file or call an 
+administrative tool to create a data source corresponding to the database. Once 
+you know the data source name and the credentials needed to access it you can 
+proceed.<P>The 
+check box remember password allows you to remember the password. If not checked 
+the system will prompt you for the password each time you try to open the 
+project. Once you have entered the data press the <i>OK</i> button
+
+<H4>2.1.2. <a name="2.1.2"></a>SQLite data bases</H4>
+<P><a href="http://www.sqlite.org/index.html">SQLite</a> 
+is a light-weight data base management system. Unlike typical data bases built 
+on a client-server model <a href="http://www.sqlite.org/index.html">SQLite</a> 
+does not require a server installed. The data base is kept in a single file. The 
+data base connection dialog box looks like:<P>
+<img border="0" src="fuzzy_ml_new_sqlite_project.png" width="843" height="385" alt="new sqlite project"><P>
+The field <i>data source name</i> is the project name. The data base file is the 
+name of the file. When the data base name is relative it is to the selected directory. When the data 
+base file does not exist, it is created. To open an existing data base file 
+select it in the file selection box. Once you have entered the data base file 
+name press the <i>OK</i> button.<p align="right">
+  <A name="2.2"></A><A href="#2.1"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></A><A href="#8"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><A
+      href="#2.3"><IMG src="next.gif" alt="[Next]" width="29" height="29"></A>
+</p>
+<H3>2.2. In a project, the layout</H3>
+<P><img border="0" src="fuzzy_ml_create_feature_1.png" width="482" height="268" alt="create feature"><P>Each
+project consists of three essential elements:<ul>
+	<li><i>Features</i>, describing what we measure, evaluate, classify;</li>
+	<li><i>Training sets</i>, containing realization of the features. You use 
+	training sets to train and verify;</li>
+	<li><i>Classifiers</i>.</li>
+	</ul>
+	<p>The pane on the right contains tabs for these three categories. They are 
+	sorted into the tabs for convenience.</p>
+<p>The left pane contains the tree of projects and the subdirectories of. The root directories of the tree are projects backed by ODBC 
+and SQLite data 
+	sources. The subdirectories can be created when necessary. They are stored in the 
+	corresponding data source.</p>
+	<p>The tabs in the lower half are used for displaying actions, like the data source 
+	configuration we saw above. Or the greeting text. You can have many actions 
+	active at once. For each such action there is a tab that indicates the 
+	status of the action. An action can be canceled by clicking the button
+	<img border="0" src="fuzzy_ml_close_tab.gif" width="16" height="16" alt="close tab">. The
+	action can be moved from the tab into a 
+	separate floating window by clicking the button
+	<img border="0" src="fuzzy_ml_windowize.gif" width="16" height="16" alt="windowize">. To
+	return the action indication back to a tab, the window is closed.</p>
+<p align="right">
+  <A name="2.3"></A><A href="#2.2"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></A><A href="#8"><IMG src="index.gif" alt="[TOC]" width="29" height="29"></A><A
+      href="#2.4"><IMG src="next.gif" alt="[Next]" width="29" height="29"></A>
+</p>
+<H3>2.3. Creating features and classes</H3>
+	<p><a name="feature_height"></a>Next step is to create the features and classes you will work with. There are 
+	many ways to create them. One of them is to do it manually. To do this press the feature 
+	creation button
+	<img border="0" src="fuzzy_ml_new_feature_button.gif" width="16" height="16" alt="new feature button">
+	on the features pane:</p>
+<p><img border="0" src="fuzzy_ml_create_feature_2.png" width="454" height="397" alt="create feature"></p>
+<p>Select the feature type, for example, <i>piecewise linear</i>: Then select or else type 
+the measurement unit for the feature, like <i>foot</i>:</p>
+<p><img border="0" src="fuzzy_ml_select_unit.png" width="893" height="589" alt="select unit"></p>
+<p>The feature values domain consists of linguistic variables with piecewise 
+linear membership real functions. To create a variable press the button 
+highlighted on the figure below:</p>
+<p>
+<img border="0" src="fuzzy_ml_linguistic_new_term.png" width="891" height="467" alt="linguistic new term"></p>
+<p>The panel on the left represents the list of variables and their the domain points. Once 
+you created a linguistic variable it appears in the list left. Click at it and set the linguistic variable name to <i>short</i>:</p>
+<p><img border="0" src="fuzzy_ml_term_name.png" width="759" height="369" alt="term name"></p>
+<p>Proceed with defining the points of the membership function of the variable 
+<i>short</i>: The membership function is linear between the points. To add a new 
+point to the membership function press the button shown on the figure below:</p>
+<p><img border="0" src="fuzzy_ml_new_point.png" width="758" height="367" alt="new point"></p>
+<p>Now you can see the membership function values in the point 0 foot, left of the point 
+and right of it. Edit the point by setting it to 4 and the function values to 0. 
+It must look like this:</p>
+<p><img border="0" src="fuzzy_ml_new_point_1.png" width="757" height="368" alt="new point 1"></p>
+<p>It reads that the membership function in 4 foot is 0 and the left and right 
+limits of the membership function in this point are also 0. In the point the 
+membership function can have a range of values rather than only one.</p>
+<p>Add another point while 
+the old point is selected:</p>
+<p><img border="0" src="fuzzy_ml_new_point_2.png" width="760" height="368" alt="new ponit 2"></p>
+<p>Edit this new point to be at 5 foot with all values set to 1:</p>
+<p><img border="0" src="fuzzy_ml_new_point_3.png" width="817" height="369" alt="new point 3"></p>
+<p>With two points defined you can see how the membership function begins to 
+take shape in the graphic view, on the right. Now add next 
+two points to complete the trapeze membership function of <i>short</i>:</p>
+<p><img border="0" src="fuzzy_ml_new_point_4.png" width="817" height="369" alt="new point 4"></p>
+<p>Note that the selected membership function point (on the left) is indicated 
+by a red circle around it on the right. The vertical panel of buttons contains
+<i>undo</i> and <i>redo</i> buttons, which you can use while editing.</p>
+<p>To add another 
+linguistic variable. For this select the variable <i>short</i> to indicate the 
+place where to add the new and then press the button highlighted on the 
+figure below:</p>
+<p><img border="0" src="fuzzy_ml_new_point_5.png" width="818" height="368" alt="new point 5"></p>
+<p>Edit the new variable <i>very short</i> adding points of its membership function 
+to get this result:</p>
+<p><img border="0" src="fuzzy_ml_new_point_6.png" width="818" height="368" alt="new point 6"></p>
+<p>Logically <i>very short </i>should precede <i>short</i>. You can change the 
+variables order by selecting them. Select <i>very short</i> and move it to the 
+first position by pressing the button highlighted on the figure above.</p>
+<p>Add other variables, <i>
+normal</i>, <i>tall</i>, <i>very tall</i> as shown below:</p>
+<p><img border="0" src="fuzzy_ml_new_point_7.png" width="816" height="440" alt="new point 7"></p>
+<p>You can also adjust the point and its truth values visually, using the sliders as shown 
+above. There are other buttons which allow zooming, sliding, undo, redo, and testing 
+the result.</p>
+<p>Now you are done with editing the new feature. Enter its name <i>height</i> 
+and press the <i>OK</i>. Now you can see the feature in the features pane of the project <i>learning</i>.</p>
+<p>Create another feature <i>weight</i>, now choosing the <i>isosceles trapezoids</i> 
+type and filling the fields as shown:</p>
+<p><img border="0" src="fuzzy_ml_create_feature_3.png" width="844" height="465" alt="create feature"></p>
+<p>The fields <i>from</i>, <i>to</i>, <i>intervals</i>, <i>unit</i> and <i>
+shoulder</i> define four linguistic variables with the membership functions 
+of isosceles trapezoids, except for the leftmost and rightmost 
+shoulders. You can inspect the membership functions by selecting linguistic 
+variables, as shown below, the selected membership function is highlighted. When 
+you hover the mouse cursor over the graphical membership functions view you can 
+read the axis right below. The buttons pane below is used no zoom in and out the 
+graphical view. Zooming actions can be undo and redo.</p>
+<p><img border="0" src="fuzzy_ml_create_feature_4.png" width="700" height="314" alt="create feature"></p>
+<p>Create a <i>nominal</i> feature named <i>physique</i>. The nominal feature's domain 
+is a list of names. Add a name by pressing the highlighted button shown on the 
+figure below:</p>
+<p><img border="0" src="fuzzy_ml_create_feature_5.png" width="472" height="467" alt="create feature"></p>
+<p>
+Edit the name, and add other names as shown below:</p>
+<p><img border="0" src="fuzzy_ml_create_feature_6.png" width="428" height="465" alt="create feature"></p>
+<p>Create the feature <i>physique</i> pressing the <i>OK</i> button.</p>
+<p>Now you have three features. When you select one of them 
+in the pane further options will open:</p>
+<p>
+<img border="0" src="fuzzy_ml_create_feature_7.png" width="743" height="213" alt="create feature"></p>
+<p>You can view, create copies, move, rename, and delete features. Each feature 
+is stored in the database of the project. Note that 
+other objects like features, training sets and classifiers may refer to a feature 
+object. 
+When referenced the feature cannot be completely deleted until it is in use. Some objects may 
+allow deletion of the objects they depend on. Some do not. When deleted from the 
+project's catalogue the 
+feature or other referenced object remains invisible in the database until the last 
+reference to it disappears.</p>
+<p align="right">
+  <A name="2.4"></A><A href="#2.3"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></A><A href="#8"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><a href="#2.5"><IMG src="next.gif" alt="[Next]" width="29" height="29"></a>
+</p>
+<H3>2.4. Creating a training set</H3>
+<P>The features you have created can be used for training. Let us use <i>height</i> and
+<i>weight</i> in order to classify into <i>physique</i>. I.e. the feature <i>physique</i> 
+will serve as a class. In the fuzzy machine learning framework any feature can 
+serve as a set of classes and any set of classes can be a feature. So you can 
+build hierarchical and cascaded classifiers.<P>Switch to the tab of training 
+sets and press the button
+<img border="0" src="fuzzy_ml_system_new_lecture_button.gif" width="16" height="16" alt="new lecture button">:<P>
+<img border="0" src="fuzzy_ml_create_lecture_1.png" width="695" height="214" alt="create lecture"><P>
+This will start editing a new empty training set.<P>
+The first step of editing the 
+set is to specify the features that the examples of the set define. Switch to the 
+features pane and select the feature <i>height</i> there. Then press the button
+	<img border="0" src="fuzzy_ml_new_feature_button.gif" width="16" height="16" alt="new new feature button">
+	in the editor window below.<P>
+<img border="0" src="fuzzy_ml_create_lecture_2.png" width="740" height="624" alt="create lecture">
+<P>Add the features <i>weight</i> and <i>physique</i> in this order. Now&nbsp;the 
+training set contains the features as shown below. You can see features as the 
+columns in the training set view:<ul>
+	<li>The first column indicates one of two parts of each training example. 
+	The positive part of an example represents a fragment of the feature space 
+	that belongs to the classes specified by the example. The negative part of 
+	the example belongs to the complement of the specified classes. The positive 
+	part is called so, because it provides an instance (or instances) of the 
+	class (or classes), e.g. <i>Socrates is a man</i>. The negative part does 
+	this for the negation, e.g. <i>Sappho is not a man</i>.</li>
+	<li>The second column is the example number. The examples are numbered from 
+	1;</li>
+	<li>The third column defines the feature <i>height</i>;</li>
+	<li>The fourth column defines the feature <i>weight</i>;</li>
+	<li>The last column defines the feature <i>physique</i>, which serves as a 
+	class.</li>
+	</ul>
+	<p>Positive and negative examples are related to the intutionistic approach, 
+which the system consistently uses. In particular intuitionism does not take for 
+granted the 
+law of excluded middle. The <i>positive</i> training example describes some 
+observed event classified by its features. In our case it can be a group of 
+people. The height, weight and physique of these people are the <a href="http://www.dmitry-kazakov.de/fuzzy_ai/on_fuzzy_machine_learning.htm#classification">classifications</a>. 
+A classification the group as <i>tall</i>, answers two questions</p>
+<ul>
+	<li>How is it possible that the people in the group are <i>tall</i>. More 
+	formally, it is whether the group is a subset of the group of <i>tall</i> 
+	people?</li>
+	<li>How is it necessary that these people are <i>tall</i>?</li>
+</ul>
+<p>The intuitionism here is that being <i>possibly</i> <i>tall</i>, does not 
+imply any <i>necessity</i> of being <i>tall</i>. The group is possibly tall when
+<i>some</i> of its people are tall. The most tall of them is taken for the 
+group's representative. That is an estimation of the group's tallness from 
+above. The group is necessarily tall when <i>all</i> its people are tall. The 
+least tall of them gives us an estimation from below.</p>
+	<P>Add the first example pressing the button highlighted:<P>
+<img border="0" src="fuzzy_ml_create_lecture_3.png" width="310" height="125" alt="create lecture"><p>Click at the positive
+example's field <i>height</i> and type 4.5:</p>
+<p><img border="0" src="fuzzy_ml_create_lecture_4.png" width="317" height="175" alt="create lecture"></p>
+<p>Type enter to complete input. The value 4.5 foot is fuzzified and stored into 
+the example. When&nbsp; you click twice at the field you see the drop down box 
+containing intuitionistic truth values of the corresponding linguistic variables 
+of <i>height</i>:</p>
+<p><img border="0" src="fuzzy_ml_create_lecture_5.png" width="307" height="225" alt="create lecture"></p>
+<p>Here you see that 4.5 foot is [possibly and necessary] <i>very short</i>, and 
+0.5 [possibly and necessary] <i>short</i>. Note again, that this is a <a href="http://www.dmitry-kazakov.de/fuzzy_ai/on_fuzzy_machine_learning.htm#classification">classifications</a>, 
+not an intuitionistic fuzzy set. I.e. 4.5 foot does not contain the set of <i>
+very short </i>people, it is contained in that set. The possibility of <i>very 
+short </i>is 1, because the membership function of <i>very short</i> reaches 1 
+in 4.5. The necessity of <i>very short </i>is 0, because the complement of the 
+membership function is 1 in 4.5. In other words 4.5 is fully contained by <i>
+very short</i>. For <i>short</i> 4.5 is contained to the degree of 0.5, that is 
+the value of the membership function of short in 4.5.</p>
+<p>It is possible to enter intervals of values and dimensioned values, for 
+instance type 250..300 for the feature <i>weight</i> and press enter. When you 
+then control the input. note how 
+the range 250..300 falls into single the category of the shoulder indicated as /201.5[lb. Here 
+201.5lb is the point of the shoulder where the truth value is 0.5:</p>
+<p><img border="0" src="fuzzy_ml_create_lecture_6.png" width="350" height="205" alt="create lecture"></p>
+<p>Individual values of the classification can be edited directly. Click at the positive example's field <i>physique</i>. Choose the field obese 
+type and type 1.</p>
+<p><img border="0" src="fuzzy_ml_create_lecture_7.png" width="240" height="216" alt="create lecture"></p>
+<p>Type the enter key and close the box by typing the insert key. This will 
+complete the positive training example that reads that 4.5 foot and 250..300 lb 
+is obese.</p>
+<p>Now the next row is the corresponding <i>negative</i> example. Such examples consider the complement of the positive 
+example. In our case it is the rest of all people, those who are not in the 
+observation group. According to intuitionism we 
+cannot deduce a classification of this set. Thus if we knew something about it, 
+that would be an additional information to learn from. If we don't know anything, we 
+leave it as is.</p><P>
+Editing of training set is finished by saving the set using the button save:<P>
+<img border="0" src="fuzzy_ml_create_lecture_8.png" width="353" height="138" alt="create lecture"><P>
+Manual creation of training sets might be very inconvenient even when sets are 
+small. Instead of saving the set you can import it from a file. Create the 
+following file:<blockquote>
+	<tt>-- Height&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Weight&nbsp;&nbsp;&nbsp;&nbsp; 
+	Physique<br>
+	-------------------------------------<br>
+&nbsp;&nbsp; 4.5;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 250..300;&nbsp; 
+	Obese<br>
+&nbsp;&nbsp; 1.8 m;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 50 kg;&nbsp;&nbsp;&nbsp;&nbsp; 
+	Underweight<br>
+&nbsp;&nbsp; 1.9 m;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 170 kg;&nbsp;&nbsp;&nbsp; 
+	Healthy weight<br>
+&nbsp;&nbsp; 1.5..1.8 m; 240..350;&nbsp; Obese<br>
+&nbsp;&nbsp; 1.6 m;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 50..65 kg; Healthy weight<br>
+&nbsp;&nbsp; 1.7..1.9 m; 70 kg;&nbsp;&nbsp;&nbsp;&nbsp; Healthy weight<br>
+&nbsp;&nbsp; 1.7 m;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 90 kg;&nbsp;&nbsp;&nbsp;&nbsp; 
+	Overweight</tt></blockquote>
+<p>Note that the values may be specified with measurement units compatible with 
+ones of the corresponding feature. Press the highlighted button on the training 
+sets pane:</p>
+<p>
+<img border="0" src="fuzzy_ml_lecture_from_text_2.png" width="637" height="210" alt="lecture from text"></p>
+<p>Edit the fields of the file import tab:</p>
+<ul>
+	<li>Set the features list in the file to: <i>height</i>, <i>weight</i>, <i>
+	physique</i>. In order to add a feature to the list select it in the 
+	features pane and press the highlighted button. You can add, remove, move 
+	features in the list using editing buttons;</li>
+	<li>Choose the file encoding corresponding to your operating system. Windows 
+	files are usually&nbsp; encoded in Latin-1. Linux files are UTF-8;</li>
+	<li>Select the separator of the features in the file. In the file shown 
+	above, the separator is the semicolon;</li>
+	<li>Browse the file system folders and select the file to read.</li>
+</ul>
+<p>
+<img border="0" src="fuzzy_ml_lecture_from_text_1.png" width="855" height="856" alt="lecture from text"></p>
+<p>When the result set name is not specified you are prompted to enter it:</p>
+<p>
+<img border="0" src="fuzzy_ml_lecture_from_text_3.png" width="646" height="349" alt="lecture from text"></p>
+<p>Enter the training set name <i>test</i> and hit <i>OK</i>.</p>
+<p>The training set can be viewed
+or edited selecting it in the training sets pane and pressing the button
+<img border="0" src="fuzzy_ml_lecture_view_button.png" width="18" height="18" alt="lecture view button">
+or <img border="0" src="fuzzy_ml_lecture_edit_button.png" width="18" height="18" alt="lecture edit button">,
+correspondingly:</p>
+<p><img border="0" src="fuzzy_ml_lecture_view.png" width="853" height="632" alt="lecture view"></p>
+	<p align="right">
+  <A name="2.5"></A><A href="#2.4"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></A><A href="#8"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><A
+      href="#2.6"><IMG src="next.gif" alt="[Next]" width="29" height="29"></A></p>
+<H3>2.5. Learning</H3>
+<p>Once a training set is created, it can be used for learning. Select the 
+training set in the training sets pane and press the highlighted button:</p>
+<p>
+<img border="0" src="fuzzy_ml_create_classifier_1.png" width="852" height="587" alt="create classifier"></p>
+<p>The fields are filled automatically to reasonable defaults:</p>
+<ul>
+	<li>The range of examples used in training. It is whole set in your case;</li>
+	<li>Threshold level below which membership function is considered 0. In this 
+	case membership functions are used without cutting;</li>
+	<li>Equivalence specifies the quality level by which hypotheses are 
+	separated. If the qualities of two hypotheses differ less than Equivalence, 
+	they are assumed equivalent. When Equivalence is 1, features are not 
+	selected, so their ordering in testing is not changed. In this case no 
+	feature selection is used;</li>
+	<li>The features sequence is the list of features used in training. It also 
+	specifies the ordering in which features will be tested by the classifier, 
+	unless the order is not changed while training. Note that this does not 
+	apply to the last feature in the list, which determines the classes. Any 
+	feature can be used as classes. In this case <i>height</i> and <i>weight</i> 
+	are used to classify into <i>physique</i>.</li>
+</ul>
+<p>Press the button <i>OK</i> to start training. While training you can monitor 
+its progress. When it completes, you can repeat training with different 
+parameters before you save the classifier.</p>
+<p>
+<img border="0" src="fuzzy_ml_create_classifier_2.png" width="434" height="363" alt="create classifier"></p>
+<p>Enter the classifier name and press <i>OK</i> to store it.</p>
+<p>The classifier can be inspected by selecting it in the classifiers pane and 
+pressing the highlighted button:</p>
+<p><img border="0" src="fuzzy_ml_classifier_view.png" width="853" height="624" alt="classifier view">
+</p>
+<p align="right">
+  <A name="2.6"></A><a href="#2.5"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></a><A href="#8"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><a href="#3"><IMG src="next.gif" alt="[Next]" width="29" height="29"></a></p>
+<H3>2.6. Classification</H3>
+<p><a name="input_classification"></a>Now when the classifier is created it can be used to classify training sets 
+and individual training examples. Press the highlighted button to classify an 
+example input interactively without creating a set:</p>
+<p><img border="0" src="fuzzy_ml_classify_1.png" width="598" height="583" alt="classify"></p>
+<p>Type <i>height</i> to 1.5 m into height and 180 into <i>weight</i>. Then 
+press <i>OK</i> to classify this example:</p>
+<p><img border="0" src="fuzzy_ml_classify_2.png" width="659" height="366" alt="classify"></p>
+<p>On the right the classification appears.</p>
+<hr>
+<p align="right">
+<A name="3"></A><a href="#2.6"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></a><A href="#8"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><A
+      href="#3.1"><IMG src="next.gif" alt="[Next]" width="29" height="29"></A>
+</p>
+<H2>3. Interface elements</H2>
+<p align="right">
+  <A name="3.1"></A><A href="#3"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></A><A href="#8"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><A
+      href="#3.2"><IMG src="next.gif" alt="[Next]" width="29" height="29"></A>
+</p>
+<H3>3.1. Editing elements</H3>
+<P>The elements requiring user input contains an indicator of the content.<P>
+<img border="0" src="fuzzy_ml_filed_status.png" width="224" height="27" alt="status"><P>The
+icon on the right of the field indicates:<blockquote>
+	<table border="0">
+		<tr>
+			<td>
+			<img border="0" src="fuzzy_ml_filed_status_edit.png" width="18" height="18" alt="status edit"></td>
+			<td>The field is not yet edited. It maybe empty or else contain a 
+			default value</td>
+		</tr>
+		<tr>
+			<td>
+			<img border="0" src="fuzzy_ml_filed_status_ok.png" width="18" height="18" alt="status OK"></td>
+			<td>The field is checked</td>
+		</tr>
+		<tr>
+			<td>
+			<img border="0" src="fuzzy_ml_filed_status_error.png" width="18" height="18" alt="status error"></td>
+			<td>The field is errorneous</td>
+		</tr>
+	</table>
+</blockquote>
+<P>When possible the fields are checked automatically while typing. In some 
+cases checks are delayed until the <i>OK</i> button is pressed.<p align="right">
+  <A name="3.2"></A><A href="#3.1"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></A><A href="#8"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><A
+      href="#3.3"><IMG src="next.gif" alt="[Next]" width="29" height="29"></A>
+</p>
+<H3>3.2. Editing names of objects</H3>
+<P>The editing elements that require input of named objects have two additional 
+buttons as shown below:<P>
+<img border="0" src="fuzzy_ml_name_field.png" width="293" height="30" alt="name"><P>The
+field can be edited manually or else selected in a list of objects. When a valid 
+object is selected the on the left button is enabled:<P>
+<img border="0" src="fuzzy_ml_select_button.png" width="890" height="377" alt="select button"><P>
+When button is pressed the name of the selected object is inserted into the 
+field. The button on the right of the field is enabled when the field is 
+checked. Pressing the button selects the object with the name from the field in 
+the list.<p align="right">
+  <A name="3.3"></A><A href="#3.2"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></A><A href="#8"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><a href="#3.4"><IMG src="next.gif" alt="[Next]" width="29" height="29"></a>
+</p>
+<H3>3.3. Editing fuzzy values</H3>
+<p>A fuzzy values in an edit boxes can be entered directly. In this case the 
+format of the input depends on the feature type. The nominal features can be 
+specified by their names. The linguistic variables can be input using either the 
+names of the variables or the values. When the support set of the linguistic 
+feature is dimensioned the input value can be specified with a dimension 
+compatible to it. For example, when <tt>3</tt> is entered for the feature <i>height</i> 
+considered in <a href="#feature_height">above</a>, the assumed dimension is <i>
+foot</i>. When the dimension is specified, it must be compatible with <i>foot</i>, 
+like in <tt>1.7 m</tt>.</p>
+<p>The edit boxes can be dropped down by clicking on the edit field:</p>
+<p><img border="0" src="fuzzy_ml_edit_combo_box.png" width="394" height="125" alt="edit combo box"></p>
+<P>The meaning of the bar's color:<ul>
+	<li>Yellow, the level indicated by the point is below both the possibility 
+	and the necessity;</li>
+	<li>Green, the level is in the interval necessity .. possibility;</li>
+	<li>White, the level is above both the possibility and the necessity;</li>
+	<li>Red, the level is in the interval possibility .. necessity 
+	(contradiction).</li>
+	</ul>
+	<P>The membership values of individual values of the feature domain can be 
+	edited individually as numbers, when clicked at:<P>
+	<img border="0" src="fuzzy_ml_edit_combo_box_1.png" width="375" height="123" alt="edit combo box"><P>
+	The values can be edited visually using the following 
+keys:</p>
+<blockquote>
+	<table border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td>
+			<table border="5" cellspacing="0" cellpadding="0">
+				<tr>
+					<td bordercolor="#C0C0C0" bgcolor="#C0C0C0" align="center">Alt &nbsp;&nbsp;&nbsp;&nbsp; </td>
+				</tr>
+			</table>
+			</td>
+			<td align="center">&nbsp;+&nbsp;&nbsp; </td>
+			<td>
+			<table border="5" cellspacing="0" cellpadding="0">
+				<tr>
+					<td bordercolor="#C0C0C0" bgcolor="#C0C0C0" align="center">&nbsp; -&nbsp; &nbsp; </td>
+				</tr>
+			</table>
+			</td>
+			<td align="center">
+			&nbsp; or&nbsp;&nbsp;&nbsp;
+			</td>
+			<td>
+			<table border="5" cellspacing="0" cellpadding="0">
+				<tr>
+					<td bordercolor="#C0C0C0" bgcolor="#C0C0C0" align="center">Alt &nbsp;&nbsp;&nbsp;&nbsp; </td>
+				</tr>
+			</table>
+			</td>
+			<td align="center">&nbsp;+&nbsp;&nbsp; </td>
+			<td>
+			<table border="5" cellspacing="0" cellpadding="0">
+				<tr>
+					<td bordercolor="#C0C0C0" bgcolor="#C0C0C0" align="center">&nbsp;&lt; &nbsp;</td>
+				</tr>
+			</table>
+			</td>
+			<td>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</td>
+			<td>
+			decreases possibility</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td align="center">&nbsp;</td>
+			<td>&nbsp;</td>
+			<td align="center">&nbsp;</td>
+			<td>&nbsp;</td>
+			<td align="center">&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+			<table border="5" cellspacing="0" cellpadding="0">
+				<tr>
+					<td bordercolor="#C0C0C0" bgcolor="#C0C0C0" align="center">Alt&nbsp; &nbsp;&nbsp;&nbsp; </td>
+				</tr>
+			</table>
+			</td>
+			<td align="center">&nbsp;+&nbsp;&nbsp; </td>
+			<td>
+			<table border="5" cellspacing="0" cellpadding="0">
+				<tr>
+					<td bordercolor="#C0C0C0" bgcolor="#C0C0C0" align="center">&nbsp; +&nbsp;&nbsp; </td>
+				</tr>
+			</table>
+			</td>
+			<td align="center">
+			<p align="center">or</td>
+			<td>
+			<table border="5" cellspacing="0" cellpadding="0">
+				<tr>
+					<td bordercolor="#C0C0C0" bgcolor="#C0C0C0" align="center">Alt&nbsp; &nbsp;&nbsp;&nbsp; </td>
+				</tr>
+			</table>
+			</td>
+			<td align="center">&nbsp;+&nbsp;&nbsp; </td>
+			<td>
+			<table border="5" cellspacing="0" cellpadding="0">
+				<tr>
+					<td bordercolor="#C0C0C0" bgcolor="#C0C0C0" align="center">&nbsp;&gt;&nbsp;&nbsp;&nbsp; </td>
+				</tr>
+			</table>
+			</td>
+			<td>
+			&nbsp;</td>
+			<td>
+			increases possibility</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td align="center">&nbsp;</td>
+			<td>&nbsp;</td>
+			<td align="center">&nbsp;</td>
+			<td>&nbsp;</td>
+			<td align="center">&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+			<table border="5" cellspacing="0" cellpadding="0">
+				<tr>
+					<td bordercolor="#C0C0C0" bgcolor="#C0C0C0" align="center">Ctrl&nbsp;&nbsp;&nbsp;&nbsp; </td>
+				</tr>
+			</table>
+			</td>
+			<td align="center">&nbsp;+&nbsp;&nbsp; </td>
+			<td>
+			<table border="5" cellspacing="0" cellpadding="0">
+				<tr>
+					<td bordercolor="#C0C0C0" bgcolor="#C0C0C0" align="center">&nbsp; -&nbsp; &nbsp; </td>
+				</tr>
+			</table>
+			</td>
+			<td align="center">or</td>
+			<td>
+			<table border="5" cellspacing="0" cellpadding="0">
+				<tr>
+					<td bordercolor="#C0C0C0" bgcolor="#C0C0C0" align="center">Ctrl&nbsp;&nbsp;&nbsp;&nbsp; </td>
+				</tr>
+			</table>
+			</td>
+			<td align="center">&nbsp;+&nbsp;&nbsp; </td>
+			<td>
+			<table border="5" cellspacing="0" cellpadding="0">
+				<tr>
+					<td bordercolor="#C0C0C0" bgcolor="#C0C0C0" align="center">&nbsp;&lt;&nbsp; &nbsp; </td>
+				</tr>
+			</table>
+			</td>
+			<td>
+			&nbsp;</td>
+			<td>
+			decreases necessity</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td align="center">&nbsp;</td>
+			<td>&nbsp;</td>
+			<td align="center">&nbsp;</td>
+			<td>&nbsp;</td>
+			<td align="center">&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+			<table border="5" cellspacing="0" cellpadding="0">
+				<tr>
+					<td bordercolor="#C0C0C0" bgcolor="#C0C0C0" align="center">Ctrl&nbsp;&nbsp;&nbsp;&nbsp; </td>
+				</tr>
+			</table>
+			</td>
+			<td align="center">&nbsp;+&nbsp;&nbsp; </td>
+			<td>
+			<table border="5" cellspacing="0" cellpadding="0">
+				<tr>
+					<td bordercolor="#C0C0C0" bgcolor="#C0C0C0" align="center">&nbsp; +&nbsp;&nbsp; </td>
+				</tr>
+			</table>
+			</td>
+			<td align="center">
+			&nbsp;&nbsp; or&nbsp;&nbsp;&nbsp;&nbsp;
+			</td>
+			<td>
+			<table border="5" cellspacing="0" cellpadding="0">
+				<tr>
+					<td bordercolor="#C0C0C0" bgcolor="#C0C0C0" align="center">Ctrl&nbsp;&nbsp;&nbsp;&nbsp; </td>
+				</tr>
+			</table>
+			</td>
+			<td align="center">&nbsp;+&nbsp;&nbsp; </td>
+			<td>
+			<table border="5" cellspacing="0" cellpadding="0">
+				<tr>
+					<td bordercolor="#C0C0C0" bgcolor="#C0C0C0" align="center">&nbsp;&gt;&nbsp;&nbsp;&nbsp; </td>
+				</tr>
+			</table>
+			</td>
+			<td>
+			&nbsp;</td>
+			<td>
+			increases necessity</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td align="center">&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td align="center">&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td align="center">&nbsp;</td>
+			<td>
+			<table border="5" cellspacing="0" cellpadding="0">
+				<tr>
+					<td bordercolor="#C0C0C0" bgcolor="#C0C0C0" align="center">&nbsp; - &nbsp;&nbsp; </td>
+				</tr>
+			</table>
+			</td>
+			<td>&nbsp;</td>
+			<td>or</td>
+			<td align="center">&nbsp;</td>
+			<td>
+			<table border="5" cellspacing="0" cellpadding="0">
+				<tr>
+					<td bordercolor="#C0C0C0" bgcolor="#C0C0C0" align="center">&nbsp;&lt; &nbsp;&nbsp; </td>
+				</tr>
+			</table>
+			</td>
+			<td>&nbsp;</td>
+			<td>decreases both necessity and possibility</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td align="center">&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td align="center">&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td align="center">&nbsp;</td>
+			<td>
+			<table border="5" cellspacing="0" cellpadding="0">
+				<tr>
+					<td bordercolor="#C0C0C0" bgcolor="#C0C0C0" align="center">&nbsp;+ &nbsp;&nbsp; </td>
+				</tr>
+			</table>
+			</td>
+			<td>&nbsp;</td>
+			<td>or</td>
+			<td align="center">&nbsp;</td>
+			<td>
+			<table border="5" cellspacing="0" cellpadding="0">
+				<tr>
+					<td bordercolor="#C0C0C0" bgcolor="#C0C0C0" align="center">&nbsp;&gt; &nbsp;&nbsp; </td>
+				</tr>
+			</table>
+			</td>
+			<td>&nbsp;</td>
+			<td>increases both necessity and possibility</td>
+		</tr>
+		</table>
+	</blockquote>
+	<p>Editing is completed with:</p>
+<blockquote>
+	<table border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td>
+			<table border="5" cellspacing="0" cellpadding="0">
+				<tr>
+					<td bordercolor="#C0C0C0" bgcolor="#C0C0C0" align="center">Ins &nbsp;&nbsp;&nbsp; </td>
+				</tr>
+			</table>
+			</td>
+			<td>
+			&nbsp; &nbsp;&nbsp;&nbsp;
+			</td>
+			<td>
+			&nbsp;</td>
+			<td>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</td>
+			<td>
+			commits changes made and then closes the pop-up window</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+			<table border="5" cellspacing="0" cellpadding="0">
+				<tr>
+					<td bordercolor="#C0C0C0" bgcolor="#C0C0C0" align="center">Del&nbsp;&nbsp;&nbsp; </td>
+				</tr>
+			</table>
+			</td>
+			<td align="center">&nbsp; or&nbsp;&nbsp;&nbsp; </td>
+			<td>
+			<table border="5" cellspacing="0" cellpadding="0">
+				<tr>
+					<td bordercolor="#C0C0C0" bgcolor="#C0C0C0" align="center"><font face="Times New Roman">&nbsp;Backspace</font>&nbsp;&nbsp; </td>
+				</tr>
+			</table>
+			</td>
+			<td>
+			&nbsp;</td>
+			<td>
+			discards changes and then closes the pop-up window</td>
+		</tr>
+		</table>
+	</blockquote>
+	<p align="right">
+  <A name="3.4"></A><a href="#3.3"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></a><A href="#8"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><a href="#3.5"><IMG src="next.gif" alt="[Next]" width="29" height="29"></a>
+</p>
+<H3>3.4. File and directory selection</H3>
+<p>The file and directory selection pane supports navigation undo buffer, 
+directories bookmarks, files filtering and preview. The selection pane is shown 
+below:</p>
+<p><img border="0" src="fuzzy_ml_file_selection.png" width="833" height="240" alt="file selection"></p>
+<p>The left side of the pane is the directory view. The right side is the list 
+of files in the directory selected on the right. The visual elements above are:</p>
+<ul>
+	<li>Home directory button;</li>
+	<li>Undo button of the directories navigation buffer;</li>
+	<li>Redo button;</li>
+	<li>Refresh button;</li>
+	<li>Parent directory button;</li>
+	<li>Files filter entry;</li>
+	<li>Add bookmark button saving the current directory as a bookmark;</li>
+	<li>Delete bookmark button;</li>
+	<li>Bookmarks combo box;</li>
+	<li>Go to the selected bookmark button;</li>
+	<li>File preview button;</li>
+	<li>File creation button.</li>
+</ul>
+  <p align="right">
+  <A name="3.5"></A><a href="#3.4"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></a><A href="#8"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><a href="#3.6"><IMG src="next.gif" alt="[Next]" width="29" height="29"></a>
+</p>
+<H3>3.5. Previewing and editing files</H3>
+<p>Upon file selection and on errors the source text file can be viewing in an 
+file view pane:<p>
+<img border="0" src="fuzzy_ml_import_fcl_1.png" width="597" height="374" alt="import FCL"><p>The
+source file can be edited by pressing the button on the bottom left. The editor 
+provides undo/redo buffer. The file name can be changed in the edit control on 
+the bottom right.<p align="right">
+  <A name="3.6"></A><a href="#3.5"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></a><A href="#8"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><A
+      href="#4"><IMG src="next.gif" alt="[Next]" width="29" height="29"></A>
+</p>
+<H3>3.6. Viewing errors</H3>
+<p>The errors message is indicated at the bottom of the pane that caused the 
+error. Errors are not blocking, messages are not modal. The figure below shows 
+an example of error indication:</p>
+<p><img border="0" src="fuzzy_ml_error_message.png" width="789" height="431" alt="error message"></p>
+<p>When the error source is in an external file. The show error location button 
+is indicated as highlighted on the figure above. If pressed a file preview pane 
+is opened with the error location highlighted as shown below:</p>
+<p><img border="0" src="fuzzy_ml_error_location.png" width="588" height="430" alt="error location"></p>
+<hr>
+<p align="right">
+  <a name="4"></a><a href="#3.6"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></a><A href="#8"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><A
+      href="#4.1"><IMG src="next.gif" alt="[Next]" width="29" height="29"></A>
+</p>
+<H2>4. Features</H2>
+<p>A <a href="http://www.dmitry-kazakov.de/fuzzy_ai/on_fuzzy_machine_learning.htm#feature">features</a>
+is something that can be sensed and measured. A feature is fuzzy when the 
+measurement process or the measured entity itself is not certain and the model 
+if uncertainly is fuzziness. The fuzzy machine learning framework supports 
+various types. Depending on the entity represented by the feature it can be <i>
+discrete</i> or <i>real</i>. According to the way the feature value is obtained 
+it can be <i>independent</i> or <i>dependent</i>.</p>
+<p align="right">
+  <a name="4.1"></a><A href="#4"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></A><A href="#8"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><A
+      href="#4.2"><IMG src="next.gif" alt="[Next]" width="29" height="29"></A>
+</p>
+<H3>4.1. Nominal features</H3>
+<p>The domain of a nominal feature is a list of names. The following figure 
+illustrates creation of a nominal feature:</p>
+<p><img border="0" src="fuzzy_ml_create_feature_6.png" width="428" height="465" alt="create feature"></p>
+<p align="right">
+  &nbsp;</p>
+<p align="right">
+  <a name="4.2"></a><a href="#4.1"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></a><A href="#8"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><a href="#4.3"><IMG src="next.gif" alt="[Next]" width="29" height="29"></a>
+</p>
+<H3>4.2. Integer features</H3>
+<p>The domain of an integer feature is a range of integer numbers. The following 
+figure illustrates creation of an integer feature:</p>
+<p><img border="0" src="fuzzy_ml_create_feature_9.png" width="440" height="397" alt="create feature"></p>
+<p align="right">
+  <a name="4.3"></a><a href="#4.2"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></a><A href="#8"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><a href="#4.4"><IMG src="next.gif" alt="[Next]" width="29" height="29"></a>
+</p>
+<H3>4.3. Interval-valued features</H3>
+<p>Interval valued features are real features. The domain values of the feature 
+are linguistic variables with rectangular membership functions. The figure below 
+shows creation panel of an interval-valued feature:</p>
+<p>
+<img border="0" src="fuzzy_ml_create_feature_10.png" width="843" height="395" alt="create feature"></p>
+<p>The fields required to define the feature are:</p>
+<ul>
+	<li>the range of the values;</li>
+	<li>the number of intervals in which this range is split;</li>
+	<li>the measurement unit.</li>
+</ul>
+<p align="right">
+  <a name="4.4"></a><a href="#4.3"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></a><A href="#8"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><a href="#4.5"><IMG src="next.gif" alt="[Next]" width="29" height="29"></a>
+</p>
+<H3>4.4. Isosceles trapezoid valued features</H3>
+<p>Isosceles trapezoid features are real features with the domain of linguistic 
+variables which membership functions are isosceles trapezoids. The following 
+figure illustrates creation of a such feature:</p>
+<p><img border="0" src="fuzzy_ml_create_feature_3.png" width="844" height="465" alt="create feature"></p>
+<p>The fields required to define are:</p>
+<ul>
+	<li>the range of feature values;</li>
+	<li>the number of 
+intervals in which this range is split. Additionally to the intervals of 
+	isosceles trapezoid shape there are two shoulders on the left and right of 
+	the range;</li>
+	<li>the trapezoid's shoulder width;</li>
+	<li>the measurement unit.</li>
+</ul>
+<p align="right">
+  <a name="4.5"></a><a href="#4.4"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></a><A href="#8"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><a href="#4.6"><IMG src="next.gif" alt="[Next]" width="29" height="29"></a>
+</p>
+<H3>4.5. Piecewise linear valued features</H3>
+<p>Piecewise linear valued features have the domain of linguistic 
+variables which membership functions are piecewise linear. The following 
+figure illustrates creation of a such feature:</p>
+<p>
+<img border="0" src="fuzzy_ml_create_feature_11.png" width="892" height="467" alt="create feature"></p>
+<p>The membership functions are edited manually.</p>
+<p align="right">
+  <a name="4.6"></a><a href="#4.5"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></a><A href="#8"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><a href="#4.7"><IMG src="next.gif" alt="[Next]" width="29" height="29"></a>
+</p>
+<H3>4.6. Defuzzified features</H3>
+<p>Defuzzified features are real computable features usually outputs of a fuzzy 
+logic control system. Typically a fuzzy control system have to convert outputs 
+into a crisp form understandable to the actuators. This process is called
+<a href="http://www.dmitry-kazakov.de/ada/fuzzy.htm#Defuzzification">
+defuzzification</a>. Defuzzified features are real features which apply a 
+defuzzification method to a real reference feature. The domain of the 
+defuzzified feature is a set of linguistic variables with pulse membership 
+function. The following figure illustrates creation of a defuzzified feature:</p>
+<p>
+<img border="0" src="fuzzy_ml_create_feature_12.png" width="769" height="396" alt="create feature"></p>
+<p>The fields required are:</p>
+<ul>
+	<li>the reference feature, which has to be a real feature;</li>
+	<li>the defuzzification method;</li>
+	<li>the default value, used when defuzzification fails.</li>
+</ul>
+<p>The cardinality of the result feature domain is the cardinality of the 
+reference feature.</p>
+<p align="right">
+  <a name="4.7"></a><a href="#4.6"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></a><A href="#8"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><a href="#4.8"><IMG src="next.gif" alt="[Next]" width="29" height="29"></a>
+</p>
+<H3>4.7. Binary features</H3>
+<P>Binary features are calculated features, with represent conditions like <i>x</i>&ge;2<sup><i>n</i></sup>, 
+where <i>x</i> is the original feature value. Binary features can improve 
+performance of the classifier in some cases. Creating a binary feature is shown 
+on the 
+figure below:<P>
+<img border="0" src="fuzzy_ml_create_feature_8.png" width="601" height="397" alt="create feature"><P>
+Here the feature <i>height0</i> is created from the most significant bit of the 
+feature <i>height</i>.<p align="right">
+  <a name="4.8"></a><a href="#4.7"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></a><A href="#8"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><a href="#5"><IMG src="next.gif" alt="[Next]" width="29" height="29"></a>
+</p>
+<H3>4.8. Classificatory features</H3>
+<p>A classificatory feature is a computable feature which yields its values from 
+a classifier. The feature value depends on the classifier and the values of the 
+features the classifier uses. The domain set of a classificatory feature is one 
+of the feature serving as the classes into which the classifier classifies. The 
+following figure shows creation of the feature:</p>
+<p>
+<img border="0" src="fuzzy_ml_create_feature_13.png" width="729" height="397" alt="create feature"></p>
+<p>The following fields are required:</p>
+<ul>
+	<li>the classifier;</li>
+	<li>the threshold to apply during classification;</li>
+	<li>the generalization method.</li>
+</ul>
+<hr>
+<p align="right">
+  <a name="5"></a><a href="#4.8"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></a><A href="#8"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><A
+      href="#5.1"><IMG src="next.gif" alt="[Next]" width="29" height="29"></A>
+</p>
+<H2>5. Training sets</H2>
+<p>Training sets are collections of training examples. An example is set of 
+feature values considered coherent, i.e. taken from some source, e.g. measured 
+or assigned to some entity or group of entities. A training set can be used to 
+train or verify a classifier on it.</p>
+<P align="right">
+<a name="5.1"></a><A href="#5"><IMG src="prev.gif" alt="[Back]" width="29"
+    height="29"></A><A href="#8"><IMG src="index.gif" alt="[TOC]" width="29"
+    height="29"></A><A href="#5.2"><IMG src="next.gif" alt="[Next]" width="29"
+    height="29"></A>
+</p>
+<H3>5.1. Reading training set from a text file</H3>
+<p>The training set reading panel is open by selecting the training set and 
+pressing the button highlighted below:</p>
+<p>
+<img border="0" src="fuzzy_ml_lecture_from_text_2.png" width="637" height="210" alt="create lecture"></p>
+<p>The training set has one line per training example. Features are specified in 
+columns. The panel itself:</p>
+<p>
+<img border="0" src="fuzzy_ml_lecture_from_text_1.png" width="855" height="856" alt="create lecture from text"></p>
+<p>For the training set input&nbsp;the features sequence has to be specified and 
+the file selected. Further options, which can be specified:</p>
+<ul>
+  <li><i>Encoding</i> determines the expected file encoding;</li>
+	<li><i>Comment prefix</i> is the text that starts a comment, the rest of the 
+	line following the prefix is ignored;</li>
+	<li><i>Undefined value</i> specifies the text used to indicate that the 
+	feature value is explicitly not defined;</li>
+	<li>The example prefix boxes specify prefixes of the positive. negative, and 
+	full examples. The positive part of an example represents a fragment of the 
+	feature space that belongs to the classes specified by the example. The 
+	negative part of the example belongs to the complement of the specified 
+	classes. A full example is one that defines positive and negative parts 
+	equivalent. Right of the prefixes list there is a radio box buttons to 
+	select the example type when no prefix appear;</li>
+	<li><i>Delimiters of feature values</i> specifies how the features values 
+	are separated in the file line;</li>
+	<li><i>Allow empty fields</i> box when checked allows empty fields, so that 
+	if a missing feature value is detected it is defaulted to undefined. When 
+	the box is not checked each feature has to have a value;</li>
+	<li><i>Require unit specification</i> when checked requires an explicit unit 
+	specification for each dimensioned feature, when the feature value is in 
+	numerical format;.</li>
+	<li><i>Units pit in square brackets</i> require units in square brackets when 
+	specified, e.g. <tt>1 [km/h]</tt>. When the box is unchecked no brackets are 
+	required <tt>1 km/h</tt>;</li>
+  <li><i>Default necessity to possibility</i> is used when the  necessity is omitted. 
+	When the box checked it is possibility value taken for its value. When the 
+	box is unchecked the necessity is defaulted to 0. If both the possibility 
+	and the necessity are omitted, then with the box checked they are defaulted 
+	to 1:1, with the box unchecked they are to 1:0.</li>
+</ul>
+<p align="right">
+  <a name="5.2"></a><A href="#5.1"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></A><A href="#8"><IMG src="index.gif" alt="[TOC]" width="29" height="29"></A><a href="#5.3"><IMG src="next.gif" alt="[Next]" width="29" height="29"></a>
+</p>
+<H3>5.2. Importing from Fuzzy Control Language</H3>
+<p>The <b>F</b>uzzy <b>C</b>ontrol <b>L</b>anguage (FCL) is a draft IEC 1131 
+standard for programmable controllers. A program in FCL describes input outputs 
+and the rules to evaluate outputs from the inputs. A program in FCL is imported 
+as follows:</p>
+<ul>
+	<li>An input is translated into declaration of a feature;</li>
+	<li>An output is translated into declaration of a feature (used as a class);</li>
+	<li>A rules block is translated into a training set.</li>
+</ul>
+<p>The supported implementation of FCL is a fully functional and consistent 
+subset of the draft extended in order to support intuitionistic fuzzy sets and 
+measurement units. For a description of the extension see <a href="ifcl.htm">
+Fuzzy Control Language, an intuitionistic extension</a>.</p>
+<p>The following figure shows how a FCL file is imported:</p>
+<p><img border="0" src="fuzzy_ml_import_fcl.png" width="797" height="637" alt="import FCL"></p>
+<p>The preview button lets inspect the file:</p>
+<p><img border="0" src="fuzzy_ml_import_fcl_1.png" width="597" height="374" alt="import FCL"></p>
+<p>The file is imported as a folder. The program name is suggested as the folder 
+name. The program elements are created as objects in the folder. The inputs and 
+outputs become features. The rules blocks do training sets. </p>
+<p>For instance the following FCL program:</p>
+<TABLE border="1" cellpadding="15" cellspacing="0">
+  <TR>
+    <TD bgcolor="#B8D3D1"><tt><b>function_block</b> Test<br>
+&nbsp;&nbsp; <b>var_input</b><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Distance : real [m];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Angle&nbsp;&nbsp;&nbsp; : real [°];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : 
+	integer 1..20; <i>(* Integer variable range 1..20 *)</i><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Color&nbsp;&nbsp;&nbsp; : nominal (red, blue, 
+	white);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; T&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : 
+	real [°C];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; V&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : 
+	float [°C] 10 <b>range</b> 1..2*10;<br>
+&nbsp;&nbsp; <b>end_var</b><br>
+	<br>
+&nbsp;&nbsp; <b>var_output</b><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Power : Real [W];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Valve : Real;<br>
+&nbsp;&nbsp; <b>end_var</b><br>
+	<br>
+&nbsp;&nbsp; <b>fuzzify</b> T<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> Chill := (-10,1)(-4,0); <i>-- °C is 
+	assumed</i><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> Cold&nbsp; := ( 11,1)(17,0) [°C];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> Tepid := ( 3,0)( 8,1)(21,1)(28,0) 
+	[°C];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> Warm&nbsp; := ( 
+	15,0)(21,1)(29,1)(35,0) [°C];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> Hot&nbsp;&nbsp; := ( 25,0)(28,1) 
+	[°C];<br>
+&nbsp;&nbsp; <b>end_fuzzify</b><br>
+	<br>
+&nbsp;&nbsp; <b>defuzzify</b> Valve<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; term Open&nbsp;&nbsp; := 1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; term Closed := 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default&nbsp;&nbsp;&nbsp;&nbsp; := 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; method&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : CoA;<br>
+&nbsp;&nbsp; <b>end_defuzzify</b><br>
+	<br>
+&nbsp;&nbsp; <b>fuzzify</b> Distance<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> too_far := (-5,1)( 0,0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> zero&nbsp;&nbsp;&nbsp; := (-5,0)( 
+	0,1)( 5,0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> close&nbsp;&nbsp; := ( 0,0)( 
+	5,1)(10,0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> medium&nbsp; := ( 5,0)(10,1)(22,0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> far&nbsp;&nbsp;&nbsp;&nbsp; := 
+	(10,0)(22,1);<br>
+&nbsp;&nbsp; <b>end_fuzzify</b><br>
+	<br>
+&nbsp;&nbsp; <b>fuzzify</b> Angle<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> neg_big&nbsp;&nbsp; := (-50,1)(-5,0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> neg_small := (-50,0)(-5,1)( 0,0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> zero&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; := 
+	( -5,0)( 0,1)( 5,0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> pos_small := ( 0,0)( 5,1)(50,0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> pos_big&nbsp;&nbsp; := ( 5,0)(50,1);<br>
+&nbsp;&nbsp; <b>end_fuzzify</b><br>
+	<br>
+&nbsp;&nbsp; <b>defuzzify</b> Power<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> neg_high&nbsp;&nbsp; := -27;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> neg_medium := -12;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> zero&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	:= 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> pos_medium := 12;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> pos_high&nbsp;&nbsp; := 27;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>accu</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	: MAX;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>method</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	: COGS;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>default</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	:= 0;<br>
+&nbsp;&nbsp; <b>end_defuzzify</b><br>
+	<br>
+&nbsp;&nbsp; <b>ruleblock</b> Rules<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>and</b> : MIN;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>if</b> T <b>is</b> cold <b>then</b> Valve <b>is</b> closed;<br>
+&nbsp;&nbsp; <b>end_ruleblock</b><br>
+	<br>
+	<b>&nbsp;&nbsp; ruleblock</b> No1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>and</b> : MIN;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>rule</b> 1: <b>if</b> distance <b>is</b> far 
+	<b>&nbsp;&nbsp; and</b> 
+	angle <b>is</b> zero <b>&nbsp;&nbsp;&nbsp;&nbsp; then</b> power <b>is</b> pos_medium;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>rule </b>2: <b>if</b> distance <b>is</b> far 
+	<b>&nbsp;&nbsp; and</b> angle <b>is</b> neg_small <b>then</b> power <b>is</b> pos_high;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>rule </b>3: <b>if</b> distance <b>is</b> far 
+	<b>&nbsp;&nbsp; and</b> angle <b>is</b> neg_big <b>&nbsp; then</b> power <b>is</b> pos_medium;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>rule </b>4: <b>if</b> distance <b>is</b> medium 
+	<b>and</b> angle <b>is</b> neg_small <b>then</b> power <b>is</b> neg_medium;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>rule </b>5: <b>if</b> distance <b>is</b> close 
+	<b>&nbsp;and</b> angle <b>is</b> pos_small <b>then</b> power <b>is</b> pos_medium;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>rule </b>6: <b>if</b> distance <b>is</b> zero 
+	<b>&nbsp; and</b> angle <b>is</b> zero <b>&nbsp;&nbsp;&nbsp;&nbsp; then</b> power 
+	<b>is</b> zero;<br>
+&nbsp;&nbsp; <b>end_ruleblock</b> <br>
+	<br>
+	<b>end_function_block</b></tt></TD>
+  </TR>
+</TABLE>
+<p>When imported this FCL program will produce input features: <i>Distance</i>,
+<i>Angle</i>, <i>I</i>, <i>Color</i>, <i>T</i>, <i>V</i>.</p>
+<p><i>Distance</i> is a piecewise linear feature with five linguistic variables. 
+The variables are defined over meters:</p>
+<p>
+<img border="0" src="fuzzy_ml_create_fcl_distance.png" width="842" height="365" alt="create FCL distance"></p>
+<p><i>Angle</i> is another piecewise linear feature measured in degrees:</p>
+<p><img border="0" src="fuzzy_ml_create_fcl_angle.png" width="842" height="362" alt="create FCL angle"></p>
+<p><i>I</i> is and integer feature with the values from 1 to 20:</p>
+<p><img border="0" src="fuzzy_ml_create_fcl_i.png" width="330" height="300" alt="create FCL i"></p>
+<p><i>Color</i> is a nominal feature:</p>
+<p><img border="0" src="fuzzy_ml_create_fcl_color.png" width="404" height="364" alt="create FCL color"></p>
+<p><i>T</i> is a piecewise linear feature measured in Celsius degree:</p>
+<p><img border="0" src="fuzzy_ml_create_fcl_t.png" width="844" height="364" alt="create FCL t"></p>
+<p><i>V</i> is a rectangular feature measured in Celsius degree:</p>
+<p><img border="0" src="fuzzy_ml_create_fcl_v.png" width="844" height="364" alt="create FCL v"></p>
+<p>Output features are <i>Power.Source</i>, <i>Power</i>, <i>Valve.Source</i>,
+<i>Valve</i>.</p>
+<p><i>Power.Source</i> is a feature of dimensioned singletons:</p>
+<p>
+<img border="0" src="fuzzy_ml_create_fcl_power_source.png" width="845" height="365" alt="create FCL power source"></p>
+<p>This feature is generated in order to implement defuzzification as required 
+by the output <i>Power</i>. For this output a defuzzified feature <i>Power</i> 
+is generated to defuzzify <i>Power.Source</i> into Watt using the method
+<a href="fuzzy_ml_api.htm#Fuzzy.Feature.Linguistic_Handle.Output.Defuzzifier_Handles.Discrete_Center_Of_Gravity">
+discrete center of gravity</a>:</p>
+<p><img border="0" src="fuzzy_ml_create_fcl_power.png" width="674" height="362" alt="create FCL power"></p>
+<p><i>Valve.Source</i> is a feature of two singletons:</p>
+<p>
+<img border="0" src="fuzzy_ml_create_fcl_valve_source.png" width="842" height="364" alt="create FCL source"></p>
+<p>This feature is defuzzified using <i>Valve</i>:</p>
+<p><img border="0" src="fuzzy_ml_create_fcl_valve.png" width="641" height="361" alt="create FCL valve"></p>
+<p>The rules blocks generate two training sets <i>No1</i>:</p>
+<p><img border="0" src="fuzzy_ml_create_fcl_no1.png" width="434" height="291" alt="create FCL"></p>
+<p>and <i>Rules</i>:</p>
+<p><img border="0" src="fuzzy_ml_create_fcl_rules.png" width="320" height="110" alt="create FCL rules"></p>
+<p align="right">
+  <a name="5.3"></a><a href="#5.2"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></a><A href="#8"><IMG src="index.gif" alt="[TOC]" width="29" height="29"><IMG src="next.gif" alt="[Next]" width="29" height="29">
+      </A>
+</p>
+<H3>5.3. Writing training set into a text file</H3>
+<p>The training set writing panel is opened by selecting the set and 
+pressing the highlighted button:</p>
+<p><img border="0" src="fuzzy_ml_lecture_to_text.png" width="853" height="837" alt="lecture to text"></p>
+<p>The training set is written one example per one or two lines. When both 
+positive and negative parts of a training example are written it takes two 
+lines. You can specify:</p>
+<ul>
+	<li>The range of examples to write;</li>
+	<li>Prefixes placed before positive and negative examples and whether to 
+	write them;</li>
+	<li>The delimiter used to separate feature values;</li>
+	<li>The features and their ordering;</li>
+	<li>The file to write into. The folder selection box is used to select the 
+	directory where to place the file or to select a file to overwrite.</li>
+</ul>
+<p>The example shown on the figure above writes <i>test.txt</i> as follows:</p>
+<blockquote>
+	<tt>very short, short:0.502;/201.5000[;Obese<br>
+	normal, tall:0.686;]125.5000\;Underweight<br>
+	normal:0.220, tall, very tall:0.388;/201.5000[;Healthy weight<br>
+	very short..normal:1:0, tall:0.686:0;/201.5000[;Obese<br>
+	very short:0.169, short, normal:0.831;]165.0000\:1:0;Healthy weight<br>
+	short:0.306:0, normal:1:0.220, tall:1:0, very tall:0.388:0;/122.5000, 
+	165.0000\;Healthy weight<br>
+	short:0.306, normal;/162.0000, 204.5000\;Overweight</tt></blockquote>
+  <hr>
+<p align="right">
+  <a name="6"></a><A href="#4.5"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></A><A href="#8"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><a href="#6.1"><IMG src="next.gif" alt="[Next]" width="29" height="29"></a>
+</p>
+<H2>6. Classifiers</H2>
+<p>Classifiers are objects encapsulating a classification algorithm adjusted on 
+some set of examples.</p>
+<P align="right">
+<a name="6.1"></a><a href="#6"><IMG src="prev.gif" alt="[Back]" width="29"
+    height="29"></a><A href="#8"><IMG src="index.gif" alt="[TOC]" width="29"
+    height="29"></A><a href="#6.2"><IMG src="next.gif" alt="[Next]" width="29"
+    height="29"></a>
+</p>
+<H3>6.1. Viewing classifiers</H3>
+<p>A classifier can be viewed pressing the button highlighted on the figure 
+below:</p>
+<p>
+<img border="0" src="fuzzy_ml_classifier_viewer.png" width="851" height="622" alt="classifier viewer"></p>
+<p>When the classifier is based on a graph-scheme it consists of four graphs 
+represented on the tabs:</p>
+<ul>
+	<li><i>in</i> represents the graph deduced from the <i><font color="#000080">has-in</font></i> 
+	<a href="http://www.dmitry-kazakov.de/fuzzy_ai/on_fuzzy_machine_learning.htm#fuzzy_characteristics">
+images</a> of the training set;</li>
+	<li><i>out</i> does the graph deduced from the <font color="#000080"><i>has-out</i></font> <a href="http://www.dmitry-kazakov.de/fuzzy_ai/on_fuzzy_machine_learning.htm#fuzzy_characteristics">
+images</a>;</li>
+	<li><i>not in</i> does the graph deduced from the <font color="#000080"><i>has-not</i></font><i><font color="#000080"> </font></i>
+	<a href="http://www.dmitry-kazakov.de/fuzzy_ai/on_fuzzy_machine_learning.htm#fuzzy_characteristics">
+images</a>;</li>
+	<li><i>not out</i> does the graph deduced from the <i><font color="#000080">has-not-out </font></i>&nbsp;<a href="http://www.dmitry-kazakov.de/fuzzy_ai/on_fuzzy_machine_learning.htm#fuzzy_characteristics">images</a>.</li>
+</ul>
+<p>The graphs are shown as trees. The tree nodes indicate graph nodes testing a 
+feature. The branches leading out of the node are indicated as children marked 
+by the transition conditions. The leaf nodes represent classifications. The 
+classification indicated in the columns on the right.</p>
+<P align="right">
+<a name="6.2"></a><a href="#6.1"><IMG src="prev.gif" alt="[Back]" width="29"
+    height="29"></a><A href="#8"><IMG src="index.gif" alt="[TOC]" width="29"
+    height="29"><IMG src="next.gif" alt="[Next]" width="29"
+    height="29"></A>
+</p>
+<H3>6.2. Classification</H3><H4>6.2.1. 
+<a name="6.2.1"></a>Examples of a training set</H4>
+<p>The examples of a training set can be classified by a classifier by selecting 
+them as shown on the figure below:</p>
+<p><img border="0" src="fuzzy_ml_classify_3.png" width="668" height="623" alt="classify"></p>
+<p>The panel allows selection of the examples range to classify and the 
+classification parameters:</p>
+<ul>
+	<li>The parameter <i>Threshold</i> is the truth level below which the 
+	membership function is considered 0. For large sets the threshold can be 
+	specified above 0 in order to speed up classification by pruning examples of 
+	low confidence.</li>
+	<li>The parameter <i>Generalization</i> is the method the classifier should 
+	follow when it meets examples not covered by the training set. The 
+	generalization can be <i>none</i>, when the classifier does not attempt to 
+	deduce anything from the training set. The method <i>nearest</i> instructs 
+	the classifier to classify according to the nearest example from the set. 
+	The method <i>linear</i> does a linear interpolation between two nearest 
+	examples.</li>
+</ul>
+<p>Once the classification is completed, the panel shows the result and the 
+classified training set as shown on the figure below:</p>
+<p><img border="0" src="fuzzy_ml_classify_4.png" width="843" height="512" alt="classify"></p><H4>6.2.2.
+<a name="6.2.2"></a>Manually input examples</H4>
+<p>A classifier can be used for examples manually edited rather from a specific 
+training set. The following figure shows how to use this mode:</p>
+<p><img border="0" src="fuzzy_ml_classify_1.png" width="598" height="583" alt="classify"></p>
+<p>When in the panel the features the classifier would test can be given desired 
+values and then the classifier can be applied by pressing the <i>OK</i> button. 
+The process can be repeated as necessary.</p>
+<p>&nbsp;</p>
+<P align="right">
+<a name="6.3"></a><a href="#6.1"><IMG src="prev.gif" alt="[Back]" width="29"
+    height="29"></a><a href="#8"><IMG src="index.gif" alt="[TOC]" width="29"
+    height="29"></a><a href="#6.4"><IMG src="next.gif" alt="[Next]" width="29"
+    height="29"></a></p>
+<H3>6.3. Verifying classifiers</H3>
+<p>Usually a classifier is trained on some training set and then verified on 
+another. When there is only one set it is split into parts, one to train another 
+is to verify. The following figure illustrates how to verify a classifier:</p>
+<p><img border="0" src="fuzzy_ml_verify_1.png" width="851" height="622" alt="verify"></p>
+  <p>It is possible to verify on the same set. As shown below, a range of 
+	examples from the classified set is selected for verification:</p>
+<p><img border="0" src="fuzzy_ml_verify_2.png" width="851" height="622" alt="verify"></p>
+<p>The training set used during learning is optional. When specified the 
+verification panel provides explanation means. The verification report panel is 
+represented on the figure below:</p>
+<p><img border="0" src="fuzzy_ml_verify_3.png" width="876" height="547" alt="verify"></p>
+<p>The left part of the panel contains the verification statistics. The mean of 
+the classification errors shown for each class separately above. The classifier 
+is shown below. The right part of the panel contains the detailed verification 
+report. It lists the control set examples. The third column contains the 
+classification provided the classifier. The fifth column does the classification 
+stated by the control set. The fourth column is the difference between these 
+two. When the source set was specified the right part of the panel contains a 
+tab indicating it.</p>
+<p>The verification report provides an elaborated explanation support.</p><H4>6.3.1. 
+<a name="6.3.1"></a>Partial classification</H4>
+<p>Partial classification is a tool to analyze how parts of the classifier 
+influence the classification result for the given example of the control set. Select a training example from the control 
+set and some part of the classifier as shown on the figure below, and then press the 
+highlighted button:</p>
+<p><img border="0" src="fuzzy_ml_verify_4.png" width="877" height="630" alt="verify"></p>
+<p>The result of classification of the selected example by the selected part of the classifier 
+is shown in the column <i>Explained</i> on the left upper 
+part of the panel.</p>
+<h4>6.3.2. 
+<a name="6.3.2"></a>Analyzing the classifier</h4>
+<p>It might be interesting to known which parts of the classifier actually 
+contribute the classification of an example. When the 
+example is selected press the button highlighted on the figure below:</p>
+<p><img border="0" src="fuzzy_ml_verify_5.png" width="877" height="604" alt="verify"></p>
+<p>This will collapse the parts of the classifier that do not inspect the 
+example while classifying it, and expand those which do contribute to the result.</p>
+<h4>6.3.3. 
+<a name="6.3.3"></a>Backtracking the training set</h4>
+<p>When the source set was specified you can track the examples, which lead to 
+construction of the given part of the classifier. Select the classifier part and 
+then press the button highlighted on the figure below:</p>
+<p><img border="0" src="fuzzy_ml_verify_6.png" width="877" height="618" alt="verify"></p>
+<p>This will select the next training example in the source training set, which 
+contributed to construction of the selected part of the classifier.</p>
+<P align="right">
+<a name="6.4"></a><a href="#6.3"><IMG src="prev.gif" alt="[Back]" width="29"
+    height="29"></a><a href="#8"><IMG src="index.gif" alt="[TOC]" width="29"
+    height="29"></a><a href="#7"><IMG src="next.gif" alt="[Next]" width="29"
+    height="29"></a></p>
+<H3>6.4. Creating classifiers (learning)</H3>
+<p>A classifier can be created by training on a set of examples. The following 
+figure illustrates creation of a classifier:</p>
+<p>
+<img border="0" src="fuzzy_ml_create_classifier_1.png" width="852" height="587" alt="create classifier"></p>
+<p>The fields to specify are:</p>
+<ul>
+	<li>The training set;</li>
+	<li>The range of examples of the set used for training;</li>
+	<li>The threshold of examples cutting. When the membership function of a 
+	example value is below the threshold it is considered 0. Setting the 
+	threshold higher may speed up learning by pruning the membership function;</li>
+	<li>Equivalence specifies the quality level by which hypotheses are
+	separated. If the qualities of two hypotheses differ less than Equivalence, 
+	they are assumed equivalent. When Equivalence is set to 1, features are not 
+	selected, so their ordering in testing is not changed. In this case no 
+	feature selection is used. Features order may have a considerable impact of 
+	the classifier performance. Features selection is recommended when the 
+	optimal features ordering is unknown. On the other side features selection 
+	may require longer time to learn from the set;</li>
+	<li>The features sequence is the list of features used in training. It also 
+	specifies the ordering in which features will be tested by the classifier, 
+	unless the order is not changed while training. Note that this does not 
+	apply to the last feature in the list, which determines the classes. Any 
+	feature can be used as classes. In this case <i>height</i> and <i>weight</i> 
+	are used to classify into <i>physique</i>.</li>
+</ul>
+<hr>
+<p align="right">
+<a name="7"></a><a href="#6.4"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></a><A href="#8"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"><IMG src="next.gif" alt="[Next]" width="29" height="29"></A>
+</p>
+<H2>7. Installation</H2>
+<p>The graphical user interface requires no special installation. The executable 
+file can be used as is.</p>
+<p>The executable file is dynamically linked to the GTK (gtk, glib, gobject etc) 
+and gtksourceview libraries. The packages providing these libraries must be 
+properly installed on the computer.</p>
+<p>For colorization of the *.fcl files you might 
+wish to copy the fcl.lang file to /usr/share/gtksourceview-2.0/language-specs.</p>
+  <HR>
+<p align="right">
+<a name="8"></a><a href="#7"><IMG src="prev.gif" alt="[Back]" width="29" height="29"></a><a href="#8"><IMG src="index.gif" alt="[TOC]" width="29" height="29"></a>
+</p>
+<H2>8. Table of Contents</H2>
+<table border="0" cellspacing="10" cellpadding="0">
+	<tr>
+		<td valign="top">
+<A href="#1">1. Introduction</A><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#1.1">1.1. Database</a><BR>
+<A href="#2">2. Getting started</A><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<A href="#2.1">2.1. Creating a project</A><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#2.1.1">2.1.1. ODBC data bases</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#2.1.2">2.1.2. SQLite data bases</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<A href="#2.2">2.2. In a project, the layout</A><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#2.3">2.3. Creating features and classes</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#2.4">2.4. Creating a training set</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#2.5">2.5. Learning</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#2.6">2.6. Classification</a><br>
+<A href="#3">3. Interface elements</A><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<A href="#3.1">3.1. Editing elements</A><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<A href="#3.2">3.2. Editing names of objects</A><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<A href="#3.3">3.3. Editing fuzzy values</A><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<A href="#3.4">3.4. File and directory selection</A><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<A href="#3.5">3.5. Viewing errors</A><br>
+		<A href="#4">4. Features</A><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.1">4.1. Nominal features</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.2">4.2. Integer features</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.3">4.3. Interval-valued features</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.4">4.4. Isosceles trapezoid valued features</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.5">4.5. Piecewise linear valued features</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.6">4.6. Defuzzified features</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.7">4.7. Binary features</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.8">4.8. Classificatory features</a></td>
+		<td valign="top">
+<A href="#5">5. Training sets</A><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<A href="#5.1">5.1. Reading training set from a text file</A><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<A href="#5.2">5.2. Importing from Fuzzy Control Language</A><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<A href="#5.3">5.3. Writing training set into a text file</A><BR>
+<A href="#6">6. Classifiers</A><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<A href="#6.1">6.1. Viewing classifiers</A><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<A href="#6.2">6.2. Classification</A><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#6.2.1">6.2.1. Examples of a training set</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#6.2.2">6.2.2. Manually input examples</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<A href="#6.3">6.3. Verifying classifiers</A><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#6.3.1">6.3.1. Partial classification</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#6.3.2">6.3.2. Analyzing the classifier</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#6.3.3">6.3.3. Backtracking the training set</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<A href="#6.4">6.4. Creating classifiers (learning)</A><BR>
+<A href="#7">7. Installation</A><BR>
+<A href="#8">8. Table of contents</A></td>
+</tr>
+</table>
+<BR>
+&nbsp;
+</BODY>
+</html>

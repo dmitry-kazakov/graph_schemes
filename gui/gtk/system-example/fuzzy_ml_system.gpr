@@ -1,0 +1,34 @@
+with "../../../fuzzy_ml.gpr";
+with "../../../fuzzy_ml-gtk.gpr";
+
+project Fuzzy_ML_System is
+
+   for Source_Dirs use (".", "..");
+   for Source_Files use
+       (  "fuzzy_ml_system.adb",
+          "fuzzy_ml_version.ads",
+          "image_fuzzy_16_xpm.adb",
+          "image_fuzzy_16_xpm.ads",
+          "image_fuzzy_16_xpm-image.adb",
+          "image_fuzzy_16_xpm-image.ads",
+          "image_fuzzy_18_xpm.adb",
+          "image_fuzzy_18_xpm.ads",
+          "image_fuzzy_18_xpm-image.adb",
+          "image_fuzzy_18_xpm-image.ads",
+          "image_logo_xpm.adb",
+          "image_logo_xpm.ads",
+          "image_logo_xpm-image.adb",
+          "image_logo_xpm-image.ads"
+       );
+   for Main use ("fuzzy_ml_system.adb");
+   for Object_Dir use Fuzzy_ML'Object_Dir;
+
+   package Compiler  renames Fuzzy_ML.GTK.Compiler;
+   package Binder    renames Fuzzy_ML.GTK.Binder;
+   package Builder   renames Fuzzy_ML.GTK.Builder;
+   package Linker is
+      for Default_Switches ("ada") use
+         Fuzzy_ML.GTK.Linker'Default_Switches ("ada") & "-lkernel32"; -- & ("-lgmem", "-Wl,--heap=200000");
+   end Linker;
+
+end Fuzzy_ML_System;

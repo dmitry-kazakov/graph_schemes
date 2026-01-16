@@ -1,0 +1,22 @@
+with "../fuzzy.gpr";
+
+project Fuzzy.test is
+
+   for Main use ("test_fuzzy.adb");
+   for Source_Files use
+       (  "test_fuzzy.adb",
+          "test_fuzzy_floats.adb",
+          "test_fuzzy_integers.adb",
+          "test_intuitionistic.adb",
+          "test_linguistic.adb",
+          "test_performance.adb"
+       );
+   for Object_Dir use Fuzzy.Object_Dir_Path;
+
+   package Compiler renames Fuzzy.Compiler;
+   package Binder   renames Fuzzy.Binder;
+   package Builder  renames Fuzzy.Builder;
+   package Linker   renames Fuzzy.Linker;
+
+end Fuzzy.test;
+

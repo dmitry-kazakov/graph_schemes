@@ -1,0 +1,21 @@
+function_block Test
+   var_input
+      Light : Real [lux];
+   end_var
+
+   var_output
+      Switch : Nominal (On, Off);
+   end_var
+
+   fuzzify Light
+      term Dark     := (  100 lux, 1)( 1000 lux, 0);
+      term Twilight := (  500 lux, 0)( 1000 lux, 1)(15000 lux, 1)(20000 lux, 0);
+      term Bright   := (10000 lux, 0)(20000 lux,1);
+   end_fuzzify
+
+   ruleblock Rules
+     if Light is Dark then Switch is On;
+     if Light is Bright then Switch is Off;
+   end_ruleblock
+
+end_function_block

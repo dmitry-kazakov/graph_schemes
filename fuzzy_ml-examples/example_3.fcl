@@ -1,0 +1,21 @@
+function_block Example3
+   var_input
+      X : integer 1..7;
+      Y : integer 1..7;
+   end_var
+         
+   var_output
+      Class : nominal (First, Second);
+   end_var
+
+   ruleblock Data
+      and : min;
+      if X in (1,1)∪(7,1) and Y in (1,1)∪(7,1) then Class = First;
+      if X in 1..7 and Y in (1,1)∪(7,1) then Class = First;
+      if X = 2 and Y = 3 then Class in First^0.6 ∪ Second^0.3;
+      if X = 3 and Y = 3 then Class in First^0.3 ∪ Second^0.6;
+      if X = 4 and Y = 4 then Class in Second;
+      if X = 5 and Y = 5 then Class in First^0.3 ∪ Second^0.6;
+      if X = 6 and Y = 5 then Class in First^0.6 ∪ Second^0.3;
+   end_ruleblock                     
+end_function_block                       

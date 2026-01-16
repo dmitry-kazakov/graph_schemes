@@ -1,0 +1,221 @@
+<HTML>
+<link REL="SHORTCUT ICON" href="http://www.dmitry-kazakov.de/favicon.ico">
+  <META name="keywords" content="Fuzzy, Machine learning, Learning with a teacher, Graph, Fuzzy graph, Graph-scheme, Artificial intelligence, Possibility, Necessity, Possibility theory, Ada, GTK, GTK+">
+  <META name="Author" content="Dmitry Kazakov">
+  <META name="Description" content="Fuzzy machine learning, synopsis">
+  <TITLE>Fuzzy machine learning, synopsis</TITLE>
+<BODY>
+<table border="0" cellspacing="0" cellpadding="4">
+	<tr>
+		<td><TABLE BORDER=0 ALIGN="left" cellspacing="0" cellpadding="0">
+<TR><TD valign="top"><b><font color="#808080"><big><big><big>B</big></big></big></font></b>&nbsp;</TD></TR>
+</TABLE>
+<b>ased on the intuitionistic fuzzy sets and the possibility theory</b>. Fuzzy 
+approach is fully utilized by using intuitionistic sets extended to represent 
+not only <i>uncertain</i>, but also <i>contradictory</i> data within same 
+framework. Consequently the results of the possibility theory are generalized 
+for the case of contradictory data. Same as with the shades of uncertainty we 
+introduce the shades of contradiction from feasible to infeasible. This allows 
+us to operate uncertain and contradictory data in a unified, certain and
+feasible way.</td>
+	</tr>
+	<tr>
+		<td><TABLE BORDER=0 ALIGN="left" cellspacing="0" cellpadding="0">
+<TR><TD valign="top"><b><font color="#808080"><big><big><big>F</big></big></big></font></b>&nbsp;</TD></TR>
+</TABLE>
+<b>uzzy features</b>.
+All the data the system operates on are considered 
+fuzzy. For this a notion of fuzzy  feature is introduced as a generalization of 
+crisp features known in classical machine learning. Similar to statistical 
+pattern recognition, a feature is a measurable function with the 
+possibility used as the measure. Both the features and the things viewed through 
+features are consistently supposed fuzzy. By these  two ways  uncertainty 
+comes into play. It might be a crisp thing described in vague terms, like a 
+number being big or small. Or it can be a precise description of something 
+uncertain, like a temperature said to be <i>n</i> degrees. There could be a 
+mixture of both.</td>
+	</tr>
+	<tr>
+		<td><TABLE BORDER=0 ALIGN="left" cellspacing="0" cellpadding="0">
+<TR><TD valign="top"><b><font color="#808080"><big><big><big>F</big></big></big></font></b>&nbsp;</TD></TR>
+</TABLE>
+<b>uzzy classes</b>. Within this framework classes take a natural 
+interpretation of distinguished features. This has an appealing advantage of 
+treating the same feature sometimes as given input data, sometimes as the result 
+of a classification. Just same as humans do.</td>
+	</tr>
+	<tr>
+		<td><TABLE BORDER=0 ALIGN="left" cellspacing="0" cellpadding="0">
+<TR><TD valign="top"><b><font color="#808080"><big><big><big>N</big></big></big></font></b>&nbsp;</TD></TR>
+</TABLE>
+<b>umeric, enumeration features and features based on linguistic variables</b>. 
+The system supports a variety of feature types:
+<ul>
+<li>Discrete features take values from some crisp finite enumeration set. For 
+instance <i>red</i>, <i>green</i>, <i>blue</i>;</li>
+<li>The numeric features with integer or real values. Because the system 
+consistently rely on fuzzy approach, all numeric features may take standard 
+numeric, interval and fuzzy numeric 
+values;</li>
+<li>Linguistic features taking values from a set of linguistic variables. 
+Linguistic variables may be used to replace large domain sets of real numbers 
+with finite sets of linguistic variables conceivable to human beings. 
+Piecewise-linear shapes of membership functions supported, which includes 
+triangular, trapezoid, shoulder etc.</li>
+</ul>
+		</td>
+	</tr>
+	<tr>
+		<td><TABLE BORDER=0 ALIGN="left" cellspacing="0" cellpadding="0">
+<TR><TD valign="top"><b><font color="#808080"><big><big><big>U</big></big></big></font></b>&nbsp;</TD></TR>
+</TABLE>
+<b>ser-defined features</b>. The system is open for definition of new features 
+		beyond built-in classes of numeric, nominal and linguistic ones.</td>
+	</tr>
+	<tr>
+		<td><TABLE BORDER=0 ALIGN="left" cellspacing="0" cellpadding="0">
+<TR><TD valign="top"><b><font color="#808080"><big><big><big>D</big></big></big></font></b>&nbsp;</TD></TR>
+</TABLE>
+<b>erived and evaluated features</b>.
+Along with the measured features the 
+system supports the features deduced from other features. This opens a wide 
+range of possibilities of defining feature conversions, evaluating features from 
+other features, using different representations of same features.
+		</td>
+	</tr>
+	<tr>
+		<td><TABLE BORDER=0 ALIGN="left" cellspacing="0" cellpadding="0">
+<TR><TD valign="top"><b><font color="#808080"><big><big><big>C</big></big></big></font></b>&nbsp;</TD></TR>
+</TABLE>
+<b>lassifiers as features for building hierarchical systems</b>.
+Because classes and features are treated in a unified 
+way, the classifiers can be used as features which values yield 
+classifications. This opens a door to building large hierarchical classification systems. 
+In such a system 
+output of a lower-level classification subsystem could be smoothly used for 
+training higher levels of the system.</td>
+	</tr>
+	<tr>
+		<td><TABLE BORDER=0 ALIGN="left" cellspacing="0" cellpadding="0">
+<TR><TD valign="top"><font size="6" color="#808080"><b>A</b></font></TD></TR>
+</TABLE>
+<b>utomatic refinement in case of dependent features</b>. 
+The problem of dependent features is well known as most difficult to solve. 
+Although use of dependent features is less problematic in the possibility theory 
+than in the probability theory. Because the result have a form of estimations 
+which remains true no matter whether features involved are dependent or not. Yet 
+the quality of the estimations may significantly drop. The system has a highly 
+integrated mechanism of refinement of the estimations for dependent features 
+known to be derived from other features. The approach is based on the 
+constraints dynamically 
+set on the feature values as the system navigates along the decision 
+paths. The constraints are set and dropped fully transparent to the data base 
+used for the teaching and classification.</td>
+	</tr>
+	<tr>
+		<td><TABLE BORDER=0 ALIGN="left" cellspacing="0" cellpadding="0">
+<TR><TD valign="top"><b><font color="#808080"><big><big><big>I</big></big></big></font></b><font color="#808080">&nbsp;</font></TD></TR>
+</TABLE>
+<b>ncremental learning</b>.
+The way a training set is split into pieces does 
+not affect the result of training. Further the classifiers can be continuously 
+tuned on the fly as new training examples appear. Thus a classifier can be put 
+into a controlling loop to act as an adaptive fuzzy controller.
+		</td>
+	</tr>
+	<tr>
+		<td><TABLE BORDER=0 ALIGN="left" cellspacing="0" cellpadding="0">
+<TR><TD valign="top"><b><font color="#808080"><big><big><big>F</big></big></big></font></b>&nbsp;</TD></TR>
+</TABLE>
+		<b>uzzy control language support</b>.
+The includes a compiler of an intuitionistic extension of the Fuzzy Control 
+		Language.</td>
+	</tr>
+	<tr>
+		<td><TABLE BORDER=0 ALIGN="left" cellspacing="0" cellpadding="0">
+<TR><TD valign="top"><b><font color="#808080"><big><big><big>O</big></big></big></font></b>&nbsp;</TD></TR>
+</TABLE>
+<b>bject-oriented software design</b>.
+The system fully utilizes the advantages 
+of modern approach to software architecture and design based on objects.</td>
+	</tr>
+	<tr>
+		<td><TABLE BORDER=0 ALIGN="left" cellspacing="0" cellpadding="0">
+<TR><TD valign="top"><b><font color="#808080"><big><big><big>F</big></big></big></font></b>&nbsp;</TD></TR>
+</TABLE>
+<b>eatures, training sets and classifiers are extensible objects</b>. 
+Features, training sets, classifiers are designed as abstract data types with 
+defined interface. They can be extended as necessary to provide alternative 
+implementations or functionality without breaking the existing code.
+		</td>
+	</tr>
+	<tr>
+		<td><TABLE BORDER=0 ALIGN="left" cellspacing="0" cellpadding="0">
+<TR><TD valign="top"><b><font color="#808080"><big><big><big>A</big></big></big></font></b>&nbsp;</TD></TR>
+</TABLE>
+<b>utomatic garbage collection</b>. The system 
+objects are accessed through handles and get automatically destroyed when no 
+more used. This design prevents memory leaks and dandling pointers.
+		</td>
+	</tr>
+	<tr>
+		<td><TABLE BORDER=0 ALIGN="left" cellspacing="0" cellpadding="0">
+<TR><TD valign="top"><b><font color="#808080"><big><big><big>G</big></big></big></font></b>&nbsp;</TD></TR>
+</TABLE>
+<b>eneric data base support through ODBC</b>. 
+Important system objects such as features, training sets, classifiers can be 
+made persistent by storing them in a data base. The system interfaces data bases 
+through ODBC, which is supported by a great variety of data base engines and 
+platforms. The objects backed by a data base can be processed directly there or 
+converted to memory mapped objects when performance is essential.
+		</td>
+	</tr>
+	<tr>
+		<td><TABLE BORDER=0 ALIGN="left" cellspacing="0" cellpadding="0">
+<TR><TD valign="top"><b><font color="#808080"><big><big><big>D</big></big></big></font></b>&nbsp;</TD></TR>
+</TABLE>
+<b>esigned in Ada</b>.
+		All software was developed in Ada 2005, the language of 
+choice for safety-critical systems. Ada was the first internationally 
+standardized object-oriented programming language, designed especially for 
+developing portable long-living large systems, where maintainability is 
+essential. The language standard provides interfaces to other programming 
+languages allowing a smooth integration of Ada programs into practically any 
+environment.</td>
+	</tr>
+	<tr>
+		<td><TABLE BORDER=0 ALIGN="left" cellspacing="0" cellpadding="0">
+<TR><TD valign="top"><b><font color="#808080"><big><big><big>I/O</big></big></big></font></b>&nbsp;</TD></TR>
+</TABLE>
+		<b>facilities</b>. Text I/O is provided for 
+teaching sets and classifiers. Teaching sets can be imported in an intuitive 
+format from text files.</td>
+	</tr>
+	<tr>
+		<td><TABLE BORDER=0 ALIGN="left" cellspacing="0" cellpadding="0">
+<TR><TD valign="top"><font size="6" color="#808080"><b>HTML</b></font></TD></TR>
+</TABLE>
+		<b>output</b>.
+Training sets and classifiers can be output in directly HTML 
+format, supporting a web-ready solution.</td>
+	</tr>
+	<tr>
+		<td><TABLE BORDER=0 ALIGN="left" cellspacing="0" cellpadding="0">
+<TR><TD valign="top"><b><font color="#808080"><big><big><big>A</big></big></big></font></b>&nbsp;</TD></TR>
+</TABLE>
+<b>dvanced graphical user interface</b>.
+The graphical user interface is based on GTK+, a cross-platform widget toolkit. 
+		The graphical interface is optional the system can be used fully 
+		programmatically.</td>
+	</tr>
+	<tr>
+		<td><TABLE BORDER=0 ALIGN="left" cellspacing="0" cellpadding="0">
+<TR><TD valign="top"><b><font color="#808080"><big><big><big>E</big></big></big></font></b>&nbsp;</TD></TR>
+</TABLE>
+<b>xamples of use</b>.
+The system is delivered with an set of samples varying from ones illustrating usage of the system components to examples 
+of training on real- life and size data.</td>
+	</tr>
+</table>
+</BODY>
+</html>

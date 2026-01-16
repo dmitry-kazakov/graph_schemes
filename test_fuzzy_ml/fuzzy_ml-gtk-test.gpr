@@ -1,0 +1,21 @@
+with "../fuzzy_ml.gpr";
+with "../fuzzy_ml-gtk.gpr";
+
+project Fuzzy_ML.GTK.Test is
+
+   for Source_Dirs use (".");
+   for Main use ("test_graph_schemes_gtk_widgets.adb");
+   for Source_Files use
+      (  "test_graph_schemes_gtk_widgets.adb",
+         "test_day_of_week_feature.ads",
+         "test_tone_feature.ads"
+      );
+   for Object_Dir use Fuzzy_ML.Object_Dir_Path;
+
+   package Compiler  renames Fuzzy_ML.GTK.Compiler;
+   package Binder    renames Fuzzy_ML.GTK.Binder;
+   package Builder   renames Fuzzy_ML.GTK.Builder;
+   package Linker    renames Fuzzy_ML.GTK.Linker;
+
+end Fuzzy_ML.GTK.Test;
+

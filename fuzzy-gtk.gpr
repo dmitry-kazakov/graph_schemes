@@ -1,0 +1,56 @@
+with "fuzzy.gpr";
+with "components-gtk.gpr";
+with "units-gtk.gpr";
+
+project Fuzzy.GTK is
+
+   for Source_Dirs use (".");
+   for Source_Files use
+   (  "glib-values-confidence_factors.adb",
+      "glib-values-confidence_factors.ads",
+      "glib-values-fuzzy-intuitionistic.adb",
+      "glib-values-fuzzy-intuitionistic.ads",
+      "glib-values-fuzzy-logic.adb",
+      "glib-values-fuzzy-logic.ads",
+      "glib-values-fuzzy.adb",
+      "glib-values-fuzzy.ads",
+      "gtk-cell_renderer_fuzzy.adb",
+      "gtk-cell_renderer_fuzzy.ads",
+      "gtk-cell_renderer_fuzzy_boolean.adb",
+      "gtk-cell_renderer_fuzzy_boolean.ads",
+      "gtk-fuzzy_boolean.adb",
+      "gtk-fuzzy_boolean.ads",
+      "gtk-fuzzy_boolean_drawing.adb",
+      "gtk-fuzzy_boolean_drawing.ads",
+      "gtk-fuzzy_linguistic_set_domain.ads",
+      "gtk-fuzzy_linguistic_set_editor.ads",
+      "gtk-fuzzy_linguistic_set_measure_editor.ads",
+      "gtk-fuzzy_linguistic_set_measure_tree_view.ads",
+      "gtk-fuzzy_linguistic_set_tree_view.ads",
+      "gtk-fuzzy_linguistic_set_zoom_panel.ads",
+      "gtk-fuzzy_set.adb",
+      "gtk-fuzzy_set.ads",
+      "gtk-fuzzy_set_entry.adb",
+      "gtk-fuzzy_set_entry.ads",
+      "gtk-generic_fuzzy_linguistic_set_domain-generic_tree_view.adb",
+      "gtk-generic_fuzzy_linguistic_set_domain-generic_tree_view.ads",
+      "gtk-generic_fuzzy_linguistic_set_domain-generic_zoom_panel.adb",
+      "gtk-generic_fuzzy_linguistic_set_domain-generic_zoom_panel.ads",
+      "gtk-generic_fuzzy_linguistic_set_domain.adb",
+      "gtk-generic_fuzzy_linguistic_set_domain.ads",
+      "gtk-generic_fuzzy_linguistic_set_editor.adb",
+      "gtk-generic_fuzzy_linguistic_set_editor.ads",
+      "gtk-generic_fuzzy_linguistic_set_measure_editor.adb",
+      "gtk-generic_fuzzy_linguistic_set_measure_editor.ads",
+      "gtk-generic_fuzzy_linguistic_set_measure_tree_view.adb",
+      "gtk-generic_fuzzy_linguistic_set_measure_tree_view.ads"
+   );
+   for Object_Dir use Fuzzy.Object_Dir_Path;
+
+   package Compiler renames Components.GTK.Compiler;
+   package Binder   renames Components.GTK.Binder;
+   package Builder  renames Components.GTK.Builder;
+   package Linker   renames Components.GTK.Linker;
+
+end Fuzzy.GTK;
+

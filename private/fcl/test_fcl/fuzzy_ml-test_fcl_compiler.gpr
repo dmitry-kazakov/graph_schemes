@@ -1,0 +1,13 @@
+with "../../../fuzzy_ml.gpr";
+
+project Fuzzy_ML.Test_FCL_Compiler is
+
+   for Main use ("test_fcl_compiler.adb");
+   for Source_Files use ("test_fcl_compiler.adb");
+
+   package Binder   renames Fuzzy_ML.Binder;
+   package Builder  renames Fuzzy_ML.Builder;
+   package Compiler renames Fuzzy_ML.Compiler;
+   package Linker   renames Fuzzy_ML.Linker;
+
+end Fuzzy_ML.Test_FCL_Compiler;

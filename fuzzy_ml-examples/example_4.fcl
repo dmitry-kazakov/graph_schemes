@@ -1,0 +1,135 @@
+--
+--  A  real  classification  data  sample. The sample represents patient
+--  data sampled during postoperative treatment. 
+--
+--  Data source :
+--     UCI Repository of machine learning databases
+--        [http://www.ics.uci.edu/~mlearn/MLRepository.html].
+--     Irvine, CA: University of California, Department  of  Information
+--     and Computer Science.
+--
+--  Name :
+--     Postoperative Patient Data 
+--
+--  Creators :
+--     Sharon Summers, School of Nursing, University of Kansas
+--        Medical Center, Kansas City, KS 66160
+--     Linda Woolery, School of Nursing, University of Missouri,
+--        Columbia, MO 65211
+--
+--  Donor :
+--     Jerzy W. Grzymala-Busse (jerzy@cs.ukans.edu) (913)864-4488
+--
+--  Date :
+--     June 1993
+--
+function_block Postoperative_Treatment
+   var_input
+      L_Core    : nominal (high, mid, low);
+      L_Surf    : nominal (high, mid, low);
+      L_O2      : nominal (excellent, good, fair, poor);
+      L_BP      : nominal (high, mid, low);
+      Surf_Stbl : nominal (stable, mod_stable, unstable);
+      Core_Stbl : nominal (stable, mod_stable, unstable);
+      BP_Stbl   : nominal (stable, mod_stable, unstable);
+      Comfort   : float 5 range 0.0..20.0;
+   end_var
+         
+   var_output
+      Adm_Decs : nominal (I, S, A);
+   end_var
+
+   ruleblock Data
+      and : min;
+      if L_Core is mid  and L_Surf is low  and L_O2 is excellent and L_BP is mid  and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 15 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is high and L_O2 is excellent and L_BP is high and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is S;
+      if L_Core is high and L_Surf is low  and L_O2 is excellent and L_BP is high and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is mod_stable and Comfort = 10 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is low  and L_O2 is good      and L_BP is high and Surf_Stbl is stable   and Core_Stbl is unstable   and BP_Stbl is mod_stable and Comfort = 15 then Adm_Decs is A; 
+      if L_Core is mid  and L_Surf is mid  and L_O2 is excellent and L_BP is high and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is A;
+      if L_Core is high and L_Surf is low  and L_O2 is good      and L_BP is mid  and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is unstable   and Comfort = 15 then Adm_Decs is S;
+      if L_Core is mid  and L_Surf is low  and L_O2 is excellent and L_BP is high and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is mod_stable and Comfort = 05 then Adm_Decs is S;
+      if L_Core is high and L_Surf is mid  and L_O2 is excellent and L_BP is mid  and Surf_Stbl is unstable and Core_Stbl is unstable   and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is S;
+      if L_Core is mid  and L_Surf is high and L_O2 is good      and L_BP is mid  and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is S;
+      if L_Core is mid  and L_Surf is low  and L_O2 is excellent and L_BP is mid  and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is mod_stable and Comfort = 10 then Adm_Decs is S;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is good      and L_BP is high and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 15 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is low  and L_O2 is good      and L_BP is high and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is mod_stable and Comfort = 10 then Adm_Decs is A;
+      if L_Core is high and L_Surf is high and L_O2 is excellent and L_BP is high and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is unstable   and Comfort = 15 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is high and L_O2 is good      and L_BP is high and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is mod_stable and Comfort = 10 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is low  and L_O2 is good      and L_BP is high and Surf_Stbl is unstable and Core_Stbl is unstable   and BP_Stbl is stable     and Comfort = 15 then Adm_Decs is S;
+      if L_Core is high and L_Surf is high and L_O2 is excellent and L_BP is high and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is unstable   and Comfort = 10 then Adm_Decs is A;
+      if L_Core is low  and L_Surf is high and L_O2 is good      and L_BP is high and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is mod_stable and Comfort = 15 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is low  and L_O2 is good      and L_BP is high and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is high and L_O2 is good      and L_BP is high and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is unstable   and Comfort = 15 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is good      and L_BP is high and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is A;
+      if L_Core is low  and L_Surf is high and L_O2 is good      and L_BP is high and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 15 then Adm_Decs is A;
+      if L_Core is low  and L_Surf is mid  and L_O2 is excellent and L_BP is high and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is unstable   and Comfort = 10 then Adm_Decs is S;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is good      and L_BP is high and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is unstable   and Comfort = 15 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is good      and L_BP is high and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is A;
+      if L_Core is high and L_Surf is high and L_O2 is good      and L_BP is high and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is mod_stable and Comfort = 10 then Adm_Decs is A;
+      if L_Core is low  and L_Surf is mid  and L_O2 is good      and L_BP is high and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is A;
+      if L_Core is high and L_Surf is mid  and L_O2 is good      and L_BP is low  and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is mod_stable and Comfort = 10 then Adm_Decs is A;
+      if L_Core is low  and L_Surf is mid  and L_O2 is excellent and L_BP is high and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is mod_stable and Comfort = 10 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is excellent and L_BP is mid  and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is unstable   and Comfort = 15 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is good      and L_BP is high and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is unstable   and Comfort = 10 then Adm_Decs is S;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is good      and L_BP is high and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is A;
+      if L_Core is low  and L_Surf is low  and L_O2 is good      and L_BP is high and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is unstable   and Comfort = 10 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is excellent and L_BP is high and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is mod_stable and Comfort = 10 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is low  and L_O2 is good      and L_BP is high and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is A;
+      if L_Core is low  and L_Surf is mid  and L_O2 is excellent and L_BP is high and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is mod_stable and Comfort = 10 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is good      and L_BP is high and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is A;
+      if L_Core is low  and L_Surf is mid  and L_O2 is excellent and L_BP is mid  and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is S;
+      if L_Core is low  and L_Surf is low  and L_O2 is good      and L_BP is high and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is unstable   and Comfort = 10 then Adm_Decs is S;
+      if L_Core is low  and L_Surf is low  and L_O2 is good      and L_BP is high and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 07 then Adm_Decs is S;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is good      and L_BP is high and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is mod_stable and Comfort = 10 then Adm_Decs is A;
+      if L_Core is low  and L_Surf is low  and L_O2 is good      and L_BP is high and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is A;
+      if L_Core is low  and L_Surf is mid  and L_O2 is good      and L_BP is high and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 15 then Adm_Decs is S;
+      if L_Core is high and L_Surf is high and L_O2 is good      and L_BP is high and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 15 then Adm_Decs is S;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is good      and L_BP is high and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is S;
+      if L_Core is low  and L_Surf is low  and L_O2 is excellent and L_BP is mid  and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is A;
+      if L_Core is low  and L_Surf is mid  and L_O2 is good      and L_BP is high and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is S;
+      if L_Core is low  and L_Surf is mid  and L_O2 is good      and L_BP is high and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is stable                      then Adm_Decs is I;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is excellent and L_BP is mid  and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is A;
+      if L_Core is high and L_Surf is high and L_O2 is excellent and L_BP is high and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is unstable                    then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is high and L_O2 is good      and L_BP is low  and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is high and L_O2 is good      and L_BP is high and Surf_Stbl is unstable and Core_Stbl is mod_stable and BP_Stbl is mod_stable and Comfort = 10 then Adm_Decs is A;
+      if L_Core is low  and L_Surf is high and L_O2 is excellent and L_BP is mid  and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is low  and L_O2 is excellent and L_BP is high and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is unstable   and Comfort = 10 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is good      and L_BP is high and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is mod_stable and Comfort = 10 then Adm_Decs is S;
+      if L_Core is high and L_Surf is high and L_O2 is excellent and L_BP is mid  and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is mod_stable and Comfort = 10 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is good      and L_BP is high and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 15 then Adm_Decs is A;
+      if L_Core is high and L_Surf is mid  and L_O2 is good      and L_BP is high and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is unstable   and Comfort = 15 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is low  and L_O2 is good      and L_BP is high and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is mod_stable and Comfort = 10 then Adm_Decs is A;
+      if L_Core is low  and L_Surf is low  and L_O2 is good      and L_BP is high and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is high and L_O2 is good      and L_BP is high and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is mod_stable and Comfort = 10 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is high and L_O2 is good      and L_BP is high and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is unstable   and Comfort = 10 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is low  and L_O2 is excellent and L_BP is high and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is good      and L_BP is high and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is unstable   and Comfort = 10 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is low  and L_O2 is excellent and L_BP is mid  and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is unstable   and Comfort = 10 then Adm_Decs is S;
+      if L_Core is high and L_Surf is mid  and L_O2 is excellent and L_BP is mid  and Surf_Stbl is unstable and Core_Stbl is unstable   and BP_Stbl is unstable   and Comfort = 10 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is good      and L_BP is high and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is S;
+      if L_Core is mid  and L_Surf is low  and L_O2 is excellent and L_BP is mid  and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is excellent and L_BP is mid  and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is excellent and L_BP is high and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is excellent and L_BP is low  and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is low  and L_O2 is excellent and L_BP is mid  and Surf_Stbl is unstable and Core_Stbl is unstable   and BP_Stbl is unstable                    then Adm_Decs is A;
+      if L_Core is low  and L_Surf is low  and L_O2 is excellent and L_BP is mid  and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is excellent and L_BP is mid  and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is mod_stable and Comfort = 10 then Adm_Decs is S;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is excellent and L_BP is high and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is low  and L_O2 is excellent and L_BP is high and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is mod_stable and Comfort = 10 then Adm_Decs is A;
+      if L_Core is low  and L_Surf is mid  and L_O2 is good      and L_BP is high and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is unstable   and Comfort = 10 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is excellent and L_BP is mid  and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is mod_stable and Comfort = 10 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is excellent and L_BP is mid  and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is unstable   and Comfort = 10 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is excellent and L_BP is mid  and Surf_Stbl is unstable and Core_Stbl is unstable   and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is S;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is good      and L_BP is high and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is excellent and L_BP is mid  and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 15 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is excellent and L_BP is mid  and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is S;
+      if L_Core is mid  and L_Surf is low  and L_O2 is good      and L_BP is high and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is unstable   and Comfort = 10 then Adm_Decs is I;
+      if L_Core is high and L_Surf is mid  and L_O2 is excellent and L_BP is mid  and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is unstable   and Comfort = 05 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is excellent and L_BP is mid  and Surf_Stbl is stable   and Core_Stbl is stable     and BP_Stbl is unstable   and Comfort = 10 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is excellent and L_BP is mid  and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is excellent and L_BP is mid  and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 15 then Adm_Decs is S;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is good      and L_BP is high and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 15 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is excellent and L_BP is mid  and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 10 then Adm_Decs is A;
+      if L_Core is mid  and L_Surf is mid  and L_O2 is good      and L_BP is high and Surf_Stbl is unstable and Core_Stbl is stable     and BP_Stbl is stable     and Comfort = 15 then Adm_Decs is S;
+   end_ruleblock                     
+end_function_block                        

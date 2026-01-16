@@ -1,0 +1,55 @@
+with "../fuzzy_ml.gpr";
+
+project Fuzzy_ML.Test is
+
+   for Source_Dirs use (".");
+   for Main use ("test_graph_schemes.adb");
+   for Source_Files use
+   (  "test_caching_lecture.adb",
+      "test_caching_lecture.ads",
+      "test_day_of_week_feature.ads",
+      "test_graph_schemes-test_binary.adb", 
+      "test_graph_schemes-test_dialogue_lectures.adb",
+      "test_graph_schemes-test_graphs-test_1.adb",
+      "test_graph_schemes-test_graphs-test_10.adb",
+      "test_graph_schemes-test_graphs-test_11.adb", 
+      "test_graph_schemes-test_graphs-test_12.adb",
+      "test_graph_schemes-test_graphs-test_13.adb",
+      "test_graph_schemes-test_graphs-test_14.adb",
+      "test_graph_schemes-test_graphs-test_15.adb",
+      "test_graph_schemes-test_graphs-test_16.adb",
+      "test_graph_schemes-test_graphs-test_2.adb",
+      "test_graph_schemes-test_graphs-test_3.adb",
+      "test_graph_schemes-test_graphs-test_4.adb",
+      "test_graph_schemes-test_graphs-test_5.adb",
+      "test_graph_schemes-test_graphs-test_6.adb",
+      "test_graph_schemes-test_graphs-test_7.adb",
+      "test_graph_schemes-test_graphs-test_8.adb",
+      "test_graph_schemes-test_graphs-test_9.adb",
+      "test_graph_schemes-test_graphs.adb", 
+      "test_graph_schemes-test_indicators.adb",
+      "test_graph_schemes-test_lectures.adb",
+      "test_graph_schemes-test_odbc-test_1.adb",
+      "test_graph_schemes-test_odbc-test_2.adb",
+      "test_graph_schemes-test_odbc-test_info.adb",
+      "test_graph_schemes-test_odbc.adb",
+      "test_graph_schemes-test_single_file-test_1.adb",
+      "test_graph_schemes-test_single_file-test_2.adb",
+      "test_graph_schemes-test_single_file.adb",
+      "test_graph_schemes-test_sqlite-test_1.adb",
+      "test_graph_schemes-test_sqlite-test_2.adb",
+      "test_graph_schemes-test_sqlite.adb",
+      "test_graph_schemes.adb",
+      "test_odbc_session.adb",
+      "test_odbc_session.ads",
+      "test_tone_feature.ads"
+   );
+   for Object_Dir use Fuzzy_ML.Object_Dir_Path;
+   
+   package Binder   renames Fuzzy_ML.Binder;
+   package Builder  renames Fuzzy_ML.Builder;
+   package Compiler renames Fuzzy_ML.Compiler;
+   package Linker   renames Fuzzy_ML.Linker;
+
+end Fuzzy_ML.Test;
+

@@ -1,0 +1,15 @@
+with "../fuzzy.gpr";
+with "../fuzzy-gtk.gpr";
+
+project Fuzzy.GTK.Test is
+
+   for Main use ("test_fuzzy_gtk_widgets.adb");
+   for Source_Files use ("test_fuzzy_gtk_widgets.adb");
+   for Object_Dir use Fuzzy.Object_Dir_Path;
+
+   package Compiler renames Fuzzy.GTK.Compiler;
+   package Binder   renames Fuzzy.GTK.Binder;
+   package Builder  renames Fuzzy.GTK.Builder;
+   package Linker   renames Fuzzy.GTK.Linker;
+
+end Fuzzy.GTK.Test;

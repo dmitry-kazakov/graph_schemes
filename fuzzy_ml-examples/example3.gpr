@@ -1,0 +1,16 @@
+with "../fuzzy_ml.gpr";
+
+project Example3 is
+
+   for Source_Dirs use (".");
+   for Source_Files use ("example3-report.adb", "example3.adb");
+   for Main use ("example3.adb");
+   for Object_Dir use Fuzzy_ML.Object_Dir_Path;
+
+   package Builder  renames Fuzzy_ML.Builder;
+   package Binder   renames Fuzzy_ML.Binder;
+   package Compiler renames Fuzzy_ML.Compiler;
+   package Linker   renames Fuzzy_ML.Linker;
+
+end Example3;
+

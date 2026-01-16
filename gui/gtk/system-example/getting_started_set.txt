@@ -1,0 +1,15 @@
+--
+-- The  training  set  described  in  "Getting Started" of FUZZY MACHINE
+-- LEARNING FRAMEWORK, GUI 
+--
+-- Features:
+--
+-- Height      Weight      Physique
+------------------------------------------------------------------------
+   4.5;        250..300;   Obese
+   1.8 m;      50 kg;      Underweight
+   1.9 m;      170 kg;     Healthy weight
+   1.5..1.8 m; 240..350;   Obese
+   1.6 m;      50..65 kg;  Healthy weight
+   1.7..1.9 m; 70 kg;      Healthy weight
+   1.7 m;      90 kg;      Overweight

@@ -1,0 +1,100 @@
+--                                                                    --
+--  Test_FCL_Compiler               Copyright (c)  Dmitry A. Kazakov  --
+--  Test file                                      Luebeck            --
+--                                                 Summer, 2005       --
+--                                                                    --
+--  This  library  is  free software; you can redistribute it and/or  --
+--  modify it under the terms of the GNU General Public  License  as  --
+--  published by the Free Software Foundation; either version  2  of  --
+--  the License, or (at your option) any later version. This library  --
+--  is distributed in the hope that it will be useful,  but  WITHOUT  --
+--  ANY   WARRANTY;   without   even   the   implied   warranty   of  --
+--  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU  --
+--  General  Public  License  for  more  details.  You  should  have  --
+--  received  a  copy  of  the GNU General Public License along with  --
+--  this library; if not, write to  the  Free  Software  Foundation,  --
+--  Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.    --
+--                                                                    --
+--  As a special exception, if other files instantiate generics from  --
+--  this unit, or you link this unit with other files to produce  an  --
+--  executable, this unit does not by  itself  cause  the  resulting  --
+--  executable to be covered by the GNU General Public License. This  --
+--  exception  does not however invalidate any other reasons why the  --
+--  executable file might be covered by the GNU Public License.       --
+--____________________________________________________________________--
+--
+--  This file is UTF-8 encoded
+--
+function_block Test
+   var_input
+      Distance : real [m];
+      Angle    : real [°];
+      I        : integer 1..20; (* Integer variable range 1..20 *)
+      Color    : nominal (red, blue, white);
+      T        : real [°C];
+      V        : float [°C] 10 range 1..2*10;
+   end_var
+
+   var_output
+      Power : Real [W];
+      Valve : Real;
+   end_var
+
+   fuzzify T
+      term Chill := (-10,1)(-4,0); -- °C is assumed
+      term Cold  := ( 11,1)(17,0)             [°C];
+      term Tepid := (  3,0)( 8,1)(21,1)(28,0) [°C];
+      term Warm  := ( 15,0)(21,1)(29,1)(35,0) [°C];
+      term Hot   := ( 25,0)(28,1)             [°C];
+   end_fuzzify
+
+   defuzzify Valve
+      term Open   := 1;
+      term Closed := 0;
+      default     := 0;
+      method      : CoA;
+   end_defuzzify
+
+   fuzzify distance
+      term too_far := (-5,1)( 0,0);
+      term zero    := (-5,0)( 0,1)( 5,0);
+      term close   := ( 0,0)( 5,1)(10,0);
+      term medium  := ( 5,0)(10,1)(22,0);
+      term far     := (10,0)(22,1);
+   end_fuzzify
+
+   fuzzify angle
+      term neg_big   := (-50,1)(-5,0);
+      term neg_small := (-50,0)(-5,1)( 0,0);
+      term zero      := ( -5,0)( 0,1)( 5,0);
+      term pos_small := (  0,0)( 5,1)(50,0);
+      term pos_big   := (  5,0)(50,1);
+   end_fuzzify
+
+   defuzzify power
+      term neg_high   := -27;
+      term neg_medium := -12;
+      term zero       := 0;
+      term pos_medium := 12;
+      term pos_high   := 27;
+      accu            : MAX;
+      method          : CoGS;
+      default         := 0;
+   end_defuzzify
+
+   ruleblock Rules
+      and : min;
+      if T is cold then Valve is closed;
+   end_ruleblock
+
+   ruleblock No1
+      AND : MIN;
+      rule 1: if distance is far    and angle is zero      then power is pos_medium;
+      rule 2: if distance is far    and angle is neg_small then power is pos_high;
+      rule 3: if distance is far    and angle is neg_big   then power is pos_medium;
+      rule 4: if distance is medium and angle is neg_small then power is neg_medium;
+      rule 5: if distance is close  and angle is pos_small then power is pos_medium;
+      rule 6: if distance is zero   and angle is zero      then power is zero;
+   end_ruleblock
+
+end_function_block

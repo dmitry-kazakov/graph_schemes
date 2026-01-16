@@ -1,0 +1,3053 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML lang="en">
+<HEAD>
+<link REL="SHORTCUT ICON" href="http://www.dmitry-kazakov.de/favicon.ico">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <META name="keywords" content="fuzzy, fuzzy control, intuitionistc fuzzy set, Ada, Ada 95">
+  <META name="Author" content="Dmitry Kazakov">
+  <META name="description" content="Intuitionistic extension of fuzzy control language">
+  <TITLE>Intuitionistic fuzzy control language</TITLE>
+</HEAD>
+<BODY>
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<tr>
+		<td valign="top" rowspan="2"><font size=+8>FUZZY MACHINE LEARNING FRAMEWORK</font><BR>&nbsp;</td>
+		<td align="center" valign="bottom" rowspan="3">&nbsp;&nbsp;&nbsp;</td>
+		<td align="center" valign="bottom" rowspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+	<font size=+1>by Dmitry A. Kazakov</font><BR>
+(<A HREF="mailto:mailbox@dmitry-kazakov.de">mailbox@dmitry-kazakov.de</A>)<br>
+<a href="http://www.dmitry-kazakov.de"><img border="0" src="home.jpg" alt="[Home]" width="40" height="40"></a></td>
+		<td align="center" valign="bottom" rowspan="3">&nbsp;&nbsp;&nbsp;</td>
+		<td align="right" valign="top"><font size=+4>Fuzzy Control Language</font></td>
+	</tr>
+	<tr>
+		<td align="right" valign="top"><font size="+2">an intuitionistic 
+		extension</font></td>
+	</tr>
+	<tr>
+		<td valign="top"><font size=+2>with fuzzy graph-schemes</font></td>
+		<td align="right" valign="bottom"><font size=+1><EM>version 1.0</EM></font></td>
+	</tr>
+	</table>
+<p>Fuzzy machine learning framework <a href="http://www.dmitry-kazakov.de/ada/fuzzy_ml_download.htm">downloading 
+page</a> <a href="http://www.dmitry-kazakov.de/ada/fuzzy_ml_download.htm">
+<img src="download.jpg" align=middle alt="[Download]" width="29" height="29"></a></p>
+<HR>
+<P align="right">
+<A name="1"></A><A href="#6"><IMG src="index.gif" alt="[TOC]" width="29"
+    height="29"></A><a href="#2"><IMG src="next.gif" alt="[Next]" width="29"
+    height="29"></a><H2>1. Introduction</H2>
+<P>The <b>F</b>uzzy <b>C</b>ontrol <b>L</b>anguage (FCL) is a draft IEC 1131
+standard for programmable controllers. IFCL is a version of FCL extended with
+the following goals in mind:
+<ul>
+  <li>Full support of intuitionistic fuzzy sets as an extension of plain fuzzy
+    sets on the case of incomplete and contradictory data. Intuitionistic fuzzy
+    sets natively express the measurement errors as found in physical systems;</li>
+  <li>Integrated support of dimensioned values in SI (<A href="http://physics.nist.gov/cuu/Units/index.html">Le
+    <B>S</B>yst&egrave;me <B>I</B>nternational d'Unit&eacute;s</A>) unit system.
+    Support for irregular dimension units and ones outside SI;</li>
+  <li>The language should represent a fully functional consistent subset of FCL
+    as specified in the draft.</li>
+</ul>
+<p>A program sample:</p>
+<TABLE border="1" cellpadding="15" cellspacing="0">
+  <TR>
+    <TD bgcolor="#B8D3D1"><tt><b>function_block</b> Test<br>
+      &nbsp;&nbsp; <b>var_input</b><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Light : Real [lux];<br>
+      &nbsp;&nbsp; <b>end_var</b><br>
+      <br>
+      &nbsp;&nbsp; <b>var_output</b><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Switch : Nominal (On, Off);<br>
+      &nbsp;&nbsp; <b>end_var</b><br>
+      <br>
+      &nbsp;&nbsp; <b>fuzzify</b> Light<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> Dark&nbsp;&nbsp;&nbsp;&nbsp; := (&nbsp; 
+	100 lux, 1)( 1000 lux, 0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> Twilight := (&nbsp; 500 lux, 0)( 1000 
+	lux, 1)(15000 lux, 1)(20000 lux, 0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> Bright&nbsp;&nbsp; := (10000 lux, 
+	0)(20000 lux, 1);<br>
+      &nbsp;&nbsp; <b>end_fuzzify</b><br>
+      <br>
+      &nbsp;&nbsp; <b>ruleblock</b> Rules<br>
+      &nbsp;&nbsp;&nbsp;&nbsp; <b>if</b> Light <b>is</b> Dark <b>then</b> Switch
+	<b>is</b> On;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp; <b>if</b> Light <b>is</b> Bright <b>then</b> 
+	Switch <b>is</b> Off;<br>
+      &nbsp;&nbsp; <b>end_ruleblock</b><br>
+      <br>
+      <b>end_function_block</b></tt></TD>
+  </TR>
+</TABLE>
+<hr>
+<P align="right">
+<A name="2"></A><a href="#1"><IMG src="prev.gif" alt="[Back]" width="29"
+    height="29"></a><A href="#6"><IMG src="index.gif" alt="[TOC]" width="29"
+    height="29"></A><A href="#2.1"><IMG src="next.gif" alt="[Next]" width="29"
+    height="29"></A></p>
+<H2>2. Lexical elements</H2>
+<P>In  this  document  the characters of the source code referred in syntax rules are  printed  in  courier  red.  Syntax  rules  are  expressed  in
+Bacus-Naur  forms  (BNF)  The  operations  of  the forms are printed in courier bold.&nbsp;Literal 
+elements are printed in bold red. Identifiers are put in angular brackets. The 
+BNF operations are denoted as follows:<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" align="center"><tt>&nbsp;::=&nbsp;</tt></TD>
+      <TD valign="top">-- definition</TD>
+</TR>
+<TR>
+      <TD valign="top" align="center"><tt><b>[]</b></tt> </TD>
+      <TD valign="top">-- optional element</TD>
+</TR>
+<TR>
+      <TD valign="top" align="center"><b><tt>|</tt></b></TD>
+      <TD valign="top">-- alternation</TD>
+</TR>
+<tr>
+      <TD valign="top" align="center"><tt><b>{}</b></tt> </TD>
+      <TD valign="top">-- required element</TD>
+</tr>
+<tr>
+      <TD valign="top" align="center"><font color="#FF0000"><tt>(*</tt></font> </TD>
+      <TD valign="top">-- this is a literal element</TD>
+</tr>
+  </TABLE>
+</BLOCKQUOTE>
+<p align="right">
+  <A name="2.1"></A><A href="#2"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></A><A href="#6"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><A
+      href="#2.2"><IMG src="next.gif" alt="[Next]" width="29" height="29"></A></p>
+<H3>2.1. Character set</H3>
+<P>An IFCL program is written using the Unicode character set (see <a href="http://www.unicode.org/">Unicode
+Transformation Format</a>). The characters space (SP), tabulation (HT), line
+tabulation (VT), carriage return (CR), line feed (LF), and form feed (FF) are
+considered blank. Line end is determined by the operating system.<P>All lexical elements except for string and character literals are
+case-insensitive.
+The case is defined by the categories <i>letter, upper case</i> (Lu) and <i>
+letter, lower case</i> (Li) in the file
+<a href="ftp://ftp.unicode.org/Public/UNIDATA/UnicodeData.txt">UnicodeData.txt</a>.<P>
+Any IFCL program can be written using only the code positions 0..127 
+corresponding to ASCII code.<p align="right">
+  <A name="2.2"></A><A href="#2.1"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></A><A href="#6"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><A
+      href="#2.3"><IMG src="next.gif" alt="[Next]" width="29" height="29"></A></p>
+<H3>2.2. Comments</H3>
+<p>There are two types of comments. Comments starting with <tt><font color="#FF0000">(*</font></tt> continue until
+first appearance of <tt><font color="#FF0000">*)</font></tt>. Nested appearances
+of <tt><font color="#FF0000">(*</font></tt> are not recognized. Comments
+starting with <tt><font color="#FF0000">--</font></tt> continue to the end of
+the source line they appear. Examples
+of comments:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>--&nbsp;This&nbsp;comment&nbsp;continues&nbsp;to&nbsp;the&nbsp;line&nbsp;end</tt></TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>(*&nbsp;Comments&nbsp;like&nbsp;this&nbsp;may</tt></TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>span&nbsp;across&nbsp;several&nbsp;lines&nbsp;*)</tt></TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<p align="right">
+  <A name="2.3"></A><A href="#2.2"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></A><A href="#6"><IMG src="index.gif" alt="[TOC]" width="29" height="29"></A><A
+      href="#2.4"><IMG src="next.gif" alt="[Next]" width="29" height="29"></A></p>
+<H3>2.3. Literals</H3>
+<h4><a name="2.3.1"></a>2.3.1. Integer literals</h4>
+<p><a name="Integer_literal"></a>Integer literals have the syntax:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" align="right"><tt><a name="integer-literal"></a>&lt;integer&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>&nbsp;::=&nbsp;</tt></TD>
+      <TD valign="top"><tt>&lt;<a href="#decimal-integer">decimal-integer</a>&gt;
+        <b>|</b> &lt;<a href="#based-integer">based-integer</a>&gt;</tt>
+</TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"><tt><a name="decimal-integer"></a>&lt;decimal-integer&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top"><tt>&lt;<a href="#decimal-numeral">decimal-numeral</a>&gt;<b>[</b>&lt;<a href="#exponent">exponent</a>&gt;<b>]</b></tt>
+</TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"><tt><a name="based-integer"></a>&lt;based-integer&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top"><tt>&lt;<a href="#base">base</a>&gt;<font color="#FF0000">#</font>&lt;<a href="#based-numeral">based-numeral</a>&gt;<font color="#FF0000">#</font><b>[</b>&lt;<a href="#exponent">exponent</a>&gt;<b>]</b></tt>
+</TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"><tt><a name="decimal-numeral"></a>&lt;decimal-numeral&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top"><tt>&lt;<a href="#decimal-digit">decimal-digit</a>&gt;<b>[[</b><font color="#FF0000">_</font><b>]</b>&lt;<a href="#decimal-numeral">decimal-numeral</a>&gt;<b>]</b></tt>
+</TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"><tt><a name="decimal-digit"></a>&lt;decimal-digit&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top"><tt><font color="#FF0000">0 </font><b>| </b>
+		<font color="#FF0000">1 </font><b>| </b><font color="#FF0000">2
+        </font><b>| </b><font color="#FF0000">3 </font><b>| </b><font color="#FF0000">4
+        </font><b>| </b><font color="#FF0000">5 </font><b>| </b><font color="#FF0000">6
+        </font><b>| </b><font color="#FF0000">7 </font><b>| </b><font color="#FF0000">8
+        </font><b>| </b><font color="#FF0000">9</font></tt>
+</TD>
+</TR>
+    <TR>
+      <TD valign="top" align="right"><tt><a name="exponent"></a>&lt;exponent&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top"><tt><font color="#FF0000">E</font><b> [</b>&lt;<a href="#sign">sign</a>&gt;<b>]</b>&lt;<a href="#decimal-numeral">decimal-numeral</a>&gt;</tt></TD>
+    </TR>
+    <TR>
+      <TD valign="top" align="right"><tt><a name="sign"></a>&lt;sign&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top"><tt><font color="#FF0000">+</font> <b>| </b><font color="#FF0000">-</font></tt></TD>
+    </TR>
+    <TR>
+      <TD valign="top" align="right"><tt><a name="based-numeral"></a>&lt;based-numeral&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top"><tt>&lt;<a href="#based-digit">based-digit</a>&gt;<b>[[</b><font color="#FF0000">_</font><b>]</b>&lt;<a href="#based-numeral">based-numeral</a>&gt;<b>]</b></tt></TD>
+    </TR>
+    <TR>
+      <TD valign="top" align="right"><tt><a name="based-digit"></a>&lt;based-digit&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top"><tt>&lt;<a href="#decimal-digit">decimal-digit</a>&gt; <b>|</b>
+        <font color="#FF0000">A</font> <b>|</b> <font color="#FF0000">B</font> <b>|</b>
+        <font color="#FF0000">C</font> <b>|</b> <font color="#FF0000">D</font> <b>|</b>
+        <font color="#FF0000">E</font> <b>|</b> <font color="#FF0000">F</font></tt></TD>
+    </TR>
+    <TR>
+      <TD valign="top" align="right"><tt><a name="base"></a>&lt;base&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top"><tt>&lt;<a href="#decimal-numeral">decimal-numeral</a>&gt;</tt></TD>
+    </TR>
+  </TABLE>
+</BLOCKQUOTE>
+<p>Within an integer literal underline (<tt><font color="#FF0000">_</font></tt>)
+can be used to separate digits for better readability. Underline is not allowed
+to follow another underline start or end a numeral. <tt>&lt;base&gt;</tt> shall
+denote a number 2..16. When exponent appears it must be non-negative. No blank
+characters or comments are allowed in an integer literal. Examples
+of legal integer literals:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>123</tt></TD>
+      <TD valign="top" align="center">&nbsp;<font face="Times New Roman">&#8211;</font>&nbsp;</TD>
+      <TD valign="top">Decimal number 123<sub>10</sub>
+</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>1A6#FF#</tt></TD>
+      <TD valign="top" align="center"><font face="Times New Roman">&#8211;</font></TD>
+      <TD valign="top">Hexadecimal number 1A6<sub>16</sub>=422<sub>10</sub>
+</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>2#100_000_000#</tt></TD>
+      <TD valign="top" align="center"><font face="Times New Roman">&#8211;</font></TD>
+      <TD valign="top">Binary&nbsp; number 100000000<sub>2</sub>=256<sub>10</sub>
+</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>1e6</tt></TD>
+      <TD valign="top" align="center"><font face="Times New Roman">&#8211;</font></TD>
+      <TD valign="top">Decimal number 1000000<sub>10</sub>
+</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<p align="left">Integer literals are overloaded. They have either the type <a href="#Integer">Integer</a>
+or the type <a href="#Truth_Value">Truth_Value</a>. In the
+latter case the only valid values are 0, which represents logical false, and 1
+which does logical true.</p>
+<h4 align="left"><a name="2.3.2"></a>2.3.2. Real literals</h4>
+<p><a name="Real_literal"></a>Real literals have the syntax:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+<TD valign="top" align="right"><tt><a name="real-literal"></a>&lt;real&gt;</tt></TD>
+<TD valign="top" align="center"><tt>&nbsp;::=&nbsp;</tt></TD>
+<TD valign="top" align="left"><tt>&lt;<a href="#decimal-real">decimal-real</a>&gt; <b>|</b> &lt;<a href="#based-real">based-real</a>&gt;</tt></TD>
+</TR>
+<TR>
+<TD valign="top" align="right"><tt><a name="decimal-real"></a>&lt;decimal-real&gt;</tt></TD>
+<TD valign="top" align="center"><tt>::=</tt></TD>
+<TD valign="top"><tt>&lt;<a href="#decimal-numeral">decimal-numeral</a>&gt;<font color="#FF0000">.</font>&lt;<a href="#decimal-numeral">decimal-numeral</a>&gt;<b>[</b>&lt;<a href="#exponent">exponent</a>&gt;<b>]</b></tt>
+</TD>
+</TR>
+<TR>
+<TD valign="top" align="right"><tt><a name="based-real"></a>&lt;based-real&gt;</tt></TD>
+<TD valign="top" align="center"><tt>::=</tt></TD>
+<TD valign="top"><tt>&lt;<a href="#base">base</a>&gt;<font color="#FF0000">#</font>&lt;<a href="#based-numeral">based-numeral</a>&gt;<font color="#FF0000">.</font>&lt;<a href="#based-numeral">based-numeral</a>&gt;<font color="#FF0000">#</font><b>[</b>&lt;<a href="#exponent">exponent</a>&gt;<b>]</b></tt>
+</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<p>No blank characters or comments are allowed in a real literal. Examples of legal real literals:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>123.0</tt></TD>
+      <TD valign="top" align="center">&nbsp;<font face="Times New Roman">&#8211;</font>&nbsp;</TD>
+      <TD valign="top">Decimal number 123.0<sub>10</sub>
+</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>1E-1</tt></TD>
+      <TD valign="top" align="center"><font face="Times New Roman">&#8211;</font></TD>
+      <TD valign="top">Decimal number 0.1<sub>10</sub>
+</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>2#111.111#E2</tt></TD>
+      <TD valign="top" align="center"><font face="Times New Roman">&#8211;</font></TD>
+      <TD valign="top">Binary&nbsp; number 11111.1<sub>2</sub>=31.5<sub>10</sub>
+</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<p>Real literals are overloaded. They have either the type <a href="#Real">Real</a>
+or the type <a href="#Truth_Value">Truth_Value</a>. In the
+latter case the only valid values are ones from the interval [0,1]. The value
+0.0 represent logical false. The value 1.0 represents logical true.</p>
+<h4><a name="2.3.3"></a>2.3.3. Dimensioned literals</h4>
+<p><a name="Dimensioned_real_literal"></a>Dimensioned literals have the
+syntax:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" align="right"><tt><a name="dimensioned-real"></a>&lt;dimensioned-real&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>&nbsp;::=&nbsp;</tt></TD>
+      <TD valign="top" align="left"><tt><b>[</b>&lt;<a href="#integer-literal">integer</a>&gt; <b>|</b>
+        &lt;<a href="#real-literal">real</a>&gt;<b>] </b>&lt;<a href="#dimension">dimension</a>&gt;</tt>
+</TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"><tt><a name="dimension"></a>&lt;dimension&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top">Dimension specification
+</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<p>When a value appear it must be separated from the dimension by at least one blank
+character or comment when the dimension begins with a <tt> &lt;<a href="#letter">letter</a>&gt;</tt>. The dimension syntax is described in <a href="http://www.dmitry-kazakov.de/ada/units.htm#Measures_UTF8_Edit">Measures_UTF8_Edit</a>.Get_Unit. Examples of legal dimensioned literals:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>5 m</tt></TD>
+      <TD valign="top" align="center">&nbsp;<font face="Times New Roman">&#8211;</font>&nbsp;</TD>
+      <TD valign="top">5 meter
+</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>14.01°C</tt></TD>
+      <TD valign="top" align="center"><font face="Times New Roman">&#8211;</font></TD>
+      <TD valign="top">287.16 K (14.01 Celsius degree)
+</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>0.123 &mu;Pa</tt></TD>
+      <TD valign="top" align="center"><font face="Times New Roman">&#8211;</font></TD>
+      <TD valign="top">0.123E-6 Pa
+</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>foot</tt></TD>
+      <TD valign="top" align="center"><font face="Times New Roman">&#8211;</font></TD>
+      <TD valign="top">0.3048000 meter
+</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<p>Dimensioned literals have the type <a href="#Real">Real</a>.</p>
+<h4><a name="2.3.4"></a>2.3.4. Truth values</h4>
+<p>Intutionistic truth literals have the syntax:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" align="right"><tt><a name="intuitionistic-truth-value"></a>&lt;intuitionistic-truth-value&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>&nbsp;::=&nbsp;</tt></TD>
+      <TD valign="top" align="left"><tt><font color="#FF0000">[</font>&lt;<a href="#possibility">possibility</a>&gt;<font color="#FF0000">:</font>&lt;<a href="#necessity">necessity</a>&gt;<font color="#FF0000">]</font> <b>|</b> <font color="#FF0000">&#8868;
+</font> <b>|</b><font color="#FF0000"> &#8869;</font> </tt>&nbsp;</TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"><tt><a name="possibility"></a>&lt;possibility&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top"><tt>&lt;<a href="#real-literal">real</a>&gt; <b>|</b> &lt;<a href="#integer-literal">integer</a>&gt;</tt>
+</TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"><tt><a name="necessity"></a>&lt;necessity&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top"><tt>&lt;<a href="#real-literal">real</a>&gt; <b>|</b> &lt;<a href="#integer-literal">integer</a>&gt;</tt>
+</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<p>Here <tt>&lt;<a href="#possibility">possibility</a>&gt;</tt> and <tt>&lt;<a href="#necessity">necessity</a>&gt;</tt>
+shall be numbers in the range [0,1]. Blank characters and comments may surround the brackets
+(<tt><font color="#FF0000">[]</font></tt>) and colon (<tt><font color="#FF0000">:</font></tt>). <tt> <font color="#FF0000">&#8868;
+</font></tt> 
+(the <a href="http://www.unicode.org/">Unicode</a> 
+		code point 22A4<sub>16</sub>) represents fully contradictory truth 
+value. <tt><font color="#FF0000"> &#8869;</font></tt> (the <a href="http://www.unicode.org/">Unicode</a>
+		code point 22A5<sub>16</sub>) represents fully uncertain truth value.
+Examples of legal intuitionistic truth values:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>[1:1]</tt></TD>
+      <TD valign="top" align="center">&nbsp;<font face="Times New Roman">&#8211;</font>&nbsp;</TD>
+      <TD valign="top">True</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>[0:0]</tt></TD>
+      <TD valign="top" align="center"><font face="Times New Roman">&#8211;</font></TD>
+      <TD valign="top">False</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>[0.9:0.5]</tt></TD>
+      <TD valign="top" align="center"><font face="Times New Roman">&#8211;</font></TD>
+      <TD valign="top">Possibility is 0.9, necessity is 0.5&nbsp;</TD>
+</TR>
+<tr>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>[1:0]</tt></TD>
+      <TD valign="top" align="center"><font face="Times New Roman">&#8211;</font></TD>
+      <TD valign="top">Uncertain</TD></tr>
+<tr>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>&#8869;</tt></TD>
+      <TD valign="top" align="center"><font face="Times New Roman">&#8211;</font></TD>
+      <TD valign="top">Same as above</TD></tr>
+<tr>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>[0:1]</tt></TD>
+      <TD valign="top" align="center"><font face="Times New Roman">&#8211;</font></TD>
+      <TD valign="top">Contradictory</TD>
+</tr>
+<tr>
+      <TD valign="top" bgcolor="#B8D3D1">&nbsp;<tt>&#8868;</tt></TD>
+      <TD valign="top" align="center"><font face="Times New Roman">&#8211;</font></TD>
+      <TD valign="top">Same as above</TD>
+</tr>
+  </TABLE>
+</BLOCKQUOTE>
+<p>Intuitionistic truth value literals have the type <a href="#Intuitionistic_Truth_Value">Intuitionistic_Truth_Value</a>.</p>
+<h4><a name="2.3.5"></a>2.3.5. String and character literals</h4>
+<p>String and character literals have the syntax:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" align="right"><tt><a name="character-literal"></a>&lt;character&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>&nbsp;::=&nbsp;</tt></TD>
+      <TD valign="top" align="left"><tt><font color="#FF0000">'''</font> <b>|</b><font color="#FF0000">
+        '</font>&lt;<a href="#non-quotation-mark">non-quotation-mark</a>&gt;<font color="#FF0000">'</font></tt>
+</TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"><tt><a name="string-literal"></a>&lt;string&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top" align="left"><tt><font color="#FF0000">&quot;</font>&lt;<a href="#string-body">string-body</a>&gt;<font color="#FF0000">&quot;</font> <b>|</b><font color="#FF0000">
+        &quot;&quot;</font></tt>
+</TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"><tt><a name="string-body"></a>&lt;string-body&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top"><tt><b>{</b><font color="#FF0000">&quot;&quot;</font> <b>|</b> &lt;<a href="#non-quotation-mark">non-quotation-mark</a>&gt;<b>}</b>
+        <b>[</b>&lt;<a href="#string-body">string-body</a>&gt;<b>]</b></tt>
+</TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"><tt><a name="non-quotation-mark"></a>&lt;non-quotation-mark&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top">Any Unicode code position except &quot;
+</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<p>Within string literal quotation marks are doubled. Examples of legal
+character and string literals:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>'''</tt></TD>
+      <TD valign="top" align="center">&nbsp;<font face="Times New Roman">&#8211;</font>&nbsp;</TD>
+      <TD valign="top">Character '
+</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>&quot;abcd&quot;</tt></TD>
+      <TD valign="top" align="center"><font face="Times New Roman">&#8211;</font></TD>
+      <TD valign="top">String abcd
+</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>&quot;&quot;&quot;&quot;</tt></TD>
+      <TD valign="top" align="center"><font face="Times New Roman">&#8211;</font></TD>
+      <TD valign="top">String &quot;
+</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>&quot;&quot;</tt></TD>
+      <TD valign="top" align="center"><font face="Times New Roman">&#8211;</font></TD>
+      <TD valign="top">Empty string
+</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<p align="right">
+  <A name="2.4"></A><A href="#2.3"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></A><A href="#6"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><a href="#3"><IMG src="next.gif" alt="[Next]" width="29" height="29"></a></p>
+<H3>2.4. Identifiers</H3>
+<p>Identifiers start with a <tt> &lt;<a href="#letter">letter</a>&gt;</tt> and can contain digits and underline
+character:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" align="right"><tt><a name="identifier"></a>&lt;identifier&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>&nbsp;::=&nbsp;</tt></TD>
+      <TD valign="top" align="left"><tt><b>{</b>&lt;<a href="#decimal-digit">decimal-digit</a>&gt;
+        <b>|</b> &lt;<a href="#letter">letter</a>&gt;<b>}[</b><font color="#FF0000">_</font><b>]</b>&lt;<a href="#identifier">identifier</a>&gt;</tt>
+</TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"><tt><a name="letter"></a>&lt;letter&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top">
+        The Unicode character in the categories uppercase or lowercase letters</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<p>In the above specification of <tt> &lt;<a href="#letter">letter</a>&gt;</tt>
+the categories <i>letter, upper case</i> (Lu) and <i>letter, lower case</i> (Li) are determined by the file
+<a href="ftp://ftp.unicode.org/Public/UNIDATA/UnicodeData.txt">UnicodeData.txt</a>. Identifiers are case insensitive.</p>
+<p>Identifiers can refer <a href="#Predicate_variable">predicate variables</a>
+and domain values of <a href="#Nominal_variables">nominal</a> and <a href="#Linguistic_set_predicate_variable">linguistic
+set</a> predicate variables.</p>
+<hr>
+<p align="right">
+<A name="3"></A><a href="#2.4"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></a><A href="#6"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><A
+      href="#3.1"><IMG src="next.gif" alt="[Next]" width="29" height="29"></A></p>
+<H2>3. Types</H2>
+<p>The language objects are subdivided into:
+</p>
+<ul>
+  <li>Constants</li>
+  <li>Variable predicates</li>
+  <li>Predicates</li>
+</ul>
+<p align="right">
+  <A name="3.1"></A><A href="#3"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></A><A href="#6"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><A
+      href="#3.2"><IMG src="next.gif" alt="[Next]" width="29" height="29"></A></p>
+<H3>3.1. Types of constants</H3>
+<p>The language defines the following types of constants:</p>
+  <table border="5" cellpadding="3" cellspacing="0">
+    <tr>
+      <td align="left" bgcolor="#008080" colspan="5"><b><font color="#FFFFFF">Types of constants</font></b>
+      </td>
+      <td bgcolor="#008080" align="center"><font color="#FFFFFF"><b>Example</b></font></td>
+      <td bgcolor="#008080" align="left"><font color="#FFFFFF"><b>Description</b></font></td>
+    </tr>
+    <tr>
+      <td align="left" valign="top" colspan="5" bgcolor="#FFFF99"><a name="Numeric_types"></a>Numeric
+        types</td>
+      <td valign="top" align="center" bgcolor="#FFFF99">&nbsp;</td>
+      <td valign="top" align="left" bgcolor="#FFFF99">Numeric types
+        with the operations <tt><font color="#FF0000">+</font></tt>, <font color="#FF0000"><tt>-</tt></font>,
+        <tt><font color="#FF0000">*</font></tt>, <tt><font color="#FF0000">/</font></tt>
+        etc</td>
+    </tr>
+    <tr>
+      <td align="left" valign="top" bgcolor="#C0C0C0" bordercolor="#C0C0C0" rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      <td valign="top" align="left" colspan="4"><a name="Integer"></a>Integer</td>
+      <td valign="top" align="center"><tt>123</tt></td>
+      <td valign="top" align="left">Integer values</td>
+    </tr>
+    <tr>
+      <td valign="top" align="left" colspan="4"><a name="Real"></a>Real</td>
+      <td valign="top" align="center"><tt>14.01°C</tt></td>
+      <td valign="top" align="left">Dimensioned real values</td>
+    </tr>
+    <tr>
+      <td align="left" valign="top" colspan="5" bgcolor="#FFFF99"><a name="String_types"></a>String
+        types</td>
+      <td valign="top" align="center" bgcolor="#FFFF99">&nbsp;</td>
+      <td valign="top" align="left" bgcolor="#FFFF99">Characters and
+        strings</td>
+    </tr>
+    <tr>
+      <td align="left" valign="top" bgcolor="#C0C0C0" bordercolor="#C0C0C0" rowspan="2">&nbsp;</td>
+      <td valign="top" align="left" colspan="4"><a name="Character"></a>Character</td>
+      <td valign="top" align="center"><tt>'x'</tt></td>
+      <td valign="top" align="left">Character values</td>
+    </tr>
+    <tr>
+      <td valign="top" align="left" colspan="4"><a name="String"></a>String</td>
+      <td valign="top" align="center"><tt>&quot;abdcd&quot;</tt></td>
+      <td valign="top" align="left">String values</td>
+    </tr>
+    <tr>
+      <td align="left" valign="top" colspan="5" bgcolor="#FFFF99"><a name="Lattice_type"></a>Lattice
+        types</td>
+      <td valign="top" align="center" bgcolor="#FFFF99">&nbsp;</td>
+      <td valign="top" align="left" bgcolor="#FFFF99">Types with the
+        operations <tt><font color="#FF0000">and</font></tt>, <font color="#FF0000"><tt>or</tt></font>,
+        <tt><font color="#FF0000">xor</font></tt>, <tt><font color="#FF0000">not</font></tt>&nbsp;</td>
+    </tr>
+    <tr>
+      <td align="left" valign="top" bgcolor="#C0C0C0" bordercolor="#C0C0C0" rowspan="19">&nbsp;</td>
+      <td valign="top" align="left" colspan="4" bgcolor="#FFFF99">Fuzzy
+        lattice types</td>
+      <td valign="top" align="center" bgcolor="#FFFF99">&nbsp;</td>
+      <td valign="top" align="left" bgcolor="#FFFF99">Lattices with the law of excluded middle
+        on any measurable subset</td>
+    </tr>
+    <tr>
+      <td valign="top" align="left" bgcolor="#C0C0C0" bordercolor="#C0C0C0" rowspan="13">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      <td valign="top" align="left" colspan="3" bgcolor="#FFFF99">Logical</td>
+      <td valign="top" align="center" bgcolor="#FFFF99">&nbsp;</td>
+      <td valign="top" align="left" bgcolor="#FFFF99">Logical values</td>
+    </tr>
+    <tr>
+      <td valign="top" align="left" bgcolor="#C0C0C0" bordercolor="#C0C0C0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      <td valign="top" align="left" colspan="2"><a name="Truth_Value"></a>Truth_Value</td>
+      <td valign="top" align="center"><tt>0.5</tt></td>
+      <td valign="top" align="left">Fuzzy truth values from [0,1]</td>
+    </tr>
+    <tr>
+      <td valign="top" align="left" colspan="3" bgcolor="#FFFF99">Sets</td>
+      <td valign="top" align="center" bgcolor="#FFFF99">&nbsp;</td>
+      <td valign="top" align="left" bgcolor="#FFFF99">Fuzzy subsets</td>
+    </tr>
+    <tr>
+      <td valign="top" align="left" bgcolor="#C0C0C0" bordercolor="#C0C0C0" rowspan="10">&nbsp;</td>
+      <td valign="top" align="left" colspan="2" bgcolor="#FFFF99">Singletons</td>
+      <td valign="top" align="center" bgcolor="#FFFF99">&nbsp;</td>
+      <td valign="top" align="left" bgcolor="#FFFF99">Fuzzy
+        singleton sets</td>
+    </tr>
+    <tr>
+      <td valign="top" align="left" bgcolor="#C0C0C0" bordercolor="#C0C0C0" rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      <td valign="top" align="left"><a name="Integer_Singleton"></a>Integer_Singleton</td>
+      <td valign="top" align="center"><tt>(5,1)</tt></td>
+      <td valign="top" align="left">Integer singleton</td>
+    </tr>
+    <tr>
+      <td valign="top" align="left"><a name="Real_Singleton"></a>Real_Singleton</td>
+      <td valign="top" align="center"><tt>(5.2 m, 0.5)</tt></td>
+      <td valign="top" align="left">Dimensioned real singleton</td>
+    </tr>
+    <tr>
+      <td valign="top" align="left" colspan="2" bgcolor="#FFFF99">Ranges</td>
+      <td valign="top" align="center" bgcolor="#FFFF99">&nbsp;</td>
+      <td valign="top" align="left" bgcolor="#FFFF99">Range subsets</td>
+    </tr>
+    <tr>
+      <td valign="top" align="left" bgcolor="#C0C0C0" bordercolor="#C0C0C0" rowspan="2">&nbsp;</td>
+      <td valign="top" align="left"><a name="Integer_Range"></a>Integer_Range</td>
+      <td valign="top" align="center"><tt>1..20</tt></td>
+      <td valign="top" align="left">Integer range</td>
+    </tr>
+    <tr>
+      <td valign="top" align="left"><a name="Real_Range"></a>Real_Range</td>
+      <td valign="top" align="center"><tt>1&nbsp;m..20&nbsp;m</tt></td>
+      <td valign="top" align="left">Dimensioned real range</td>
+    </tr>
+    <tr>
+      <td valign="top" align="left" colspan="2" bgcolor="#FFFF99">Subsets</td>
+      <td valign="top" align="center" bgcolor="#FFFF99">&nbsp;</td>
+      <td valign="top" align="left" bgcolor="#FFFF99">Free subsets</td>
+    </tr>
+    <tr>
+      <td valign="top" align="left" bgcolor="#C0C0C0" bordercolor="#C0C0C0" rowspan="3">&nbsp;</td>
+      <td valign="top" align="left"><a name="Integer_Set"></a>Integer_Set</td>
+      <td valign="top" align="center"><tt>1..3 &#8899; 7</tt></td>
+      <td valign="top" align="left">Integer subset</td>
+    </tr>
+    <tr>
+      <td valign="top" align="left"><a name="Real_Set"></a>Real_Set</td>
+      <td valign="top" align="center"><tt>(5,0)(7,1)[kPa]</tt></td>
+      <td valign="top" align="left">Dimensioned real subset</td>
+    </tr>
+    <tr>
+      <td valign="top" align="left"><a name="Domain_Subset"></a>Domain_Subset</td>
+      <td valign="top" align="center"><tt>low..high</tt></td>
+      <td valign="top" align="left">Fuzzy subset of the domain set
+        of a variable</td>
+    </tr>
+    <tr>
+      <td valign="top" align="left" colspan="4" bgcolor="#FFFF99">Intuitionistic
+        lattice types</td>
+      <td valign="top" align="center" bgcolor="#FFFF99">&nbsp;</td>
+      <td valign="top" align="left" bgcolor="#FFFF99">Lattices with
+        no law of excluded middle</td>
+    </tr>
+    <tr>
+      <td valign="top" align="left" bgcolor="#C0C0C0" bordercolor="#C0C0C0" rowspan="4">&nbsp;</td>
+      <td valign="top" align="left" colspan="3" bgcolor="#FFFF99">Logical</td>
+      <td valign="top" align="center" bgcolor="#FFFF99">&nbsp;</td>
+      <td valign="top" align="left" bgcolor="#FFFF99">Intuitionistic
+        logical values</td>
+    </tr>
+    <tr>
+      <td valign="top" align="left" bgcolor="#C0C0C0" bordercolor="#C0C0C0">&nbsp;</td>
+      <td valign="top" align="left" colspan="2"><a name="Intuitionistic_Truth_Value"></a>Intuitionistic_Truth_Value</td>
+      <td valign="top" align="center"><tt>[1:0.5]</tt></td>
+      <td valign="top" align="left">Intuitionistic truth values from
+        [0,1]×[0,1]</td>
+    </tr>
+    <tr>
+      <td valign="top" align="left" colspan="3" bgcolor="#FFFF99">Sets</td>
+      <td valign="top" align="center" bgcolor="#FFFF99">&nbsp;</td>
+      <td valign="top" align="left" bgcolor="#FFFF99">Intuitionistic
+        subsets</td>
+    </tr>
+    <tr>
+      <td valign="top" align="left" bgcolor="#C0C0C0" bordercolor="#C0C0C0">&nbsp;</td>
+      <td valign="top" align="left" colspan="2"><a name="Intuitionistic_Domain_Subset"></a>Intuitionistic_Domain_Subset</td>
+      <td valign="top" align="center"><tt>low^[1:0.5] &#8899; high</tt></td>
+      <td valign="top" align="left">Intuitionistic subset of the domain set of a variable</td>
+    </tr>
+  </table>
+<p align="right">
+  <A name="3.2"></A><A href="#3.2"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></A><A href="#6"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><a href="#3.3"><IMG src="next.gif" alt="[Next]" width="29" height="29"></a></p>
+<H3>3.2. Types of predicate variables</H3>
+<p><a name="Predicate_variable"></a>Predicate variables are subdivided into <i>input</i>  predicate variables, those for which values are known from
+the rules base, and the <i> output</i>  predicate variables estimated from the values of the input
+ones and the rules. Further predicate variables are separated according to the type of the
+domain set: 
+</p>
+<table border="5" cellpadding="3" cellspacing="0">
+  <tr>
+    <td bgcolor="#008080" colspan="3"><b><font color="#FFFFFF">Types of predicate variables</font></b></td>
+    <td bgcolor="#008080"><font color="#FFFFFF"><b>Description</b></font></td>
+  </tr>
+  <tr>
+    <td colspan="3" bgcolor="#FFFF99"><a name="Nominal_variables"></a>Nominal
+      predicate variables</td>
+    <td bgcolor="#FFFF99">The predicate variables with a non-numeric discrete domain</td>
+  </tr>
+  <tr>
+    <td bgcolor="#C0C0C0" bordercolor="#C0C0C0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td colspan="2">Enumeration predicate variables</td>
+    <td>The domain set consists of nominal values specified by identifiers</td>
+  </tr>
+  <tr>
+    <td colspan="3" bgcolor="#FFFF99"><a name="Numeric_variables"></a>Numeric
+      predicate variables</td>
+    <td bgcolor="#FFFF99">The predicate variables with a numeric domain</td>
+  </tr>
+  <tr>
+    <td bgcolor="#C0C0C0" bordercolor="#C0C0C0" rowspan="5">&nbsp;</td>
+    <td colspan="2" bgcolor="#FFFF99"><a name="Discrete_numeric_variables"></a>Discrete
+      numeric predicate variables</td>
+    <td bgcolor="#FFFF99">The predicate variables with a discrete numeric domain</td>
+  </tr>
+  <tr>
+    <td bgcolor="#C0C0C0" bordercolor="#C0C0C0">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td>Integer predicate variables</td>
+    <td>The domain set consists of a finite range of integer numbers</td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#FFFF99"><a name="Continuous_numeric_variables"></a>Continuous
+      numeric predicate variables</td>
+    <td bgcolor="#FFFF99">The predicate variables with a continuous numeric domain</td>
+  </tr>
+  <tr>
+    <td rowspan="2" bgcolor="#C0C0C0" bordercolor="#C0C0C0">&nbsp;</td>
+    <td>Float predicate variables</td>
+    <td>The domain set consists of a finite set of intervals overlapping in the
+      end points</td>
+  </tr>
+  <tr>
+    <td><a name="Linguistic_set_predicate_variable"></a>Linguistic set predicate variables</td>
+    <td>The domain set consists of a finite set of linguistic variables</td>
+  </tr>
+</table>
+<H4><a name="3.2.1"></a>3.2.1. Declaration of predicate variables</H4>
+<p>Predicate variables are declared in one or more declaration blocks: </p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" align="right"><tt><a name="input-variables-block"></a>&lt;input-variables-block&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>&nbsp;::=&nbsp;</tt></TD>
+      <TD valign="top" colspan="2" align="left"><tt><font color="#FF0000">var_input</font> &lt;<a href="#variable-declarations-list">variable-declarations-list</a>&gt;
+        <font color="#FF0000">end_var</font></tt>
+</TD>
+</TR>
+<tr>
+      <TD valign="top" align="right"><tt><a name="output-variables-block"></a>&lt;output-variables-block&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>&nbsp;::=&nbsp;</tt></TD>
+      <TD valign="top" colspan="2" align="left"><tt><font color="#FF0000">var_output</font> &lt;<a href="#variable-declarations-list">variable-declarations-list</a>&gt;
+        <font color="#FF0000">end_var</font></tt></TD>
+</tr>
+<TR>
+      <TD valign="top" align="right"><tt><a name="variable-declarations-list"></a>&lt;variable-declarations-list&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top" colspan="2"><tt>&lt;<a href="#variable-declaration">variable-declaration</a>&gt;<b>[</b>&lt;<a href="#variable-declarations-list">variable-declarations-list</a>&gt;<b>]</b></tt></TD>
+</TR>
+<tr>
+      <TD valign="top" align="right"><tt><a name="variable-declaration"></a>&lt;variable-declaration&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top" colspan="2"><tt>&lt;<a href="#identifier">identifier</a>&gt;<font color="#FF0000">:</font>&lt;<a href="#variable-type-definition">variable-type-definition</a>&gt;<b><font color="#FF0000">;</font></b></tt></TD>
+      </tr>
+<TR>
+      <TD valign="top" align="right"><tt><a name="variable-type-definition"></a>&lt;variable-type-definition&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top"><tt><b>{ </b></tt></TD>
+      <TD valign="top"><tt>&lt;<a href="#nominal-variable">nominal-variable</a>&gt;</tt></TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"></TD>
+      <TD valign="top" align="center"></TD>
+      <TD valign="top"><tt><b>|</b></tt></TD>
+      <TD valign="top"><tt>&lt;<a href="#integer-variable">integer-variable</a>&gt;</tt></TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"></TD>
+      <TD valign="top" align="center"></TD>
+      <TD valign="top"><tt><b>|</b></tt></TD>
+      <TD valign="top"><tt>&lt;<a href="#float-variable">float-variable</a>&gt;</tt></TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"></TD>
+      <TD valign="top" align="center"></TD>
+      <TD valign="top"><tt><b>|</b></tt></TD>
+      <TD valign="top"><tt>&lt;<a href="#linguistic-set-variable">linguistic-set-variable</a>&gt;</tt></TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"></TD>
+      <TD valign="top" align="center"></TD>
+      <TD valign="top"><tt><b>}</b></tt></TD>
+      <TD valign="top">&nbsp;</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<p>Each variable has a unique name specified by the <tt>&lt;<a href="#identifier">identifier</a>&gt;</tt>,
+which is followed by colon (<tt><font color="#FF0000">:</font></tt>),
+declaration of the type and finished by semicolon (<tt><b><font color="#FF0000">;</font></b></tt>).&nbsp; </p>
+<H4><a name="3.2.2"></a>3.2.2. Nominal predicate variables</H4>
+<p>A nominal variable has the domain specified as a set of identifiers:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" align="right"><tt><a name="nominal-variable"></a>&lt;nominal-variable&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>&nbsp;::=&nbsp;</tt></TD>
+      <TD valign="top" align="left"><tt><font color="#FF0000">nominal (</font>&lt;<a href="#nominal-domain">nominal-domain</a>&gt;<font color="#FF0000">)</font></tt>
+</TD>
+</TR>
+<tr>
+      <TD valign="top" align="right"><tt><a name="nominal-domain"></a>&lt;nominal-domain&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>&nbsp;::=&nbsp;</tt></TD>
+      <TD valign="top">
+        <tt>&lt;<a href="#identifier">identifier</a>&gt;<b>[</b><font color="#FF0000">,</font>&lt;<a href="#nominal-domain">nominal-domain</a>&gt;<b>]</b></tt>
+</TD>
+</tr>
+  </TABLE>
+</BLOCKQUOTE>
+<p>Example of a nominal variable declaration: </p>
+<blockquote>
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td bgcolor="#B8D3D1"><tt>Color : nominal (Red, Green, Blue);</tt> </td>
+  </tr>
+</table>
+</blockquote>
+<H4><a name="3.2.3"></a>3.2.3. Integer variables</H4>
+<p>An integer variable has the domain consisting of a range of integer numbers:
+</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" align="right"><tt><a name="integer-variable"></a>&lt;integer-variable&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>&nbsp;::=&nbsp;</tt></TD>
+      <TD valign="top" align="left"><tt><font color="#FF0000">integer </font>&lt;<a href="#integer-range">integer-range</a>&gt;</tt></TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<p><a name="integer-range"></a>Here <tt>&lt;<a href="#integer-range">integer-range</a>&gt;</tt> is an expression resolving to a range of
+integer numbers. The following is an example of a valid integer variable
+declaration: </p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>Dozen : integer 1..1+11;</tt> </TD>
+      <TD valign="top" align="center">&nbsp;<font face="Times New Roman">&#8211;</font>&nbsp;</TD>
+      <TD valign="top">Range 1 to 12
+</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<H4><a name="3.2.4"></a>3.2.4. Float variables</H4>
+<p>A float variable's domain consists of dimensioned intervals. Intervals
+intersect in their end points.&nbsp; 
+</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top"><tt><a name="float-variable"></a>&lt;float-variable&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>&nbsp;::=&nbsp;</tt></TD>
+      <TD valign="top" align="left"><tt><font color="#FF0000">float</font><b> [</b><font color="#FF0000">[</font>&lt;<a href="#dimension">dimension</a>&gt;<font color="#FF0000">]</font><b>]
+        </b>&lt;cardinality&gt; <font color="#FF0000">range</font>
+        &lt;float-range&gt;</tt>
+</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<p>Here <tt>&lt;<a href="#dimension">dimension</a>&gt;</tt> specifies the
+measurement units of the domain values. <tt>&lt;cardinality&gt;</tt> is an
+expression resolving to positive integer number that specifies the number of
+intervals the domain set consists of. <tt>&lt;float-range&gt;</tt> is the domain
+set. It shall resolve to a range of real numbers. When the result is
+dimensionless the range bounds are assumed to be specified in the units of the
+variable dimension. Otherwise the dimension specified shall be compatible with
+one of the variable. The following are examples of a valid declarations: </p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1">
+  <tt>Temperature : float [°C] 10 range -10..120;</tt>
+      </TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<p>The variable Temperature is measured in °C, it has the domain set
+-10°C..120°C split into 10 intervals. 
+</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>Velocity : float [m/s] 5 range 0..20 [mph];</tt> 
+      </TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<p>The variable Velocity is measured in m/s, it has the domain set 0..8.938888 m/s
+in 5 intervals. 
+</p>
+<H4><a name="3.2.5"></a>3.2.5. Linguistic set variables</H4>
+<p>A linguistic set variable has a dimensioned domain represented by a set of
+linguistic terms. Each linguistic term, also called <i>linguistic variable</i>,
+is a fuzzy subset of the domain. 
+</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top"><tt><a name="linguistic-set-variable"></a>&lt;linguistic-set-variable&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>&nbsp;::=&nbsp;</tt></TD>
+      <TD valign="top" align="left"><tt><font color="#FF0000">real </font><b>[</b><font color="#FF0000">[</font>&lt;<a href="#dimension">dimension</a>&gt;<font color="#FF0000">]</font><b>]</b></tt>
+</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<P><tt>&lt;<a href="#dimension">dimension</a>&gt;</tt> specifies the measurement
+units of the domain values. Examples of valid linguistic set variables
+declarations:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>Angle : real;</tt></TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>
+		<a name="power_variable"></a>Power : real [W];</tt></TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<P>The terms of an input linguistic set variable are declared in a fuzzify
+block:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" align="right"><tt><a name="fuzzify-block"></a>&lt;fuzzify-block&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>&nbsp;::=&nbsp;</tt></TD>
+      <TD valign="top" colspan="2"><tt><font color="#FF0000">fuzzify</font> &lt;<a href="#identifier">identifier</a>&gt;</tt></TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"></TD>
+      <TD valign="top" align="center"></TD>
+      <TD valign="top"><tt><font color="#FF0000">&nbsp;&nbsp;</font></tt></TD>
+      <TD valign="top"><tt>&lt;<a href="#linguistic-set">linguistic-set</a>&gt;</tt></TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"></TD>
+      <TD valign="top" align="center"></TD>
+      <TD valign="top" colspan="2"><tt><font color="#FF0000">end_fuzzify</font></tt></TD>
+</TR>
+<tr>
+      <TD valign="top" align="right"><tt><a name="linguistic-set"></a>&lt;linguistic-set&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top" colspan="2"><tt>&lt;<a href="#linguistic-term">linguistic-term</a>&gt;<font color="#FF0000">;</font> <b>[</b>&lt;<a href="#linguistic-set">linguistic-set</a>&gt;<b>]</b></tt></TD>
+</tr>
+<tr>
+      <TD valign="top" align="right"><tt><a name="linguistic-term"></a>&lt;linguistic-term&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top" colspan="2"><tt><font color="#FF0000">term</font><b><font color="#FF0000"> </font></b>&lt;<a href="#identifier">identifier</a>&gt; <font color="#FF0000"><b>:= </b></font>&lt;domain-set&gt;</tt></TD>
+</tr>
+  </TABLE>
+</BLOCKQUOTE>
+<P>Here <tt>&lt;<a href="#identifier">identifier</a>&gt;</tt> 
+ following the keyword <tt><font color="#FF0000">fuzzify</font></tt> is the name of the input linguistic set variable being which linguistic terms are being
+defined. Only one block is allowed per variable. <tt>&lt;<a href="#identifier">identifier</a>&gt;</tt>
+ following the keyword <tt><font color="#FF0000">term</font></tt>  specifies the
+name of the term. This name can appear where a variable subset is expected. <tt>&lt;domain-set&gt;</tt>
+ shall resolve either to a real subset or to a real value. The given dimension shall be compatible with one of the
+variable. The following example illustrates definition of the linguistic terms
+for the variable <i>T</i> declared as:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>T : real [°C];</tt></TD>
+      <TD valign="top"></TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<P>Linguistic terms:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>fuzzify T</tt></TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>&nbsp;&nbsp; </tt><tt>term Chill := (-10,1)(-4,0);&nbsp;-- 
+		°C is assumed</tt></TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>&nbsp;&nbsp; term Cold&nbsp; := ( 11,1)(17,0) [°C];</tt></TD>
+</TR>
+<tr>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>&nbsp;&nbsp; term Tepid := ( 3, 0)( 8,1)(21,1)(28,0) [°C];</tt></TD>
+</tr>
+<tr>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>&nbsp;&nbsp; term Warm&nbsp; := ( 15,0)(21,1)(29,1)(35,0) [°C];</tt></TD>
+</tr>
+<tr>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>end_fuzzify</tt></TD>
+</tr>
+  </TABLE>
+</BLOCKQUOTE>
+<p>The terms of an output: linguistic set variable are declared in a
+defuzzify block:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" align="right"><tt><a name="defuzzify-block"></a>&lt;defuzzify-block&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>&nbsp;::=&nbsp;</tt></TD>
+      <TD valign="top" colspan="2">
+        <tt><font color="#FF0000">defuzzify</font> &lt;<a href="#identifier">identifier</a>&gt;</tt>
+</TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"></TD>
+      <TD valign="top" align="center"></TD>
+      <TD valign="top">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</TD>
+      <TD valign="top">
+        <tt>&lt;<a href="#output-linguistic-set">output-linguistic-set</a>&gt;</tt>
+</TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"></TD>
+      <TD valign="top" align="center"></TD>
+      <TD valign="top" colspan="2">
+        <tt><font color="#FF0000">end_defuzzify</font></tt>
+</TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"><tt><a name="output-linguistic-set"></a>&lt;output-linguistic-set&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top">
+        <tt><b>{</b></tt>
+</TD>
+      <TD valign="top">
+        <tt>&lt;<a href="#linguistic-term">linguistic-term</a>&gt;</tt>
+</TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"></TD>
+      <TD valign="top" align="center"></TD>
+      <TD valign="top">
+        <tt><b>|</b></tt>
+</TD>
+      <TD valign="top">
+        <tt><font color="#FF0000">method : </font> &lt;<a href="#defuzzify-method">defuzzify-method</a>&gt;</tt>
+</TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"></TD>
+      <TD valign="top" align="center"></TD>
+      <TD valign="top">
+        <tt><b>|</b></tt>
+</TD>
+      <TD valign="top">
+        <tt><font color="#FF0000">default := </font> &lt;domain-value&gt;</tt>
+</TD>
+</TR>
+<tr>
+      <TD valign="top" align="right"></TD>
+      <TD valign="top" align="center"></TD>
+      <TD valign="top">
+        <tt><b>|</b></tt>
+</TD>
+      <TD valign="top">
+        <tt><font color="#FF0000">accu : </font> &lt;<a href="#method">method</a>&gt;</tt>
+</TD>
+</tr>
+<TR>
+      <TD valign="top" align="right"></TD>
+      <TD valign="top" align="center"></TD>
+      <TD valign="top">
+        <tt><b>}</b><font color="#FF0000">;&nbsp;</font></tt>
+</TD>
+      <TD valign="top">
+        <tt><b>[</b>&lt;<a href="#output-linguistic-set">output-linguistic-set</a>&gt;<b>]</b></tt>
+</TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"><tt><a name="defuzzify-method"></a>&lt;defuzzify-method&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top" colspan="2">
+        <tt><b>{ </b><font color="#FF0000">coa </font><b>| </b><font color="#FF0000">cog
+        </font><b>| </b><font color="#FF0000">cogs </font><b>| </b><font color="#FF0000">lm
+        </font><b>| </b><font color="#FF0000">rm </font><b>}</b></tt>
+</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<P>Here <tt>&lt;<a href="#identifier">identifier</a>&gt;</tt>  following the
+keyword
+        <tt><font color="#FF0000">defuzzify</font>  </tt>
+  is the name of
+the output linguistic set variable. Only one block is allowed per variable. <tt>&lt;<a href="#identifier">identifier</a>&gt;</tt>
+ following the keyword <tt><font color="#FF0000">term</font></tt>  specifies the
+name of the term. This name can appear where a variable subset is expected. <tt>&lt;domain-set&gt;</tt>
+ shall resolve either to a real subset or to a real value. When it is
+dimensionless, it is assumed to be specified in the dimension units of the
+variable. Otherwise the dimension give shall be compatible with one of the
+variable. <tt> &lt;<a href="#defuzzify-method">defuzzify-method</a>&gt; </tt>specifies
+the defuzzification method to be applied. It may appear only once: </p>
+<ul>
+  <li><tt><font color="#FF0000">coa </font></tt>
+    indicates the <a href="http://www.dmitry-kazakov.de/ada/fuzzy.htm#center_of_area">center
+    of area method</a>;</li>
+  <li><font color="#FF0000">
+        <tt>cog </tt>
+        </font>indicates the <a href="http://www.dmitry-kazakov.de/ada/fuzzy.htm#center_of_gravity">center
+    of gravity method</a>;</li>
+  <li>
+        <tt><font color="#FF0000">cogs </font></tt>
+    indicates the <a href="http://www.dmitry-kazakov.de/ada/fuzzy.htm#discrete_center_of_gravity">discrete
+    center of gravity</a> method;</li>
+  <li>
+        <tt><font color="#FF0000">lm
+        </font></tt>
+    indicates the <a href="http://www.dmitry-kazakov.de/ada/fuzzy.htm#Leftmost_maximum">leftmost
+    maximum</a> method;&nbsp;</li>
+  <li>
+        <tt><font color="#FF0000">rm </font></tt>
+    indicates the <a href="http://www.dmitry-kazakov.de/ada/fuzzy.htm#Rightmost_maximum">rightmost
+    maximum</a> method.</li>
+</ul>
+<P>The default value is introduced by the keyword <tt><font color="#FF0000">default</font></tt>.
+It is used when the defuzzification fails. The value can be specified either as
+an expression resolved to a real value. The value&nbsp;when dimensionless
+assumes the dimension of the variable. The keyword <tt><font color="#FF0000">nc</font></tt>
+(no change) indicates that defuzzification fault should not change the value.
+The optional accumulation method specification is defined by&nbsp;<tt>&lt;<a href="#method">method</a>&gt;</tt>.
+The only legal value is <tt><font color="#FF0000">max</font></tt>, because all
+others are incompatible with the possibility theory. The following example illustrates definition of the linguistic terms
+for the variable <i>Power</i> declared <a href="#power_variable">above</a>: </p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<tr>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>defuzzify Power</tt></TD>
+      <TD valign="top" align="center">&nbsp;</TD>
+      <TD valign="top">
+</TD>
+</tr>
+<tr>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>&nbsp;&nbsp; term Low&nbsp; := (-100.0, 1)(10.0, 
+		0);</tt></TD>
+      <TD valign="top" align="center"><font face="Times New Roman">&#8211;</font></TD>
+      <TD valign="top">W is assumed</TD>
+</tr>
+<tr>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>
+  &nbsp;&nbsp; term Zero := 0
+  W;&nbsp;</tt></TD>
+      <TD valign="top" align="center">&nbsp;<font face="Times New Roman">&#8211;</font>&nbsp;</TD>
+      <TD valign="top">Singleton value
+</TD>
+</tr>
+<tr>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>&nbsp;&nbsp; term Safe_Range := 1..2 [hp];</tt></TD>
+      <TD valign="top" align="center"><font face="Times New Roman">&#8211;</font></TD>
+      <TD valign="top">Converted to W as necessary
+</TD>
+</tr>
+<tr>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>&nbsp;&nbsp; term High := (800, 0)(2000, 0)[W];</tt></TD>
+      <TD valign="top" align="center"></TD>
+      <TD valign="top">
+</TD>
+</tr>
+<tr>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>&nbsp;&nbsp; method : COG;</tt></TD>
+      <TD valign="top" align="center"><font face="Times New Roman">&#8211;</font></TD>
+      <TD valign="top">
+Using Center of Gravity
+</TD>
+</tr>
+<tr>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>&nbsp;&nbsp; default := 0 W;</tt></TD>
+      <TD valign="top" align="center"><font face="Times New Roman">&#8211;</font></TD>
+      <TD valign="top">
+What to do when defuzzification fails
+</TD>
+</tr>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>
+  end_defuzzify</tt></TD>
+      <TD valign="top" align="center"></TD>
+      <TD valign="top">
+</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<p align="right">
+  <A name="3.3"></A><A href="#3.2"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></A><A href="#6"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><a href="#4"><IMG src="next.gif" alt="[Next]" width="29" height="29"></a></p>
+<H3>3.3. Types of predicates</H3>
+<P><a name="Predicate"></a><tt>&lt;predicate&gt;</tt> is an expression involving a predicate variable 
+and a constant using a set-theoretic or
+comparison operations. The following is an example of a predicate:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>Power is in Safe_Range</tt></TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<P>Predicates form a lattice. They can be
+further combined using the operations <tt><font color="#FF0000">and</font></tt>, <font color="#FF0000"><tt>&#8896;</tt></font>, 
+<tt><font color="#FF0000">not</font></tt>, <font color="#ff0000"><tt>¬</tt></font>,
+<tt><font color="#FF0000">or</font></tt>, <font color="#ff0000"><tt>&#8897;</tt></font>, 
+<tt><font color="#FF0000">xor</font></tt>
+and also appear in order brackets <tt><font color="#FF0000">(</font></tt><tt><font color="#FF0000">)</font></tt>. 
+Other methods are infeasible in the possibility theory:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<tr>
+      <TD valign="top" align="left" colspan="3"><tt><a name="predicate-expression"></a>&lt;predicate-expression&gt; 
+		::=</tt></TD>
+</tr>
+<TR>
+      <TD valign="top" align="right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </TD>
+      <TD valign="top" align="left"><tt><b>{&nbsp;&nbsp; </b></tt></TD>
+      <TD valign="top" align="left"><tt>&lt;<a href="#Predicate">predicate</a>&gt;</tt></TD>
+</TR>
+<TR>
+      <TD valign="top" align="right">&nbsp;</TD>
+      <TD valign="top" align="left"><tt><b>|</b></tt></TD>
+      <TD valign="top" align="left"><tt>&lt;<a href="#predicate-expression">predicate-expression</a>&gt;<b>{ </b>
+		<font color="#FF0000">and </font><b>| </b><font color="#FF0000">or </font><b>| </b>
+		<font color="#FF0000">xor </font><b>| </b><font color="#FF0000">&#8896; </font>
+		<b>| </b><font color="#ff0000">&#8897; </font><b>}</b>&lt;<a href="#predicate-expression">predicate-expression</a>&gt;</tt></TD>
+</TR>
+  <tr>
+      <TD valign="top" align="right">&nbsp;</TD>
+      <TD valign="top" align="left"><tt><b>|</b></tt></TD>
+      <TD valign="top" align="left"><tt><b>{</b><font color="#FF0000"> not </font>
+		<b>| </b><font color="#ff0000">¬ </font><b>}</b>&lt;<a href="#predicate-expression">predicate-expression</a>&gt;</tt></TD>
+      </tr>
+  <tr>
+      <TD valign="top" align="right">&nbsp;</TD>
+      <TD valign="top" align="left"><tt><b>|</b></tt></TD>
+      <TD valign="top" align="left"><tt><font color="#FF0000">(</font>&lt;<a href="#predicate-expression">predicate-expression</a>&gt;<font color="#FF0000">)</font></tt></TD>
+</tr>
+  <tr>
+      <TD valign="top" align="right">&nbsp;</TD>
+      <TD valign="top" align="left"><tt><b>}</b></tt></TD>
+      <TD valign="top" align="left">&nbsp;</TD>
+</tr>
+  </TABLE>
+</BLOCKQUOTE>
+  <P>The following example represents a <tt>&lt;<a href="#predicate-expression">predicate-expression</a>&gt;</tt>:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>Power is in Safe_Range and Power &lt; 200 W</tt></TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<hr>
+<p align="right">
+  <a name="4"></a><a href="#3.3"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></a><A href="#6"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><A
+      href="#4.1"><IMG src="next.gif" alt="[Next]" width="29" height="29"></A>
+</p>
+<H2>4. Operations</H2>
+<p>The language defines <a href="#Prefix_operation">prefix</a>, 
+<a href="#Dyadic_operation">dyadic</a>, <a href="#Postfix_operation">postfix</a> and 
+<a href="#bracket_operations">bracket</a> operations. The
+operations are executed from left to the right and associated according to their
+precedence. Operations with higher precedence take their operands first.</p>
+<p align="right">
+  <A name="4.1"></A><a href="#4"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></a><A href="#6"><IMG src="index.gif" alt="[TOC]" width="29" height="29"></A><a href="#4.2"><IMG src="next.gif" alt="[Next]" width="29" height="29"></a>
+</p>
+<H3>4.1. Prefix operations</H3>
+<P><a name="Prefix_operation"></a>Prefix operations appear before the operand. They are:</p>
+  <table border="5" cellpadding="3" cellspacing="0">
+    <tr>
+      <td align="center" bgcolor="#008080"><b><font color="#FFFFFF">Operation</font></b></td>
+      <td bgcolor="#008080" align="center"><font color="#FFFFFF"><b>Precedence</b></font></td>
+      <td bgcolor="#008080" align="center"><b><font color="#FFFFFF">Code<br>
+		point</font></b></td>
+      <td bgcolor="#008080" align="left"><font color="#FFFFFF"><b>Description</b></font></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><tt><font color="#FF0000">+</font></tt><i>x</i></td>
+      <td valign="top" align="center">6</td>
+      <td align="center" bgcolor="#C0C0C0">&nbsp;</td>
+      <td valign="top" align="left">Unary plus</td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><tt><font color="#FF0000">-</font></tt><i>x</i></td>
+      <td valign="top" align="center">6</td>
+      <td align="center" bgcolor="#C0C0C0">&nbsp;</td>
+      <td valign="top" align="left">Unary minus</td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><tt><font color="#FF0000">abs </font></tt><i>x</i></td>
+      <td valign="top" align="center">6</td>
+      <td align="center" bgcolor="#C0C0C0">&nbsp;</td>
+      <td valign="top" align="left">Absolute value</td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><tt><font color="#FF0000">not </font></tt><i>x</i></td>
+      <td valign="top" align="center">6</td>
+      <td align="center" bgcolor="#C0C0C0">&nbsp;</td>
+      <td valign="top" align="left">Logical <i>not</i> and set-complement</td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><tt><font color="#FF0000">&#172;</font></tt><i>x</i></td>
+      <td valign="top" align="center">6</td>
+      <td align="center">00AC<sub>16</sub></td>
+      <td valign="top" align="left">Logical <i>not</i></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><tt><font color="#FF0000">not in </font></tt><i>x</i></td>
+      <td valign="top" align="center">6</td>
+      <td align="center" bgcolor="#C0C0C0">&nbsp;</td>
+      <td valign="top" align="left">Set-complement, allowed only after the
+        dyadic operation <tt><font color="#FF0000">is</font></tt> </td>
+    </tr>
+  </table>
+<p> Unary
+<tt><font color="#FF0000">+</font></tt> and <tt><font color="#FF0000">-</font></tt>
+cannot appear after the following operations without
+brackets: <tt><font color="#FF0000">+</font></tt>, <tt><font color="#FF0000">-</font></tt>,
+<font color="#FF0000"><tt>abs</tt></font>, <tt><font color="#FF0000">*</font></tt>,
+<tt><font color="#FF0000">/</font></tt>, <tt><font color="#FF0000">**</font></tt>.&nbsp;
+For example the following expressions are illegal:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#FFFF99"><tt>2++2</tt></TD>
+      <TD valign="top" align="center">&nbsp;<font face="Times New Roman">&#8211;</font>&nbsp;</TD>
+      <TD valign="top">Illegal, must be</TD>
+      <TD valign="top">&nbsp;&nbsp;&nbsp;</TD>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>2+(+2)</tt>
+</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#FFFF99"><tt>5.0**-2</tt></TD>
+      <TD valign="top" align="center"><font face="Times New Roman">&#8211;</font></TD>
+      <TD valign="top">Illegal, must be</TD>
+      <TD valign="top"></TD>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>5.0**(-2)</tt>
+</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#FFFF99"><tt>- -3.0</tt></TD>
+      <TD valign="top" align="center"><font face="Times New Roman">&#8211;</font></TD>
+      <TD valign="top">Illegal, must be</TD>
+      <TD valign="top"></TD>
+      <TD valign="top" bgcolor="#B8D3D1"><tt> -(-3.0)</tt>
+</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<p> Unary <tt><font color="#FF0000">abs</font></tt> cannot appear before <tt><font color="#FF0000">**</font></tt>.&nbsp;
+For example the following expression is illegal:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#FFFF99"><tt>abs(-2)**2</tt></TD>
+      <TD valign="top" align="center">&nbsp;<font face="Times New Roman">&#8211;</font>&nbsp;</TD>
+      <TD valign="top">Should be disambiguated as</TD>
+      <TD valign="top">&nbsp;&nbsp;&nbsp;</TD>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>(abs
+        (-2))**2</tt>
+</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#FFFF99">&nbsp;</TD>
+      <TD valign="top" align="center"></TD>
+      <TD valign="top">or as</TD>
+      <TD valign="top"></TD>
+      <TD valign="top" bgcolor="#B8D3D1"><tt> abs ((-2)**2)</tt>
+</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<p>Unary <tt><font color="#FF0000">not in </font></tt>may appear only after <font color="#FF0000"><tt>is</tt></font>
+in the expressions like:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>Pressure is not in 1..200 [Pa]</tt></TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<p>Which is an equivalent to:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>not (Pressure in 1..200 [Pa])</tt></TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<p align="right">
+  <a name="4.2"></a><a href="#4.1"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></a><A href="#6"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><a href="#4.3"><IMG src="next.gif" alt="[Next]" width="29" height="29"></a></p>
+<H3>4.2. Dyadic operations</H3>
+<P><a name="Dyadic_operation"></a>Dyadic operations have two operands and appear 
+between them. The following table lists the dyadic operations and their 
+precedence:</p>
+  <table border="5" cellpadding="3" cellspacing="0">
+    <tr>
+      <td align="center" bgcolor="#008080"><b><font color="#FFFFFF">Operation</font></b></td>
+      <td bgcolor="#008080" align="center"><font color="#FFFFFF"><b>Precedence</b></font></td>
+      <td bgcolor="#008080" align="center"><font color="#FFFFFF"><b>Code<br>
+		point</b></font></td>
+      <td bgcolor="#008080" align="left"><font color="#FFFFFF"><b>Description</b></font></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><tt><font color="#FF0000">and </font></tt><i>y</i></td>
+      <td valign="top" align="center">0</td>
+      <td align="center" bgcolor="#C0C0C0">&nbsp;</td>
+      <td valign="top" align="left">Logical <i> and</i> or set intersection</td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><tt><font color="#FF0000">&#8896; </font></tt><i>y</i></td>
+      <td valign="top" align="center">0</td>
+      <td align="center">22C0<sub>16</sub></td>
+      <td valign="top" align="left">Logical <i>and</i></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><tt><font color="#FF0000">or </font></tt><i>y</i></td>
+      <td valign="top" align="center">0</td>
+      <td align="center" bgcolor="#C0C0C0">&nbsp;</td>
+      <td valign="top" align="left">Logical <i> or</i> or set union, the 
+		operands must be elements or sets</td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><tt><font color="#FF0000">&#8897; </font></tt><i>y</i></td>
+      <td valign="top" align="center">0</td>
+      <td align="center">22C1<sub>16</sub></td>
+      <td valign="top" align="left">Logical <i>or</i></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><tt><font color="#FF0000">xor </font></tt><i>y</i></td>
+      <td valign="top" align="center">0</td>
+      <td align="center" bgcolor="#C0C0C0">&nbsp;</td>
+      <td valign="top" align="left">Logical <i> xor</i> or set difference,
+        equivalent to <tt><font color="#FF0000">(</font></tt><i>x </i><tt><font color="#FF0000">and
+        not(</font></tt><i>y</i><tt><font color="#FF0000">)) or (not(</font></tt><i>x</i><tt><font color="#FF0000">)</font></tt><i>
+        </i><tt><font color="#FF0000">and </font></tt><i>y</i><tt><font color="#FF0000">)</font></tt></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><tt><font color="#FF0000">in </font></tt><i>y</i></td>
+      <td valign="top" align="center">1</td>
+      <td align="center" bgcolor="#C0C0C0">&nbsp;</td>
+      <td valign="top" align="left">Subset test operands can be elements, sets, 
+		one of them can be a variable</td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><tt><font color="#FF0000">is </font></tt><i>y</i></td>
+      <td valign="top" align="center">1</td>
+      <td align="center" bgcolor="#C0C0C0">&nbsp;</td>
+      <td valign="top" align="left">Equivalent to <i>x </i><tt><font color="#FF0000">in
+        </font></tt><i>y</i></td>
+    </tr>
+	<tr>
+      <td align="center" valign="top"><i>x </i><font color="#FF0000"><tt>is in </tt></font><i>y</i></td>
+      <td valign="top" align="center">1</td>
+      <td align="center" bgcolor="#C0C0C0">&nbsp;</td>
+      <td valign="top" align="left">Equivalent to <i>x </i><tt><font color="#FF0000">in
+        </font></tt><i>y</i></td>
+    </tr>
+	<tr>
+      <td align="center" valign="top"><i>x </i><tt><font color="#FF0000">not in </font></tt><i>y</i></td>
+      <td valign="top" align="center">1</td>
+      <td align="center" bgcolor="#C0C0C0">&nbsp;</td>
+      <td valign="top" align="left">Equivalent to both<i> </i><tt><font color="#FF0000">not(</font></tt><i>x
+        </i><tt><font color="#FF0000">in </font></tt><i>y</i><tt><font color="#FF0000">)</font></tt></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><font color="#FF0000"><tt>&#8838;</tt></font> <i>y</i></td>
+      <td valign="top" align="center">1</td>
+      <td align="center">2286<sub>16</sub></td>
+      <td valign="top" align="left">Subset test, equivalent to <i>x </i><tt><font color="#FF0000">in </font></tt>
+		<i>y</i>, with <i>x</i> is required to be a set or a variable</td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><font color="#FF0000"><tt>&#8839;</tt></font> <i>y</i></td>
+      <td valign="top" align="center">1</td>
+      <td align="center">2287<sub>16</sub></td>
+      <td valign="top" align="left">Equivalent to <i>y</i><font color="#FF0000"><tt>&#8838;</tt></font><i>x</i></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><font color="#FF0000"><tt>&#8840;</tt></font> <i>y</i></td>
+      <td valign="top" align="center">1</td>
+      <td align="center">2288<sub>16</sub></td>
+      <td valign="top" align="left">Equivalent to <tt><font color="#FF0000">not(</font></tt><i>x</i><font color="#FF0000"><tt>&#8838;</tt></font><i>y</i><tt><font color="#FF0000">)</font></tt></td>
+    </tr>
+	<tr>
+      <td align="center" valign="top"><i>x </i><font color="#FF0000"><tt>&#8841;</tt></font> <i>y</i></td>
+      <td valign="top" align="center">1</td>
+      <td align="center">2289<sub>16</sub></td>
+      <td valign="top" align="left">Equivalent to <tt><font color="#FF0000">not(</font></tt><i>y</i><font color="#FF0000"><tt>&#8838;</tt></font><i>x</i><tt><font color="#FF0000">)</font></tt></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><font color="#FF0000"><tt>&#8712;</tt></font> <i>y</i></td>
+      <td valign="top" align="center">1</td>
+      <td align="center">2208<sub>16</sub></td>
+      <td valign="top" align="left">Member test, equivalent to <i>x </i><tt><font color="#FF0000">in </font></tt>
+		<i>y</i>, with <i>x</i> is required to be an element or a variable</td>
+    </tr>
+	<tr>
+      <td align="center" valign="top"><i>x </i><font color="#FF0000"><tt>&#8715;</tt></font> <i>y</i></td>
+      <td valign="top" align="center">1</td>
+      <td align="center">220B<sub>16</sub></td>
+      <td valign="top" align="left">Equivalent to <i>y</i><font color="#FF0000"><tt>&#8712;</tt></font><i>x</i></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><font color="#FF0000"><tt>&#8713;</tt></font> <i>y</i></td>
+      <td valign="top" align="center">1</td>
+      <td align="center">2209<sub>16</sub></td>
+      <td valign="top" align="left">Equivalent to <tt><font color="#FF0000">not(</font></tt><i>x</i><font color="#FF0000"><tt>&#8712;</tt></font><i>y</i><tt><font color="#FF0000">)</font></tt></td>
+    </tr>
+	<tr>
+      <td align="center" valign="top"><i>x </i><font color="#FF0000"><tt>&#8716;</tt></font> <i>y</i></td>
+      <td valign="top" align="center">1</td>
+      <td align="center">220C<sub>16</sub></td>
+      <td valign="top" align="left">Equivalent to <tt><font color="#FF0000">not(</font></tt><i>y</i><font color="#FF0000"><tt>&#8712;</tt></font><i>x</i><tt><font color="#FF0000">)</font></tt></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><tt><font color="#FF0000">= </font></tt><i>y</i></td>
+      <td valign="top" align="center">1</td>
+      <td align="center" bgcolor="#C0C0C0">&nbsp;</td>
+      <td valign="top" align="left">Equality</td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><tt><font color="#FF0000">/= </font></tt><i>y</i></td>
+      <td valign="top" align="center">1</td>
+      <td align="center" bgcolor="#C0C0C0">&nbsp;</td>
+      <td valign="top" align="left">Equivalent to <tt><font color="#FF0000">not(</font></tt><i>x</i><tt><font color="#FF0000">=</font></tt><i>y</i><tt><font color="#FF0000">)</font></tt></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><tt><font color="#FF0000">&#8800; </font></tt><i>y</i></td>
+      <td valign="top" align="center">1</td>
+      <td align="center">2260<sub>16</sub></td>
+      <td valign="top" align="left">Equivalent to <tt><font color="#FF0000">not(</font></tt><i>x</i><tt><font color="#FF0000">=</font></tt><i>y</i><tt><font color="#FF0000">)</font></tt></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><tt><font color="#FF0000">&lt; </font></tt><i>y</i></td>
+      <td valign="top" align="center">1</td>
+      <td align="center" bgcolor="#C0C0C0">&nbsp;</td>
+      <td valign="top" align="left">Less</td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><tt><font color="#FF0000">&lt;= </font></tt><i>y</i></td>
+      <td valign="top" align="center">1</td>
+      <td align="center" bgcolor="#C0C0C0">&nbsp;</td>
+      <td valign="top" align="left">Less or equal</td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><tt><font color="#FF0000">&#8804; </font></tt><i>y</i></td>
+      <td valign="top" align="center">1</td>
+      <td align="center">2264<sub>16</sub></td>
+      <td valign="top" align="left">Less or equal</td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><tt><font color="#FF0000">&gt; </font></tt><i>y</i></td>
+      <td valign="top" align="center">1</td>
+      <td align="center" bgcolor="#C0C0C0">&nbsp;</td>
+      <td valign="top" align="left">Greater</td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><tt><font color="#FF0000">&gt;= </font></tt><i>y</i></td>
+      <td valign="top" align="center">1</td>
+      <td align="center" bgcolor="#C0C0C0">&nbsp;</td>
+      <td valign="top" align="left">Greater or equal</td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><tt><font color="#FF0000">&#8805; </font></tt><i>y</i></td>
+      <td valign="top" align="center">1</td>
+      <td align="center">2265<sub>16</sub></td>
+      <td valign="top" align="left">Greater or equal</td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><tt><font color="#FF0000">&#8898; </font></tt><i>y</i></td>
+      <td valign="top" align="center">2</td>
+      <td align="center">22C2<sub>16</sub></td>
+      <td valign="top" align="left">Set intersection, the operands can be sets 
+		or elements</td>
+    </tr>
+	<tr>
+      <td align="center" valign="top"><i>x </i><tt><font color="#FF0000">&#8899; </font></tt><i>y</i></td>
+      <td valign="top" align="center">2</td>
+      <td align="center">22C3<sub>16</sub></td>
+      <td valign="top" align="left">Set union, the operands can be sets or elements</td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><tt><font color="#FF0000">.. </font></tt><i>y</i></td>
+      <td valign="top" align="center">3</td>
+      <td align="center" bgcolor="#C0C0C0">&nbsp;</td>
+      <td valign="top" align="left">Range</td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><tt><font color="#FF0000">^ </font></tt><i>y</i></td>
+      <td valign="top" align="center">3</td>
+      <td align="center" bgcolor="#C0C0C0">&nbsp;</td>
+      <td valign="top" align="left">Membership association (&alpha;-cut)</td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><tt><font color="#FF0000">+ </font></tt><i>y</i></td>
+      <td valign="top" align="center">4</td>
+      <td align="center" bgcolor="#C0C0C0">&nbsp;</td>
+      <td valign="top" align="left">Addition</td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><tt><font color="#FF0000">- </font></tt><i>y</i></td>
+      <td valign="top" align="center">4</td>
+      <td align="center" bgcolor="#C0C0C0">&nbsp;</td>
+      <td valign="top" align="left">Subtraction</td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><tt><font color="#FF0000">&amp; </font></tt><i>y</i></td>
+      <td valign="top" align="center">4</td>
+      <td align="center" bgcolor="#C0C0C0">&nbsp;</td>
+      <td valign="top" align="left">Concatenation</td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><tt><font color="#FF0000">* </font></tt><i>y</i></td>
+      <td valign="top" align="center">7</td>
+      <td align="center" bgcolor="#C0C0C0">&nbsp;</td>
+      <td valign="top" align="left">Multiplication</td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><tt><font color="#FF0000">/ </font></tt><i>y</i></td>
+      <td valign="top" align="center">7</td>
+      <td align="center" bgcolor="#C0C0C0">&nbsp;</td>
+      <td valign="top" align="left">Division</td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><tt><font color="#FF0000">** </font></tt><i>y</i></td>
+      <td valign="top" align="center">8</td>
+      <td align="center" bgcolor="#C0C0C0">&nbsp;</td>
+      <td valign="top" align="left">Exponentiation</td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><tt><font color="#FF0000">. </font></tt><i>y</i></td>
+      <td valign="top" align="center">11</td>
+      <td align="center" bgcolor="#C0C0C0">&nbsp;</td>
+      <td valign="top" align="left">Component</td>
+    </tr>
+  </table>
+<p>The lattice operations like <tt><font color="#FF0000">and</font></tt> and <tt><font color="#FF0000">or</font></tt>
+ cannot be associated without
+brackets. For example, the following expression is illegal and must be
+disambiguated:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#FFFF99"><tt>Power is Low and Power is High or Power is Zero</tt></TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<p>The following table illustrates legal and illegal associations of the lattice 
+operations:</p>
+<table border="0" cellpadding="3" cellspacing="0">
+	<tr>
+		<td style="border-right-style: solid; border-right-width: 1px; border-bottom-style: solid; border-bottom-width: 1px">&nbsp;</td>
+		<td align="center" style="border-bottom-style: solid; border-bottom-width: 1px"> <tt><font color="#FF0000">and</font></tt></td>
+		<td align="center" style="border-bottom-style: solid; border-bottom-width: 1px">
+		<tt><font color="#FF0000">&#8896;</font></tt></td>
+		<td align="center" style="border-bottom-style: solid; border-bottom-width: 1px">
+		<tt><font color="#FF0000">or</font></tt></td>
+		<td align="center" style="border-bottom-style: solid; border-bottom-width: 1px">
+		<tt><font color="#FF0000">&#8897;</font></tt></td>
+		<td align="center" style="border-bottom-style: solid; border-bottom-width: 1px"> <tt><font color="#FF0000">xor</font></tt></td>
+		<td align="center" style="border-bottom-style: solid; border-bottom-width: 1px"><tt><font color="#FF0000">
+		&#8898;</font></tt></td>
+		<td align="center" style="border-bottom-style: solid; border-bottom-width: 1px"><tt><font color="#FF0000">
+		&#8899;</font></tt></td>
+	</tr>
+	<tr>
+		<td align="right" style="border-right-style: solid; border-right-width: 1px"> <tt><font color="#FF0000">and</font></tt></td>
+		<td align="center">&nbsp; +&nbsp;&nbsp;&nbsp; </td>
+		<td align="center">&nbsp; +&nbsp;&nbsp;&nbsp; </td>
+		<td align="center">&nbsp; -&nbsp;&nbsp; </td>
+		<td align="center">&nbsp; -&nbsp;&nbsp;&nbsp; </td>
+		<td align="center">-</td>
+		<td align="center">+</td>
+		<td align="center">+</td>
+	</tr>
+	<tr>
+		<td align="right" style="border-right-style: solid; border-right-width: 1px"><tt><font color="#FF0000">&#8896;&nbsp; </font></tt>
+		</td>
+		<td align="center">+</td>
+		<td align="center">+</td>
+		<td align="center">-</td>
+		<td align="center">-</td>
+		<td align="center">-</td>
+		<td align="center">&nbsp; +&nbsp;&nbsp;&nbsp; </td>
+		<td align="center">&nbsp; +&nbsp;&nbsp;&nbsp; </td>
+	</tr>
+	<tr>
+		<td align="right" style="border-right-style: solid; border-right-width: 1px">
+		<tt><font color="#FF0000">or&nbsp; </font></tt></td>
+		<td align="center">-</td>
+		<td align="center">-</td>
+		<td align="center">&nbsp; +&nbsp;&nbsp;&nbsp; </td>
+		<td align="center">&nbsp; +&nbsp;&nbsp; </td>
+		<td align="center">-</td>
+		<td align="center">+</td>
+		<td align="center">+</td>
+	</tr>
+	<tr>
+		<td align="right" style="border-right-style: solid; border-right-width: 1px"><tt><font color="#FF0000">&#8897;&nbsp; </font></tt>
+		</td>
+		<td align="center">-</td>
+		<td align="center">-</td>
+		<td align="center">+</td>
+		<td align="center">+</td>
+		<td align="center">-</td>
+		<td align="center">+</td>
+		<td align="center">+</td>
+	</tr>
+	<tr>
+		<td align="right" style="border-right-style: solid; border-right-width: 1px"> <tt><font color="#FF0000">xor&nbsp; </font></tt>   
+		</td>
+		<td align="center">-</td>
+		<td align="center">-</td>
+		<td align="center">-</td>
+		<td align="center">-</td>
+		<td align="center">+</td>
+		<td align="center">+</td>
+		<td align="center">+</td>
+	</tr>
+	<tr>
+		<td align="right" style="border-right-style: solid; border-right-width: 1px"><tt><font color="#FF0000">
+		&#8898;&nbsp; </font></tt></td>
+		<td align="center">+</td>
+		<td align="center">+</td>
+		<td align="center">+</td>
+		<td align="center">+</td>
+		<td align="center">+</td>
+		<td align="center">+ </td>
+		<td align="center">+ </td>
+	</tr>
+	<tr>
+		<td align="right" style="border-right-style: solid; border-right-width: 1px"><tt><font color="#FF0000">
+		&#8899;&nbsp; </font></tt></td>
+		<td align="center">+</td>
+		<td align="center">+</td>
+		<td align="center">+</td>
+		<td align="center">+</td>
+		<td align="center">+</td>
+		<td align="center">+</td>
+		<td align="center">&nbsp;+&nbsp;&nbsp; </td>
+	</tr>
+</table>
+<p>The rule is that two operations of different semantics may not be associated 
+when their results and operands are of the same type. The rationale is that the 
+results of different associations shall be either same or else the expression 
+can be disambiguated using the types of operands.</p>
+<p>The operation <tt><font color="#FF0000">**</font></tt> cannot be associated
+without brackets. For example the following expression is illegal:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#FFFF99"><tt>2**2**3</tt></TD>
+      <TD valign="top" align="center">&nbsp;<font face="Times New Roman">&#8211;</font>&nbsp;</TD>
+      <TD valign="top">Should be disambiguated as</TD>
+      <TD valign="top">&nbsp;&nbsp;&nbsp;</TD>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>
+        (2**2)**3</tt>
+</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#FFFF99">&nbsp;</TD>
+      <TD valign="top" align="center"></TD>
+      <TD valign="top">or as</TD>
+      <TD valign="top"></TD>
+      <TD valign="top" bgcolor="#B8D3D1"><tt> 2**(2**3)</tt>
+</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<p align="right">
+  <a name="4.3"></a><a href="#4.2"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></a><A href="#6"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><a href="#4.4"><IMG src="next.gif" alt="[Next]" width="29" height="29"></a></p>
+<H3>4.3. Postfix operations</H3>
+<P><a name="Postfix_operation"></a>Postfix operations appear after the operand:</p>
+  <table border="5" cellpadding="3" cellspacing="0">
+    <tr>
+      <td align="center" bgcolor="#008080"><b><font color="#FFFFFF">Operation</font></b></td>
+      <td bgcolor="#008080" align="center"><font color="#FFFFFF"><b>Precedence</b></font></td>
+      <td bgcolor="#008080" align="left"><font color="#FFFFFF"><b>Description</b></font></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x</i><tt><sup>&lt;<a href="#power">power</a>&gt;</sup></tt></td>
+      <td valign="top" align="center">8</td>
+      <td valign="top" align="left">Power operation</td>
+    </tr>
+    </table>
+  
+<p>Power is a superscript integer with the syntax:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" align="right"><tt><a name="power"></a>&lt;power&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>&nbsp;::=&nbsp;</tt></TD>
+      <TD valign="top"><tt>&lt;<a href="#superscript-decimal-integer">superscript-decimal-integer</a>&gt;</tt></TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"><tt><a name="superscript-decimal-integer">
+		</a>&lt;superscript-decimal-integer&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top"><tt><b> [</b>&lt;<a href="#superscript-sign">superscript-sign</a>&gt;<b>]</b>&lt;<a href="#superscript-decimal-numeral">superscript-decimal-numeral</a>&gt;</tt></TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"><tt><a name="superscript-decimal-numeral">
+		</a>&lt;superscript-decimal-numeral&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top"><tt>&lt;<a href="#superscript-decimal-digit">superscript-decimal-digit</a>&gt;<b>[</b>&lt;<a href="#superscript-decimal-numeral">superscript-decimal-numeral</a>&gt;<b>]</b></tt>
+</TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"><tt><a name="superscript-decimal-digit">
+		</a>&lt;superscript-decimal-digit&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top"><tt><font color="#FF0000"><sup>0</sup> </font><b>| </b><font color="#FF0000">
+		<sup>1</sup> </font><b>| </b><font color="#FF0000"><sup>2</sup>
+        </font><b>| </b><font color="#FF0000"><sup>3</sup> </font><b>| </b><font color="#FF0000">
+		<sup>4</sup>
+        </font><b>| </b><font color="#FF0000"><sup>5</sup> </font><b>| </b><font color="#FF0000">
+		<sup>6</sup>
+        </font><b>| </b><font color="#FF0000"><sup>7</sup> </font><b>| </b><font color="#FF0000">
+		<sup>8</sup>
+        </font><b>| </b><sup><font color="#FF0000">9</font></sup></tt>
+</TD>
+</TR>
+    <TR>
+      <TD valign="top" align="right"><tt><a name="superscript-sign"></a>&lt;superscript-sign&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top"><tt><sup><font color="#FF0000">+</font></sup> <b>| </b>
+		<sup><font color="#FF0000">-</font></sup></tt></TD>
+    </TR>
+    </TABLE>
+</BLOCKQUOTE>
+  
+<p>The power operation cannot be associated
+without brackets. For example the following expression is illegal:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#FFFF99"><tt>2<sup>2 3</sup></tt></TD>
+      <TD valign="top" align="center">&nbsp;<font face="Times New Roman">&#8211;</font>&nbsp;</TD>
+      <TD valign="top">Should be disambiguated as</TD>
+      <TD valign="top">&nbsp;&nbsp;&nbsp;</TD>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>
+        (2<sup>2</sup>)<sup>3</sup></tt>
+</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#FFFF99">&nbsp;</TD>
+      <TD valign="top" align="center"></TD>
+      <TD valign="top">or as</TD>
+      <TD valign="top"></TD>
+      <TD valign="top" bgcolor="#B8D3D1"><tt> 2**2<sup>3</sup></tt>
+</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+  
+<P align="right"><a name="4.4"></a><A href="#4.3"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></A><A href="#6"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><A
+      href="#4.5"><IMG src="next.gif" alt="[Next]" width="29" height="29"></A><H3>4.4. Brackets</H3>
+  <p><a name="bracket_operations"></a></p>
+  <table border="5" cellpadding="3" cellspacing="0">
+    <tr>
+      <td align="center" bgcolor="#008080"><b><font color="#FFFFFF">Operation</font></b></td>
+      <td bgcolor="#008080" align="center"><font color="#FFFFFF"><b>Precedence</b></font></td>
+      <td bgcolor="#008080" align="left"><b><font color="#FFFFFF">Example</font></b></td>
+      <td bgcolor="#008080" align="left"><font color="#FFFFFF"><b>Description</b></font></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><tt><font color="#FF0000">(</font></tt><i>x</i><tt><font color="#FF0000">)</font></tt></td>
+      <td valign="top" align="center">-</td>
+      <td valign="top" align="left"><tt>(5+1)*2</tt></td>
+      <td valign="top" align="left">Ordering brackets&nbsp;</td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><tt><font color="#FF0000">(</font></tt><i>x</i><tt><font color="#FF0000">,</font></tt><i>y</i><tt><font color="#FF0000">)</font></tt></td>
+      <td valign="top" align="center">-</td>
+      <td valign="top" align="left"><tt>(5,1)</tt></td>
+      <td valign="top" align="left"><a href="#singleton_composition">Singleton 
+		composition</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x</i><tt><font color="#FF0000">(</font></tt><i>y</i><tt><font color="#FF0000">,</font></tt><i>z</i><tt><font color="#FF0000">)</font></tt></td>
+      <td valign="top" align="center">8</td>
+      <td valign="top" align="left"><tt>(1,0)(1,1)(10,1)(10,0)</tt></td>
+      <td valign="top" align="left"><a href="#membership_function_composition">Membership function composition</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><i>x </i><tt><font color="#FF0000">[</font></tt><i>y</i><tt><font color="#FF0000">]</font></tt></td>
+      <td valign="top" align="center">3</td>
+      <td valign="top" align="left"><tt>(2.0,0)(4.0,1)(5.0,0)[°C]</tt></td>
+      <td valign="top" align="left"><a href="#scaling_values">Scaling</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><tt><font color="#FF0000">[</font></tt><i>x</i><tt><font color="#FF0000">,</font></tt><i>y</i><tt><font color="#FF0000">]</font></tt></td>
+      <td valign="top" align="center">-</td>
+      <td valign="top" align="left"><tt>[1,20]</tt></td>
+      <td valign="top" align="left">Interval, <a href="#range_composition">range 
+		composition</a></td>
+    </tr>
+  </table>
+<p align="right">
+  <a name="4.5"></a><a href="#4.4"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></a><A href="#6"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><a href="#4.6"><IMG src="next.gif" alt="[Next]" width="29" height="29"></a></p>
+<H3>4.5. Numeric operations</H3>
+<P>Numeric operations are applied to the operands of constant <a href="#Numeric_types">numeric types</a>.</p>
+<H4><a name="4.5.1"></a>4.5.1. Arithmetical numeric operations</H4>
+<P>The numeric arithmetical operations are prefix <tt><font color="#FF0000">+</font></tt>, <tt><font color="#FF0000">-</font></tt>,
+<font color="#FF0000"><tt>abs</tt></font>, dyadic <tt><font color="#FF0000">+</font></tt>, <tt><font color="#FF0000">-</font></tt>,<tt><font color="#FF0000">*</font></tt>,
+<tt><font color="#FF0000">/</font></tt>, <tt><font color="#FF0000">**</font></tt>,
+postfix <tt><sup>&lt;<a href="#power">power</a>&gt;</sup></tt>.</p>
+<P>An unary arithmetical operation (<tt><font color="#FF0000">+</font></tt>, <tt><font color="#FF0000">-</font></tt>,
+<font color="#FF0000"><tt>abs</tt></font>, <tt><sup>&lt;<a href="#power">power</a>&gt;</sup></tt>) yields the result of the same type as the operand.
+A dimensioned operand can be exponentiated only if it is not shifted (<tt>20°C</tt> 
+is shifted.) Examples of unary operations:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>5 m<sup>2</sup></tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;  </TD>
+
+      <TD valign="top">5 square meters
+</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>abs (-4)</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;  </TD>
+
+      <TD valign="top">4
+</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>2<sup>3</sup></tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;  </TD>
+
+      <TD valign="top">8
+</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<P>A dyadic arithmetical operation yields an
+integer (<a href="#Integer">Integer</a>) result if both operands are
+integers. Otherwise the result is of real (<a href="#Real">Real</a>)
+type. Dimensioned operands must have compatible types. Shifted dimensioned
+constants can be multiplied and divided only by
+dimensionless constants. The second operand of <tt><font color="#FF0000">**</font></tt>
+shall be dimensionless. Further if the first operand has a dimension, it cannot
+be shifted and the second operand must be a non-negative integer (<a href="#Integer">Integer</a>).</p>
+<H4><a name="4.5.2"></a>4.5.2. Relational numeric operations</H4>
+<P>Relational operations <tt><font color="#FF0000">=</font></tt>, <tt>
+<font color="#FF0000">/=</font></tt>, <tt><font color="#FF0000">&#8800;</font></tt>,
+<tt><font color="#FF0000">&gt;</font></tt>, <tt><font color="#FF0000">&lt;</font></tt>,
+<tt><font color="#FF0000">&lt;=</font></tt>, <tt><font color="#FF0000">&#8804;</font></tt>, 
+<tt><font color="#FF0000">&gt;=</font></tt>, <tt><font color="#FF0000">&#8805;</font></tt>
+are defined for all <a href="#Numeric_types">numeric types</a> and yield a value
+of <a href="#Truth_Value">Truth_Value</a>. When one
+operand is of real (<a href="#Real">Real</a>) type, another is
+automatically converted to the same type. The dimensions of the operands after
+necessary conversions must be compatible. Examples of numeric relational
+operations:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>5 m<sup>2</sup> = 5 yd<sup>2</sup></tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;  </TD>
+
+      <TD valign="top">0 of <a href="#Truth_Value">Truth_Value</a>: 5 square meters is not equal to 5 square yards
+</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>10 &gt; 1</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;  </TD>
+
+      <TD valign="top">1 of <a href="#Truth_Value">Truth_Value</a>
+</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<H4><a name="4.5.3"></a>4.5.3. Numeric membership tests</H4>
+<p><a name="numeric_membership_tests"></a>The membership tests operations are <tt><font color="#FF0000">in</font></tt>,
+<tt><font color="#FF0000">is</font></tt>, <tt><font color="#FF0000">is&nbsp;in</font></tt>,
+<font color="#FF0000">&#8712;</font>,
+<font color="#FF0000">&#8713;</font>,
+<font color="#FF0000"><tt>not&nbsp;in </tt></font>with the left operand of a <a href="#Numeric_types">numeric</a> 
+type and the operations <font color="#FF0000">&#8715;</font>,
+<font color="#FF0000">&#8716;</font> with the right 
+operand of a&nbsp; <a href="#Numeric_types">numeric</a> 
+type. The operations <tt><font color="#FF0000">in</font></tt>,
+<tt><font color="#FF0000">is</font></tt>, <tt><font color="#FF0000">is&nbsp;in</font></tt>,
+<font color="#FF0000">&#8712;</font> 
+are equivalent. The operations <font color="#FF0000"><tt>not&nbsp;in</tt></font>,
+<font color="#FF0000">&#8713; </font>are equivalent and <i>x</i><font color="#FF0000">&#8713;</font><i>y</i> 
+is identical to <i>y</i><font color="#FF0000">&#8712;</font><i>x</i>. The 
+operation <i>x</i><font color="#FF0000">&#8715;</font><i>y</i> is identical to
+<i>y</i><font color="#FF0000">&#8712;</font><i>x</i>. The operation <i>x</i><font color="#FF0000">&#8716;</font><i>y</i> 
+is identical to <i>y</i><font color="#FF0000">&#8713;</font><i>x</i>. The non-numeric operand is a <a href="#set_types">set type</a>.
+Operands are converted as follows:</p>
+<ul>
+  <li>The numeric operand is converted to <a href="#Real">Real</a> if the
+    set operand has either of the types <a href="#Real_Singleton">Real_Singleton</a>,
+    <a href="#Real_Range">Real_Range</a>, <a href="#Real_Set">Real_Set</a>
+    or <a href="#Domain_Subset">Domain_Subset</a>
+    or <a href="#Intuitionistic_Domain_Subset">Intuitionistic_Domain_Subset</a>
+    with a real domain set.</li>
+  <li>The set operand is converted from <a href="#Integer_Singleton">Integer_Singleton</a>,
+    <a href="#Integer_Range">Integer_Range</a>, <a href="#Integer_Set">Integer_Set</a>
+    to <a href="#Real_Set">Real_Set</a> if the numeric operand is of <a href="#Real">Real</a>.</li>
+</ul>
+<p>After types conversion the numeric operand should have the same type and
+compatible dimension as the domain set of the set operand. The result of a
+membership operation is of <a href="#Intuitionistic_Truth_Value">Intuitionistic_Truth_Value</a>.
+The examples of membership tests:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>5 in [1,6]</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;  </TD>
+
+      <TD valign="top">
+[1:1]
+</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>1..5&#8715;2</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;</TD>
+
+      <TD valign="top">same as above</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>6.0 not in (6.0,1)</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;  </TD>
+
+      <TD valign="top">[0:0]
+</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>6.0 m in (6,0)(6,1)(6,0)[m]</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;  </TD>
+
+      <TD valign="top">[1:0]
+</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<H4><a name="4.5.4"></a>4.5.4. Singleton composition</H4>
+<P><a name="singleton_composition"></a>Round brackets <tt><font color="#FF0000">()</font></tt>
+with two items compose a singleton. The first item is of <a href="#Numeric_types">numeric
+type</a>, it identifies the domain set value. The second item is of <a href="#Truth_Value">Truth_Value</a>.
+The singleton type is determined by the <a href="#Numeric_types">numeric type</a>.
+<a href="#Integer">Integer</a> produces <a href="#Integer_Singleton">Integer_Singleton</a>.
+<a href="#Real">Real</a> does <a href="#Real_Singleton">Real_Singleton</a>.
+Examples of singletons:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>(5,1)</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;</TD>
+
+      <TD valign="top"><a href="#Integer_Singleton">Integer_Singleton</a>, the value 5 with the truth value 1
+</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>(0.5 m, 0.5)</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;</TD>
+
+      <TD valign="top"><a href="#Real_Singleton">Real_Singleton</a>, the value 0.5 meter with the truth value 0.5
+</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<H4><a name="4.5.5"></a>4.5.5. Numeric interval composition</H4>
+<p align="left"><a name="range_composition"></a>Square brackets <tt><font color="#FF0000">[]</font></tt> with
+two items and the operation ellipsis <tt><font color="#FF0000">.. </font></tt>
+compose a range (or equivalently an interval). The first item / operand is the
+lower bound of the range. The second item / operand is the upper bound. When one
+item / operand is of&nbsp; real (<a href="#Real">Real</a>) type,
+another is converted to the same type as necessary. After necessary conversions,
+the lower bound must be less or equal than the upper bound. The dimensions of
+bounds must be compatible. The result type is determined by the types of the
+bounds after applying necessary conversions. <a href="#Integer">Integer</a>
+bounds produce a result of <a href="#Integer_Range">Integer_Range</a>.
+<a href="#Real">Real</a> bounds do a result of <a href="#Real_Range">Real_Range</a>.
+Examples of ranges:
+</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>[1, 20]</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;</TD>
+
+      <TD valign="top"><a href="#Integer_Range">Integer_Range</a> range from 1 to 20
+</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>1..20</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;</TD>
+
+      <TD valign="top">Same as above
+</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>[1&nbsp;m,&nbsp;20&nbsp;m]</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;</TD>
+
+      <TD valign="top"><a href="#Real_Range">Real_Range</a> 1..20 meter
+</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>1&nbsp;m..20&nbsp;m</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;</TD>
+
+      <TD valign="top">Same as above
+</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<H4><a name="4.5.6"></a>4.5.6. Scaled numeric values</H4>
+<P><a name="scaling_values"></a>A numeric value in square brackets <tt><font color="#FF0000">[]</font></tt>
+specified after a numeric multiplies the operand before the brackets. Shifted dimensioned
+operand can be multiplied and divided only by a dimensionless one. The result
+has <a href="#Real">Real</a>. Examples of scaling numeric constants:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>1 [2]</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;</TD>
+
+      <TD valign="top">2 (of <a href="#Real">Real</a>)
+</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>2.0 [°C]</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;</TD>
+
+      <TD valign="top">2 Celsius degree
+</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>1 m [1/s]</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;</TD>
+
+      <TD valign="top">1 m/s
+</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<p align="right">
+  <a name="4.6"></a><a href="#4.5"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></a><A href="#6"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><a href="#4.7"><IMG src="next.gif" alt="[Next]" width="29" height="29"></a></p>
+<H3>4.6. Logical operations</H3>
+<P>Logical operations are <tt><font color="#FF0000">and</font></tt>, <tt><font color="#FF0000">&#8896;</font></tt>,
+<tt><font color="#FF0000">not</font></tt>,
+<tt><font color="#FF0000">&#172;</font></tt>, <tt><font color="#FF0000">or</font></tt>, <tt><font color="#FF0000">&#8897;</font></tt>,
+<tt><font color="#FF0000">xor</font></tt>
+applied to the operands of logical types <a href="#Truth_Value">Truth_Value</a>
+and <a href="#Intuitionistic_Truth_Value">Intuitionistic_Truth_Value</a>.
+The result of logical <tt><font color="#FF0000">not</font></tt>,
+<tt><font color="#FF0000">&#172;</font></tt> has the same
+type as the operand. For the dyadic operations <tt><font color="#FF0000">and</font></tt>, <tt><font color="#FF0000">&#8896;</font></tt>,
+<tt><font color="#FF0000">or</font></tt>, <tt><font color="#FF0000">&#8897;</font></tt>, <tt><font color="#FF0000">xor</font></tt>
+if one operand has the type <a href="#Intuitionistic_Truth_Value">Intuitionistic_Truth_Value</a>,
+then another is converted to the same type. The result a dyadic logical
+operation is same as the type of the operands after necessary conversions 
+applied.
+Examples of logical operations:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>1 and 0.6</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;</TD>
+
+      <TD valign="top">0.6 of <a href="#Truth_Value">Truth_Value</a>
+</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>1 and [1:0.6]</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;</TD>
+
+      <TD valign="top"><a href="#Intuitionistic_Truth_Value">Intuitionistic_Truth_Value</a>
+        with the possibility 1 and the necessity 0.6
+</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>[0.3:0.6]&nbsp;or&nbsp;[0.7:0.0]</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;</TD>
+
+      <TD valign="top"><a href="#Intuitionistic_Truth_Value">Intuitionistic_Truth_Value</a>
+        with the possibility 0.7 and the necessity 0.6
+</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>not [1:0.6]</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;</TD>
+
+      <TD valign="top"><a href="#Intuitionistic_Truth_Value">Intuitionistic_Truth_Value</a>
+        with the possibility 0.4 and the necessity 0
+</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<p align="right">
+  <a name="4.7"></a><a href="#4.6"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></a><A href="#6"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><a href="#4.8"><IMG src="next.gif" alt="[Next]" width="29" height="29"></a></p>
+<H3>4.7. Set operations</H3>
+<P><a name="set_types"></a>Set operations are applied to the operands representing sets:</p>
+<ul>
+  <li><a href="#Integer_Singleton">Integer_Singleton</a>,</li>
+  <li><a href="#Integer_Range">Integer_Range</a>,</li>
+  <li><a href="#Integer_Set">Integer_Set</a>,</li>
+  <li><a href="#Real_Singleton">Real_Singleton</a>,</li>
+  <li><a href="#Real_Range">Real_Range</a>,</li>
+  <li><a href="#Real_Set">Real_Set</a>,</li>
+  <li><a href="#Domain_Subset">Domain_Subset</a>,</li>
+  <li><a href="#Intuitionistic_Domain_Subset">Intuitionistic_Domain_Subset</a>.</li>
+</ul>
+<H4><a name="4.7.1"></a>4.7.1. Lattice set-operations</H4>
+<P>Lattice operations <tt><font color="#FF0000">and</font></tt>, <tt><font color="#FF0000">&#8898;</font></tt>, <tt><font color="#FF0000">not</font></tt>,
+<tt><font color="#FF0000">&#172;</font></tt>,
+<tt><font color="#FF0000">or</font></tt>, <tt><font color="#FF0000">&#8899;</font></tt>, <tt><font color="#FF0000">xor</font></tt>
+ when applied to sets produce a set.
+<P>The result of <tt><font color="#FF0000">not</font></tt> has the type
+determined by the operand's type:</p>
+<ul>
+  <li>For <a href="#Integer_Singleton">Integer_Singleton</a> and <a href="#Integer_Range">Integer_Range</a>
+    the result of <tt><font color="#FF0000">not</font></tt> has the type <a href="#Integer_Set">Integer_Set</a>;</li>
+  <li>For <a href="#Real_Singleton">Real_Singleton</a> and <a href="#Real_Range">Real_Range</a>
+    the result of <tt><font color="#FF0000">not</font></tt> has the type <a href="#Real_Set">Real_Set</a>;</li>
+  <li>For other types the result of <tt><font color="#FF0000">not</font></tt>
+    has the type of the operand.</li>
+</ul>
+<p><a name="set_types_conversions"></a>For the dyadic operations <tt><font color="#FF0000">and</font></tt>, <tt><font color="#FF0000">&#8898;</font></tt>,
+<tt><font color="#FF0000">or</font></tt>, <tt><font color="#FF0000">&#8899;</font></tt>, <tt><font color="#FF0000">xor</font></tt>
+ the following types conversions are automatically applied:</p>
+<ul>
+  <li><a href="#Integer_Singleton">Integer_Singleton</a> or <a href="#Integer_Range">Integer_Range</a>
+    operand is converted to <a href="#Integer_Set">Integer_Set</a> if
+    another operand has either the same or <a href="#Integer_Set">Integer_Set</a>
+    type;</li>
+  <li><a href="#Real_Singleton">Real_Singleton</a> or <a href="#Real_Range">Real_Range</a>
+    operand is converted to <a href="#Real_Set">Real_Set</a> if
+    another operand has either the same or <a href="#Real_Set">Real_Set</a>
+    type;</li>
+  <li><a href="#Integer_Singleton">Integer_Singleton</a>, <a href="#Integer_Range">Integer_Range</a>,
+    <a href="#Integer_Set">Integer_Set</a>, <a href="#Real_Singleton">Real_Singleton</a>,
+    <a href="#Real_Range">Real_Range</a> or <a href="#Real_Set">Real_Set</a>
+    operand is converted to <a href="#Domain_Subset">Domain_Subset</a>
+    if that is the type of another operand;</li>
+  <li>Any operand is converted <a href="#Intuitionistic_Domain_Subset">Intuitionistic_Domain_Subset</a>
+    if that is the type of another operand.</li>
+</ul>
+<p>Dimensions of the operands of&nbsp; <tt><font color="#FF0000">and</font></tt>, <tt><font color="#FF0000">&#8898;</font></tt>,
+<tt><font color="#FF0000">or</font></tt>, <tt><font color="#FF0000">&#8899;</font></tt>, <tt><font color="#FF0000">xor</font></tt>
+ shall be compatible. The result of an operation is the type of the operands
+after necessary conversions. Examples of lattice operations:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+<TD valign="top" bgcolor="#B8D3D1"><tt>1..5 and 2..4</tt></TD>
+<TD valign="top" align="center">&nbsp;&#8211;&nbsp; </TD>
+<TD valign="top">Integer set containing 2, 3, 4 (the type is <a href="#Integer_Set">Integer_Set</a>)</TD>
+</TR>
+<TR>
+<TD valign="top" bgcolor="#B8D3D1"><tt>not (2, 1)</tt></TD>
+<TD valign="top" align="center">&nbsp;&#8211;&nbsp; </TD>
+<TD valign="top">Integer set containing all integer values except 2 (the type is <a href="#Integer_Set">Integer_Set</a>)</TD>
+</TR>
+<TR>
+<TD valign="top" bgcolor="#B8D3D1"><tt>1..5&nbsp;and&nbsp;(1.0,&nbsp;0.5)</tt></TD>
+<TD valign="top" align="center">&nbsp;&#8211;&nbsp; </TD>
+<TD valign="top">Real set containing 1 with the truth level 0.5 (the type is <a href="#Real_Set">Real_Set</a>)</TD>
+</TR>
+<TR>
+<TD valign="top" bgcolor="#B8D3D1"><tt>high or low</tt></TD>
+<TD valign="top" align="center">&nbsp;&#8211;&nbsp; </TD>
+<TD valign="top">Fuzzy domain subset containing the linguistic variables high and low (the type <a href="#Domain_Subset">Domain_Subset</a>)</TD>
+</TR>
+<TR>
+<TD valign="top" bgcolor="#B8D3D1"><tt>high or low^[1.0:0]</tt></TD>
+<TD valign="top" align="center">&nbsp;&#8211;&nbsp; </TD>
+<TD valign="top">Intuitionistic domain subset containing the linguistic variables high and low with the possibility 1 and the linguistic
+variable high with the necessity 1 (the type <a href="#Intuitionistic_Domain_Subset">Intuitionistic_Domain_Subset</a>)</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<H4><a name="4.7.2"></a>4.7.2. Relational operations on sets</H4>
+<P>Relational operations <tt><font color="#FF0000">=</font></tt>, <tt><font color="#FF0000">/=</font></tt>,
+<tt><font color="#FF0000">&#8800;</font></tt>
+are defined for all <a href="#set_types">set types</a> and yield a value
+of <a href="#Intuitionistic_Truth_Value">Intuitionistic_Truth_Value</a>.
+Sets equality <i>x</i> <tt><font color="#FF0000">=</font></tt> <i>y</i> is
+defined as <i>x</i> <tt><font color="#FF0000">in</font></tt> <i>y</i> <tt><font color="#FF0000">and</font></tt>
+<i>y</i> <tt><font color="#FF0000">in</font></tt> <i>x</i>. Inequality <i>x</i> <tt><font color="#FF0000">/=</font></tt>
+<i>y</i> is defined as <tt><font color="#FF0000">not(</font></tt><i>x</i><tt><font color="#FF0000">=</font></tt><i>y</i><tt><font color="#FF0000">)</font></tt>. Thus both are commutative. The operands are automatically converted as <a href="#set_types_conversions">described</a>
+for the operations <tt><font color="#FF0000">and</font></tt>,
+<tt><font color="#FF0000">or</font></tt>, <tt><font color="#FF0000">xor</font></tt>.
+Dimensions of the operands must be compatible. Examples of relational
+operations:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>1..5 = [0.5, 1]</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;</TD>
+      <TD valign="top">[1:0] (uncertain)</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>1..5 /= 10..11</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;</TD>
+      <TD valign="top">[1:1] (true)</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<H4><a name="4.7.3"></a>4.7.3. Membership operations</H4>
+<p>The membership tests operations are <tt><font color="#FF0000">in</font></tt>,
+<tt><font color="#FF0000">is</font></tt>, <tt><font color="#FF0000">is&nbsp;in</font></tt>,
+<font color="#FF0000">&#8712;</font>,
+<font color="#FF0000">&#8713;</font>,
+<font color="#FF0000"><tt>not&nbsp;in </tt></font>with the left operand of a <a href="#Numeric_types">numeric</a> 
+type and the operations <font color="#FF0000">&#8715;</font>,
+<font color="#FF0000">&#8716;</font> with the right 
+operand of a&nbsp; <a href="#Numeric_types">numeric</a> 
+type. For detailed description see <a href="#numeric_membership_tests">numeric 
+membership tests</a>.</p>
+<H4><a name="4.7.4"></a>4.7.4. Subset test operations</H4>
+<p>Subset relation operations are <tt><font color="#FF0000">in</font></tt>,
+<tt><font color="#FF0000">is</font></tt>, <tt><font color="#FF0000">is in</font></tt>,
+<tt><font color="#FF0000">&#8838;</font></tt>,
+<tt><font color="#FF0000">&#8839;</font></tt>,
+<tt><font color="#FF0000">&#8840;</font></tt>,
+<tt><font color="#FF0000">&#8841;</font></tt>,
+<font color="#FF0000"><tt>not in</tt></font>.&nbsp; The operations <tt><font color="#FF0000">in</font></tt>,
+<tt><font color="#FF0000">is</font></tt>, <tt><font color="#FF0000">is&nbsp;in</font></tt>,
+<tt><font color="#FF0000">&#8838;</font></tt>
+are equivalent. The operations <tt><font color="#FF0000">&#8840;</font></tt>,
+<font color="#FF0000"><tt>not in</tt></font> are equivalent and <i>x</i><tt><font color="#FF0000">&#8840;</font></tt><i>y</i> 
+is identical to <tt><font color="#FF0000">not(</font></tt><i>x</i><tt><font color="#FF0000">&#8838;</font></tt><i>y</i><tt><font color="#FF0000">)</font></tt>. 
+The operation <i>x</i><tt><font color="#FF0000">&#8839;</font></tt><i>y</i> is 
+identical to <i>y</i><tt><font color="#FF0000">&#8838;</font></tt><i>x</i>. The 
+operation <i>x</i><tt><font color="#FF0000">&#8841;</font></tt><i>y</i> is 
+identical to <i>y</i><tt><font color="#FF0000">&#8840;</font></tt><i>x</i>. Example of subset operations:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>2..3 &#8838; 1..5</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;</TD>
+      <TD valign="top">[1:1] (true)</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<H4><a name="4.7.5"></a>4.7.5. Membership function composition</H4>
+<P><a name="membership_function_composition"></a>The ternary operation <i>x</i><tt><font color="#FF0000">(</font></tt><i>y</i><tt><font color="#FF0000">,</font></tt><i>z</i><tt><font color="#FF0000">)</font></tt>
+composes a fuzzy set by specifying its membership function per point. The
+operands in brackets shall <a href="#singleton_composition">compose a singleton</a>.
+The singleton specifies the rightmost point of the membership function. The
+first operand shall denote a set of either of the following types:</p>
+<ul>
+  <li><a href="#Integer_Singleton">Integer_Singleton</a>,</li>
+  <li><a href="#Integer_Range">Integer_Range</a>,</li>
+  <li><a href="#Integer_Set">Integer_Set</a>,</li>
+  <li><a href="#Real_Singleton">Real_Singleton</a>,</li>
+  <li><a href="#Real_Range">Real_Range</a>,</li>
+  <li><a href="#Real_Set">Real_Set</a>.</li>
+</ul>
+<P>The following type conversions are applied to the operands:</p>
+<ul>
+  <li>The left operand is converted to <a href="#Real_Set">Real_Set</a>
+    when the singleton operand has the type <a href="#Real_Singleton">Real_Singleton</a>;</li>
+  <li>The singleton is operand is converted to the type <a href="#Real_Singleton">Real_Singleton</a>
+    when the left operand has the type <a href="#Real_Singleton">Real_Singleton</a>,
+    <a href="#Real_Range">Real_Range</a> or <a href="#Real_Set">Real_Set</a>;</li>
+  <li>In all other cases the left operand is converted to <a href="#Integer_Set">Integer_Set</a>.&nbsp;</li>
+</ul>
+<P>The result of the operation has the type of the left operand after necessary
+conversions. The dimensions of the left operand and the singleton shall be
+compatible. Further, the singleton operand shall specify the membership function
+for a point greater or equal to the rightmost point in the left operand. The
+membership function of the result is extrapolated to the right using the truth
+value specified. When the left operand is a singleton, then the truth value it
+specifies is extrapolated to the left. It is allowed to specify several values
+of the membership function in one point. In which case the result is
+intuitionistic in these points. Examples of membership composition:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>(1 m,0)(5 m,1)(10 m,0)</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;&nbsp;  </TD>
+      <TD valign="top">Triangular real set (the type is <a href="#Real_Set">Real_Set</a>)</TD>
+</TR>
+<tr>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>(1,0)(1,1)(10,1)(10,0)</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;&nbsp;  </TD>
+      <TD valign="top">Rectangular membership function (the type <a href="#Integer_Set">Integer_Set</a>)
+</TD>
+</tr>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>(1.1,0.6)(1.1,0.2)(1.1,1)(1.1,0.3)</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;&nbsp;  </TD>
+      <TD valign="top">Pulse membership function constant 0.6 left of 1.1 and
+        0.3 right of 1.1. In 1.1 it goes down to 0.2 and up to 1 (the type is <a href="#Real_Set">Real_Set</a>)
+</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<H4><a name="4.7.6"></a>4.7.6. &#945;-cut operation</H4>
+<P>The dyadic operation <tt><font color="#FF0000">^</font></tt>  yields &alpha;-cut
+of a set. The left operand is of one of the <a href="#set_types">set types</a>.
+The right operand is a truth value of either <a href="#Truth_Value">Truth_Value</a>
+or <a href="#Intuitionistic_Truth_Value">Intuitionistic_Truth_Value</a>.
+The left operand is automatically converted:</p>
+<ul>
+  <li>To <a href="#Domain_Subset">Domain_Subset</a> when the right
+    operand has the type <a href="#Truth_Value">Truth_Value</a>
+    and the type of the left operand is not <a href="#Intuitionistic_Domain_Subset">Intuitionistic_Domain_Subset</a>.</li>
+  <li>To <a href="#Intuitionistic_Domain_Subset">Intuitionistic_Domain_Subset</a>
+    in all other cases.</li>
+</ul>
+<P>The result of the operation has the type of the left operand after necessary
+conversions. Examples of &alpha;-cuts:</p>
+<blockquote>
+  <TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>Power&nbsp;is&nbsp;(low^0.5&nbsp;or&nbsp;High)</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;&nbsp;  </TD>
+      <TD valign="top">Here the linguistic variable <i>low</i> is cut at the
+        level of 0.5. The result is of <a href="#Domain_Subset">Domain_Subset</a>,
+        to which the linguistic variable <i>high</i> is added.
+</TD>
+</TR>
+<tr>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>Power&nbsp;is&nbsp;1..20[W]^[1:0.5]</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;&nbsp;  </TD>
+      <TD valign="top">The value has rectangular membership functions for
+        possibility and necessity. The possibility rectangle has the level 1.
+        The necessity one does 0.5
+</TD>
+</tr>
+  </TABLE>
+</blockquote>
+<H4><a name="4.7.7"></a>4.7.7. Scaled set values</H4>
+<P>A numeric value in square brackets <tt><font color="#FF0000">[]</font></tt>
+specified after an operand of <a href="#set_types">set type</a> multiplies the
+elements of the set. The set operand may have one of the following types:</p>
+<ul>
+  <li><a href="#Integer_Singleton">Integer_Singleton</a>,</li>
+  <li><a href="#Integer_Range">Integer_Range</a>,</li>
+  <li><a href="#Integer_Set">Integer_Set</a>,</li>
+  <li><a href="#Real_Singleton">Real_Singleton</a>,</li>
+  <li><a href="#Real_Range">Real_Range</a>,</li>
+  <li><a href="#Real_Set">Real_Set</a>.</li>
+</ul>
+<P>The following type conversions are applied to the set operand:</p>
+<ul>
+  <li><a href="#Integer_Singleton">Integer_Singleton</a> is converted to
+    <a href="#Real_Singleton">Real_Singleton</a>;</li>
+  <li><a href="#Integer_Range">Integer_Range</a> is converted to <a href="#Real_Range">Real_Range</a>;</li>
+  <li><a href="#Integer_Set">Integer_Set</a> is converted to <a href="#Real_Set">Real_Set</a>.&nbsp;</li>
+</ul>
+<P>The result of the operation has the type of the left operand after necessary
+conversions. Shifted dimensioned operand can be multiplied and divided only by a
+dimensionless one. The result of scaling has the type of the set operand. Examples of scaling
+set constants:</p>
+<blockquote>
+  <TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>1..2 [m]</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;  </TD>
+      <TD valign="top">1 m .. 2 m (of <a href="#Real_Range">Real_Range</a>)
+</TD>
+</TR>
+<tr>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>(2.0,0)(4.0,1)(5.0,0)[°C]</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;  </TD>
+      <TD valign="top">A triangular set of Celsius degree (of <a href="#Real_Range">Real_Range</a>)
+</TD>
+</tr>
+  </TABLE>
+</blockquote>
+<p align="right">
+  <a name="4.8"></a><a href="#4.7"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></a><A href="#6"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><a href="#4.9"><IMG src="next.gif" alt="[Next]" width="29" height="29"></a></p>
+<H3>4.8. String operations</H3>
+<p>String operations are defined on the types <a href="#Character">Character</a>
+and <a href="#String">String</a>.</p>
+<H4><a name="4.8.1"></a>4.8.1. Concatenation</H4>
+<P>The operation <font color="#FF0000"><tt>&amp;</tt></font> takes two operands
+of either <a href="#Character">Character</a> or <a href="#String">String</a> and
+yields a <a href="#String">String</a> result. Example of using concatenation:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>'a' &amp; &quot;bcde&quot;</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;  </TD>
+      <TD valign="top">String abcde</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<H4><a name="4.8.2"></a>4.8.2. Relational string operations</H4>
+<P>Relational operations <tt><font color="#FF0000">=</font></tt>, <tt><font color="#FF0000">/=</font></tt>, <tt><font color="#FF0000">&#8800;</font></tt>,
+<tt><font color="#FF0000">&gt;</font></tt>, <tt><font color="#FF0000">&lt;</font></tt>,
+<tt><font color="#FF0000">&lt;=</font></tt>, <tt><font color="#FF0000">&#8804;</font></tt>, <tt><font color="#FF0000">&gt;=</font></tt>, <tt><font color="#FF0000">&#8805;</font></tt>
+are defined on operands of <a href="#Character">Character</a> and <a href="#String">String</a>
+types. They yield a value
+of <a href="#Truth_Value">Truth_Value</a> type. When one
+operand is of real (<a href="#Real">Real</a>) type, another is
+automatically converted to the same type. The dimensions of the operands after
+necessary conversions must be compatible. Examples of numeric relational
+operations:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>'b' &gt; &quot;&quot;</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;  </TD>
+      <TD valign="top">1 of <a href="#Truth_Value">Truth_Value</a>
+</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>&quot;abc&quot; &gt; &quot;abcdef&quot;</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;  </TD>
+      <TD valign="top">1 of <a href="#Truth_Value">Truth_Value</a>
+</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<p align="right">
+  <a name="4.9"></a><a href="#4.8"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></a><A href="#6"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><a href="#5"><IMG src="next.gif" alt="[Next]" width="29" height="29"></a>
+</p>
+<H3>4.9. Predicate operations</H3>
+<p>Predicate operations are applied to <a href="#Predicate">predicates</a> and <a href="#Predicate_variable">predicate
+variables</a>.</p>
+<H4><a name="4.9.1"></a>4.9.1. Relational operations</H4>
+<P>The relational operations on <a href="#Predicate_variable">predicate
+variables</a> are <tt><font color="#FF0000">=</font></tt>, <tt><font color="#FF0000">/=</font></tt>, <tt><font color="#FF0000">&#8800;</font></tt>,
+<tt><font color="#FF0000">&gt;</font></tt>, <tt><font color="#FF0000">&lt;</font></tt>,
+<tt><font color="#FF0000">&lt;=</font></tt>, <tt><font color="#FF0000">&#8804;</font></tt>, <tt><font color="#FF0000">&gt;=</font></tt>, <tt><font color="#FF0000">&#8805;</font></tt>,
+<tt><font color="#FF0000">in</font></tt>,
+<tt><font color="#FF0000">is</font></tt>, <tt><font color="#FF0000">is&nbsp;in</font></tt>,
+<font color="#FF0000"><tt>&#8838;</tt></font>,
+<font color="#FF0000"><tt>&#8839;</tt></font>,
+<font color="#FF0000"><tt>&#8840;</tt></font>,
+<font color="#FF0000"><tt>&#8841;</tt></font>,
+<font color="#FF0000"><tt>&#8712;</tt></font>,
+<font color="#FF0000"><tt>&#8713;</tt></font>,
+<font color="#FF0000"><tt>&#8715;</tt></font>,
+<font color="#FF0000"><tt>&#8716;</tt></font>,
+<font color="#FF0000"><tt>not&nbsp;in</tt></font>. One of the operands shall be
+a <a href="#Predicate_variable">predicate variable</a>. Other operand depends on
+the operation:
+<ul>
+  <li>for the equality and inequality <tt><font color="#FF0000">=</font></tt>, <tt><font color="#FF0000">/=</font></tt>, <tt><font color="#FF0000">&#8800;</font></tt>
+    the non-variable operand shall be either of a <a href="#Numeric_types">numeric</a>
+    or of a <a href="#set_types">set</a> type;</li>
+  <li>for the comparisons <tt><font color="#FF0000">&gt;</font></tt>, <tt><font color="#FF0000">&lt;</font></tt>,
+<tt><font color="#FF0000">&lt;=</font></tt>, <tt><font color="#FF0000">&#8804;</font></tt>, <tt><font color="#FF0000">&gt;=</font></tt>, <tt><font color="#FF0000">&#8805;</font></tt>
+    the non-variable operand shall be of a <a href="#Numeric_types">numeric</a>
+    type;</li>
+  <li>for subset tests <tt><font color="#FF0000">in</font></tt>,
+<tt><font color="#FF0000">is</font></tt>, <tt><font color="#FF0000">is&nbsp;in</font></tt>,
+<font color="#FF0000"><tt>&#8838;</tt></font>,
+<font color="#FF0000"><tt>&#8839;</tt></font>,
+<font color="#FF0000"><tt>&#8840;</tt></font>,
+<font color="#FF0000"><tt>&#8841;</tt></font>,
+<font color="#FF0000"><tt>&#8712;</tt></font>,
+<font color="#FF0000"><tt>&#8713;</tt></font>,
+<font color="#FF0000"><tt>&#8715;</tt></font>,
+<font color="#FF0000"><tt>&#8716;</tt></font>,
+<font color="#FF0000"><tt>not&nbsp;in</tt></font> the non-variable operand shall
+    be of a <a href="#set_types">set</a> type.</li>
+</ul>
+<P>The non-variable operand is automatically converted as follows:
+<ul>
+  <li><a href="#Integer">Integer</a>  is converted to <a href="#Real">Real</a> 
+    if the variable is <a href="#Continuous_numeric_variables">continuous</a>;</li>
+  <li><a href="#Integer_Singleton">Integer_Singleton</a> is converted to
+    <a href="#Real_Singleton">Real_Singleton</a> if the variable is <a href="#Continuous_numeric_variables">continuous</a>;</li>
+  <li><a href="#Integer_Range">Integer_Range</a> is converted to <a href="#Real_Range">Real_Range</a>
+    if the variable is <a href="#Continuous_numeric_variables">continuous</a>;</li>
+  <li><a href="#Integer_Set">Integer_Set</a> is converted to <a href="#Real_Set">Real_Set</a>
+    if the variable is <a href="#Continuous_numeric_variables">continuous</a>.</li>
+</ul>
+<p>After necessary conversions the domain set of the non-variable operand and
+its dimension shall match one of the variable. The result of a relational
+operation is a <a href="#Predicate">predicate</a>. The equality&nbsp; <tt><font color="#FF0000">=</font></tt>
+and the inequality <tt><font color="#FF0000">/=</font></tt>, <tt><font color="#FF0000">&#8800;</font></tt>
+    are commutative.</p>
+<ul>
+  <li>When
+the non-variable operand is of a <a href="#Numeric_types">numeric</a>
+ type then both <i>var</i> <tt><font color="#FF0000">=</font></tt> <i>x</i> and <i>x</i>
+<font color="#FF0000"><tt>=</tt></font><i> var</i> are equivalent to <i>var</i> <tt><font color="#FF0000">in</font></tt>
+<i>x</i>.</li>
+  <li>When the non-variable operand is of a <a href="#set_types">set</a>
+type, then both <i>var</i> <tt><font color="#FF0000">=</font></tt> <i>x</i> and <i>x</i>
+<font color="#FF0000"><tt>=</tt></font><i> var</i> are equivalent to <i>var</i> <tt><font color="#FF0000">in</font></tt>
+<i>x</i> <tt><font color="#FF0000">and</font></tt>
+<i>x</i> <tt><font color="#FF0000">in</font></tt>
+	<i>var</i>.</li>
+</ul>
+<p>The inequality <tt><font color="#FF0000">/=</font></tt>, <tt><font color="#FF0000">&#8800;</font></tt>
+    is defined through
+equality as <tt><font color="#FF0000">not(</font></tt><i>x</i><tt><font color="#FF0000">=</font></tt><i>y</i><tt><font color="#FF0000">)</font></tt>.</p>
+<P> Examples of <a href="#Predicate">predicates</a>:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>Power is low</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;  </TD>
+      <TD valign="top">The variable Power is contained in the linguistic variable low
+</TD>
+</TR>
+<tr>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>Zero in Power</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;  </TD>
+      <TD valign="top">Power contains the linguistic variable Zero
+</TD>
+</tr>
+<tr>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>Power &gt;= 10 W</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;  </TD>
+      <TD valign="top">Power is contained in ]10 W ,&#8734; W[
+</TD>
+</tr>
+<tr>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>10 W &lt;= Power</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;  </TD>
+      <TD valign="top">Same as above
+</TD>
+</tr>
+<tr>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>Power = 0 W</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;  </TD>
+      <TD valign="top">Power is 0 W (It is contained in [0 W,0 W])
+</TD>
+</tr>
+<tr>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>Power = Zero</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;  </TD>
+      <TD valign="top">
+Power contains and is contained in Zero
+</TD>
+</tr>
+  </TABLE>
+</BLOCKQUOTE>
+<H4><a name="4.9.2"></a>4.9.2. Lattice operations</H4>
+<P>Lattice operations <tt><font color="#FF0000">and</font></tt>, <tt><font color="#FF0000">&#8898;</font></tt>,
+<tt><font color="#FF0000">or</font></tt>, <tt><font color="#FF0000">&#8899;</font></tt>,
+<tt><font color="#FF0000">xor</font></tt>, <tt><font color="#FF0000">not</font></tt>, <tt><font color="#FF0000">&#172;</font></tt>
+ when applied to <a href="#Predicate">predicate</a> produce a <a href="#Predicate">predicate</a>.
+Examples of lattice operations on <a href="#Predicate">predicates</a>:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>not (Power is low)</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;  </TD>
+      <TD valign="top">Equivalent to Power is not contained in low
+</TD>
+</TR>
+<tr>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>Power is high and Pressure &gt;= 1 kPa</tt></TD>
+      <TD valign="top" align="center"></TD>
+      <TD valign="top">
+</TD>
+</tr>
+  </TABLE>
+</BLOCKQUOTE>
+<P>The operation <tt><font color="#FF0000">not</font></tt>, <tt><font color="#FF0000">&#172;</font></tt>
+ when applied to a <a href="#Predicate_variable">predicate variable</a> produces
+its complement. Examples of <a href="#Predicate_variable">predicate
+variable</a> complements:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>(not Power) is low</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;  </TD>
+      <TD valign="top"><span style="text-decoration: overline">Power</span> is contained in low</TD>
+</TR>
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>Zero is not Power</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;  </TD>
+      <TD valign="top">Zero is not contained in Power, i.e. it is contained
+        in <span style="text-decoration: overline">Power</span>
+      </TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<p>&nbsp;Because the law of excluded middle does not hold, a realization of
+variable does not necessarily defines one of its complement.</p>
+<H4><a name="4.9.3"></a>4.9.3. Name qualification operation</H4>
+<P>The component operation <tt><font color="#FF0000">.</font></tt> is applied to
+the identifiers to specify a qualified name. The left identifier is a <a href="#Predicate_variable">predicate
+variable</a>. The right identifier is the domain value. Example of a qualified
+name:</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" bgcolor="#B8D3D1"><tt>Power.Low</tt></TD>
+      <TD valign="top" align="center">&nbsp;&#8211;&nbsp;  </TD>
+      <TD valign="top">Low of Power</TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<hr>
+<p align="right">
+  <a name="5"></a><a href="#4.9"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></a><A href="#6"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><A
+      href="#5.1"><IMG src="next.gif" alt="[Next]" width="29" height="29"></A></p>
+<H2>5. Program structure</H2>
+<p>An IFCL program consists of a function block which has the following syntax: 
+</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" align="right"><tt>&lt;IFCL-program&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>&nbsp;::=&nbsp;</tt></TD>
+      <TD valign="top" colspan="2" align="left"><tt><font color="#FF0000">function_block</font> &lt;<a href="#identifier">identifier</a>&gt;
+        &lt;<a href="#program-body">program-body</a>&gt; <font color="#FF0000">end_function_block</font></tt>
+</TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"><tt><a name="program-body"></a>&lt;program-body&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top" colspan="2"><tt>&lt;<a href="#program-block">program-block</a>&gt;
+        <b>[</b>&lt;<a href="#program-body">program-body</a>&gt;<b>]</b></tt></TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"><tt><a name="program-block"></a>&lt;program-block&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top"><tt><b>{</b></tt></TD>
+      <TD valign="top"><tt>&lt;<a href="#input-variables-block">input-variables-block</a>&gt;</tt></TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"></TD>
+      <TD valign="top" align="center"></TD>
+      <TD valign="top"><tt><b>|</b></tt></TD>
+      <TD valign="top"><tt>&lt;<a href="#output-variables-block">output-variables-block</a>&gt;</tt></TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"></TD>
+      <TD valign="top" align="center"></TD>
+      <TD valign="top"><tt><b>|</b></tt></TD>
+      <TD valign="top"><tt>&lt;<a href="#fuzzify-block">fuzzify-block</a>&gt;</tt></TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"></TD>
+      <TD valign="top" align="center"></TD>
+      <TD valign="top"><tt><b>|</b></tt></TD>
+      <TD valign="top"><tt>&lt;<a href="#defuzzify-block">defuzzify-block</a>&gt;</tt></TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"></TD>
+      <TD valign="top" align="center"></TD>
+      <TD valign="top"><tt><b>|</b></tt></TD>
+      <TD valign="top"><tt>&lt;<a href="#rules-block">rules-block</a>&gt;</tt></TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"></TD>
+      <TD valign="top" align="center"></TD>
+      <TD valign="top"><tt><b>}</b></tt></TD>
+      <TD valign="top"></TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<p>The program has the name specified by an <tt>&lt;<a href="#identifier">identifier</a>&gt;</tt>
+following the keyword <tt><font color="#FF0000">function_block</font></tt>. It
+ends with the keyword <tt><font color="#FF0000">end_function_block</font></tt>.
+The program consists of a number of <tt>&lt;<a href="#program-block">program-block</a>&gt;</tt>
+items. The following is an example of a valid program:</p>
+<TABLE border="1" cellpadding="15" cellspacing="0">
+  <TR>
+    <TD bgcolor="#B8D3D1"><tt><b>function_block</b> Test<br>
+&nbsp;&nbsp; <b>var_input</b><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Distance : real [m];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Angle&nbsp;&nbsp;&nbsp; : real [°];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : 
+	integer 1..20; <i>(* Integer variable range 1..20 *)</i><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Color&nbsp;&nbsp;&nbsp; : nominal (red, blue, 
+	white);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; T&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : 
+	real [°C];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; V&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : 
+	float [°C] 10 <b>range</b> 1..2*10;<br>
+&nbsp;&nbsp; <b>end_var</b><br>
+	<br>
+&nbsp;&nbsp; <b>var_output</b><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Power : Real [W];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Valve : Real;<br>
+&nbsp;&nbsp; <b>end_var</b><br>
+	<br>
+&nbsp;&nbsp; <b>fuzzify</b> T<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> Chill := (-10,1)(-4,0); <i>-- °C is 
+	assumed</i><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> Cold&nbsp; := ( 11,1)(17,0) [°C];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> Tepid := ( 3,0)( 8,1)(21,1)(28,0) 
+	[°C];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> Warm&nbsp; := ( 
+	15,0)(21,1)(29,1)(35,0) [°C];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> Hot&nbsp;&nbsp; := ( 25,0)(28,1) 
+	[°C];<br>
+&nbsp;&nbsp; <b>end_fuzzify</b><br>
+	<br>
+&nbsp;&nbsp; <b>defuzzify</b> Valve<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; term Open&nbsp;&nbsp; := 1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; term Closed := 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default&nbsp;&nbsp;&nbsp;&nbsp; := 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; method&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : CoA;<br>
+&nbsp;&nbsp; <b>end_defuzzify</b><br>
+	<br>
+&nbsp;&nbsp; <b>fuzzify</b> Distance<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> too_far := (-5,1)( 0,0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> zero&nbsp;&nbsp;&nbsp; := (-5,0)( 
+	0,1)( 5,0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> close&nbsp;&nbsp; := ( 0,0)( 
+	5,1)(10,0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> medium&nbsp; := ( 5,0)(10,1)(22,0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> far&nbsp;&nbsp;&nbsp;&nbsp; := 
+	(10,0)(22,1);<br>
+&nbsp;&nbsp; <b>end_fuzzify</b><br>
+	<br>
+&nbsp;&nbsp; <b>fuzzify</b> Angle<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> neg_big&nbsp;&nbsp; := (-50,1)(-5,0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> neg_small := (-50,0)(-5,1)( 0,0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> zero&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; := 
+	( -5,0)( 0,1)( 5,0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> pos_small := ( 0,0)( 5,1)(50,0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> pos_big&nbsp;&nbsp; := ( 5,0)(50,1);<br>
+&nbsp;&nbsp; <b>end_fuzzify</b><br>
+	<br>
+&nbsp;&nbsp; <b>defuzzify</b> Power<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> neg_high&nbsp;&nbsp; := -27;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> neg_medium := -12;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> zero&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	:= 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> pos_medium := 12;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>term</b> pos_high&nbsp;&nbsp; := 27;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>accu</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	: MAX;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>method</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	: CoGS;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>default</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	:= 0;<br>
+&nbsp;&nbsp; <b>end_defuzzify</b><br>
+	<br>
+&nbsp;&nbsp; <b>ruleblock</b> Rules<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>and</b> : MIN;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>if</b> T <b>is</b> cold <b>then</b> Valve <b>is</b> closed;<br>
+&nbsp;&nbsp; <b>end_ruleblock</b><br>
+	<br>
+	<b>&nbsp;&nbsp; ruleblock</b> No1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>and</b> : MIN;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>rule</b> 1: <b>if</b> distance <b>is</b> far 
+	<b>&nbsp;&nbsp; and</b> 
+	angle <b>is</b> zero <b>&nbsp;&nbsp;&nbsp;&nbsp; then</b> power <b>is</b> pos_medium;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>rule </b>2: <b>if</b> distance <b>is</b> far 
+	<b>&nbsp;&nbsp; and</b> angle <b>is</b> neg_small <b>then</b> power <b>is</b> pos_high;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>rule </b>3: <b>if</b> distance <b>is</b> far 
+	<b>&nbsp;&nbsp; and</b> angle <b>is</b> neg_big <b>&nbsp; then</b> power <b>is</b> pos_medium;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>rule </b>4: <b>if</b> distance <b>is</b> medium 
+	<b>and</b> angle <b>is</b> neg_small <b>then</b> power <b>is</b> neg_medium;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>rule </b>5: <b>if</b> distance <b>is</b> close 
+	<b>&nbsp;and</b> angle <b>is</b> pos_small <b>then</b> power <b>is</b> pos_medium;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>rule </b>6: <b>if</b> distance <b>is</b> zero 
+	<b>&nbsp; and</b> angle <b>is</b> zero <b>&nbsp;&nbsp;&nbsp;&nbsp; then</b> power 
+	<b>is</b> zero;<br>
+&nbsp;&nbsp; <b>end_ruleblock</b> <br>
+	<br>
+	<b>end_function_block</b></tt></TD>
+  </TR>
+</TABLE>
+<p align="right">
+  <a name="5.1"></a><a href="#5"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></a><A href="#6"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"><IMG src="next.gif" alt="[Next]" width="29" height="29"></A></p>
+<H3>5.1. Rules definition</H3>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<TR>
+      <TD valign="top" align="right"><tt><a name="rules-block"></a>&lt;rules-block&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>&nbsp;::=&nbsp;</tt></TD>
+      <TD valign="top" colspan="2" align="left"><tt><font color="#FF0000">rule_block</font> &lt;<a href="#identifier">identifier</a>&gt;
+        &lt;<a href="#rules-block-body">rules-block-body</a>&gt; <font color="#FF0000">end_rule_block</font></tt></TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"><tt><a name="rules-block-body"></a>&lt;rules-block-body&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top" colspan="2"><tt>&lt;<a href="#rule">rule</a>&gt;<font color="#FF0000">;</font>
+        <b>[</b>&lt;<a href="#rules-block-body">rules-block-body</a>&gt;<b>]</b></tt></TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"><tt><a name="rule"></a>&lt;rule&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top"><tt><b>{</b></tt></TD>
+      <TD valign="top"><tt>&lt;<a href="#accumulation-method">accumulation-method</a>&gt;</tt></TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"></TD>
+      <TD valign="top" align="center"></TD>
+      <TD valign="top"><tt><b>|</b></tt></TD>
+      <TD valign="top"><tt>&lt;<a href="#activation-method">activation-method</a>&gt;</tt></TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"></TD>
+      <TD valign="top" align="center"></TD>
+      <TD valign="top"><tt><b>|</b></tt></TD>
+      <TD valign="top"><tt>&lt;<a href="#intersection-method">intersection-method</a>&gt;</tt></TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"></TD>
+      <TD valign="top" align="center"></TD>
+      <TD valign="top"><tt><b>|</b></tt></TD>
+      <TD valign="top"><tt>&lt;<a href="#production-rule">production-rule</a>&gt;</tt></TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"></TD>
+      <TD valign="top" align="center"></TD>
+      <TD valign="top"><tt><b>|</b></tt></TD>
+      <TD valign="top"><tt>&lt;<a href="#union-method">union-method</a>&gt;</tt></TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"></TD>
+      <TD valign="top" align="center"></TD>
+      <TD valign="top"><tt><b>}</b></tt></TD>
+      <TD valign="top"></TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"><tt><a name="accumulation-method"></a>&lt;accumulation-method&gt;</tt></TD>
+      <TD valign="top" align="center"><tt><b>::=</b></tt></TD>
+      <TD valign="top" colspan="2"><tt><font color="#FF0000">accu :</font>  &lt;<a href="#method">method</a>&gt;</tt></TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"><tt><a name="activation-method"></a>&lt;activation-method&gt;</tt></TD>
+      <TD valign="top" align="center"><tt><b>::=</b></tt></TD>
+      <TD valign="top" colspan="2"><tt><font color="#FF0000">act :</font>  &lt;<a href="#method">method</a>&gt;</tt></TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"><tt><a name="intersection-method"></a>&lt;intersection-method&gt;</tt></TD>
+      <TD valign="top" align="center"><tt><b>::=</b></tt></TD>
+      <TD valign="top" colspan="2"><tt><font color="#FF0000">and :</font>  &lt;<a href="#method">method</a>&gt;</tt></TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"><tt><a name="union-method"></a>&lt;union-method&gt;</tt></TD>
+      <TD valign="top" align="center"><tt><b>::=</b></tt></TD>
+      <TD valign="top" colspan="2"><tt><font color="#FF0000">or :</font> &lt;<a href="#method">method</a>&gt;</tt></TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"><tt><a name="method"></a>&lt;method&gt;</tt></TD>
+      <TD valign="top" align="center"><tt><b>::=</b></tt></TD>
+      <TD valign="top" colspan="2"><tt><b>{</b> <font color="#FF0000">asum</font>
+        <b>|</b> <font color="#FF0000">bdif</font> <b>|</b> <font color="#FF0000">bsum</font>
+        <b>|</b> <font color="#FF0000">max</font> <b>|</b> <font color="#FF0000">min</font>
+        <b>|</b> <font color="#FF0000">prod</font> <b>}</b></tt></TD>
+</TR>
+  </TABLE>
+</BLOCKQUOTE>
+<p>The only allowed methods for <tt>&lt;<a href="#accumulation-method">accumulation-method</a>&gt;</tt>
+and <tt>&lt;<a href="#union-method">union-method</a>&gt;</tt> is <tt><font color="#FF0000">max</font></tt>.
+The only allowed method for <tt><a href="#activation-method">activation-method</a></tt>
+and <tt><a href="#intersection-method">intersection-method</a></tt> is <tt><font color="#FF0000">min</font></tt>.
+Other methods are infeasible in the possibility theory.</p>
+<BLOCKQUOTE><TABLE border="0" cellpadding="0" cellspacing="0">
+<tr>
+      <TD valign="top" align="right"><tt><a name="production-rule"></a>&lt;production-rule&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>&nbsp;::=&nbsp;</tt></TD>
+      <TD valign="top" align="left"><tt><b>[</b><font color="#FF0000">rule </font>&lt;<a href="#rule-number">rule-number</a>&gt;<font color="#FF0000">:</font><b>]</b><font color="#FF0000">
+        if </font>&lt;<a href="#antecedent">antecedent</a>&gt; <font color="#FF0000">then</font>
+        &lt;<a href="#consequent">consequent</a>&gt;</tt></TD>
+</tr>
+<TR>
+      <TD valign="top" align="right"><tt><a name="rule-number"></a>&lt;rule-number&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top" align="left"><tt>&lt;<a href="#integer-literal">integer</a>&gt;</tt></TD>
+</TR>
+<TR>
+      <TD valign="top" align="right"><tt><a name="antecedent"></a>&lt;antecedent&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top" align="left"><tt>&lt;<a href="#predicate-expression">predicate-expression</a>&gt;</tt></TD>
+</TR>
+  <tr>
+      <TD valign="top" align="right"><tt><a name="consequent"></a>&lt;consequent&gt;</tt></TD>
+      <TD valign="top" align="center"><tt>::=</tt></TD>
+      <TD valign="top" align="left"><tt>&lt;<a href="#predicate-expression">predicate-expression</a>&gt;</tt></TD>
+</tr>
+  </TABLE>
+</BLOCKQUOTE>
+  <p>When <tt>&lt;<a href="#rule-number">rule-number</a>&gt;</tt> is specified in a 
+	rule block all production rules of the block shall be numbered. The numbers 
+	may not repeat and shall compose a contiguous range beginning at 1. When the 
+	rules block has numbered rules, when stored in a training set these numbers 
+	are the numbers of the training examples in the set.</p>
+  <HR>
+<p align="right">
+<a name="6"></a><a href="#5.1"><IMG src="prev.gif" alt="[Back]" width="29" height="29"></a><a href="#6"><IMG src="index.gif" alt="[TOC]" width="29" height="29"></a></p>
+<H2>6. Table of Contents</H2>
+<table border="0" cellspacing="0" cellpadding="10">
+	<tr>
+		<td valign="top">
+<A href="#1">1. Introduction</A><BR>
+<A href="#2">2. Lexical elements</A><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<A href="#2.1">2.1. Character set</A><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<A href="#2.2">2.2. Comments</A><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#2.3">2.3. Literals</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#2.3.1">2.3.1. Integer literals</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#2.3.2">2.3.2. Real literals</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#2.3.3">2.3.3. Dimensioned literals</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#2.3.4">2.3.4. Truth values</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#2.3.5">2.3.5. String and character literals</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#2.4">2.4. Identifiers</a><BR>
+<A href="#3">3. Types</A><BR> 
+&nbsp;&nbsp;&nbsp;&nbsp;<A href="#3.1">3.1. Types of constants</A><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<A href="#3.2">3.2. Types of predicate variables</A><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#3.2.1">3.2.1. Declaration of predicate variables</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#3.2.2">3.2.2. Nominal predicate variables</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#3.2.3">3.2.3. Integer variables</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#3.2.4">3.2.4. Float variables</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#3.2.5">3.2.5. Linguistic set variables</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<A href="#3.3">3.3. Types of predicates</A><BR>
+<A href="#4">4. Operations</A><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.1">4.1. Prefix operations</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.2">4.2. Dyadic operations</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.3">4.3. Postfix operations</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.4">4.4. Brackets</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.5">4.5. Numeric operations</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.5.1">4.5.1. Arithmetical numeric operations</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.5.2">4.5.2. Relational numeric operations</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.5.3">4.5.3. Numeric membership tests</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.5.4">4.5.4. Singleton composition</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.5.5">4.5.5. Numeric interval composition</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.5.6">4.5.6. Scaled numeric values</a></td>
+		<td valign="top">&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.6">4.6. Logical operations</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.7">4.7. Set operations</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.7.1">4.7.1. Lattice set-operations</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.7.2">4.7.2. Relational operations on sets</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.7.3">4.7.3. Membership operations</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.7.4">4.7.4. Subset test operations</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.7.5">4.7.5. Membership function composition</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.7.6">4.7.6. &#945;-cut operation</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.7.7">4.7.7. Scaled set values</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.8">4.8. String operations</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.8.1">4.8.1. Concatenation</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.8.2">4.8.2. Relational string operations</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.9">4.9. Predicate operations</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.9.1">4.9.1. Relational operations</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.9.2">4.9.2. Lattice operations</a><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#4.9.3">4.9.3. Name qualification operation</a><BR>
+<A href="#5">5. Program structure</A><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;<A href="#5.1">5.1. Rules definition</A><BR>
+<A href="#6">6. Table of contents</A></td>
+	</tr>
+</table>
+</BODY>
+</html>

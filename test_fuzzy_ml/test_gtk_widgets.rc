@@ -1,0 +1,28 @@
+style "fuzzy-feature" 
+{
+   GtkLecturesDiffView::possibility-color = "#00FF00" 
+   GtkLecturesDiffView::necessity-color = "#FF0000"
+   GtkLecturesDiffView::error-color = "#FF0000"
+#  GtkFeatureView::number-base = 16
+#   GtkFeatureView::shape = bullet
+   GtkLecturesDiffView::shape = bullet
+#   GtkGraphView::shape = bullet
+#   stock["fuzzy-graph-node"] = {{"test.png", LTR}, {"test.png", RTL}}
+   GtkFeatureView::truth-column-title = "Истиность"
+#   GtkFeatureView::truth-column-title = "12"
+#   GtkFuzzyBooleanBar::look = FLAT
+}
+
+class "*" style "fuzzy-feature" 
+
+style "fuzzy-lecture" 
+{
+   GtkLectureDiffView::possibility-color = "#008000" 
+   GtkLectureDiffView::necessity-color = "#FF8000"
+   GtkLectureDiffView::error-color = "#FF0000"
+   GtkLectureDiffView::shape = BULLET
+   GtkLectureDiffView::example-column-title = "x"
+   GtkLectureDiffView::look = FLAT
+}
+
+class "*UULectureDiffView*" style "fuzzy-lecture" 
