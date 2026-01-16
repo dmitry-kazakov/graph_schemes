@@ -1,4 +1,4 @@
-<b>Fuzzy machine learning framework</b>
+<H2>Fuzzy machine learning framework</H2>
 <table border="0" cellspacing="0" cellpadding="4">
 	<tr>
 		<td><TABLE BORDER=0 ALIGN="left" cellspacing="0" cellpadding="0">
