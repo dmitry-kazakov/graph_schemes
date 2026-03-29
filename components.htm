@@ -12,7 +12,7 @@
 <BODY bgcolor="#FFFFFF" link="#0000FF" vlink="#800080">
 <P align="center">
 <BIG><BIG><BIG><b>SIMPLE COMPONENTS</b></BIG></BIG><br>
-<EM>version 4.79</EM><BR>
+<EM>version 4.80</EM><BR>
 by Dmitry A. Kazakov</BIG><BR>
 (<A HREF="mailto:mailbox@dmitry-kazakov.de">mailbox@dmitry-kazakov.de</A>)<br>
 <a href="http://www.dmitry-kazakov.de"><img border="0" src="home.jpg" alt="[Home]" width="40" height="40"></a></p>
@@ -233,7 +233,7 @@ MAX! client implementation</a></td>
 		&nbsp;</td>
 		<td>
 		&nbsp;</td>
-		<td><a href="http://www.dmitry-kazakov.de/distributions/compones_arch_x86_64.htm">
+		<td><a href="http://www.dmitry-kazakov.de/distributions/components_arch_x86_64.htm">
 		<img src="in.jpg" align=middle alt="[Download page]" width="29" height="29"></a></td>
 		<td>&nbsp;</td>
 	</tr>
@@ -303,11 +303,11 @@ MAX! client implementation</a></td>
 		<td style="border-top-style: none; border-top-width: medium; border-bottom-style: solid; border-bottom-width: 1px" colspan="2">Source distribution (any platform)</td>
 		<td style="border-top-style: none; border-top-width: medium; border-bottom-style: solid; border-bottom-width: 1px">&nbsp;</td>
 		<td style="border-top-style: none; border-top-width: medium; border-bottom-style: solid; border-bottom-width: 1px" colspan="2">
-		<a href="http://www.dmitry-kazakov.de/ada/components_4_79.tgz">components_4_79.tgz</a>
+		<a href="http://www.dmitry-kazakov.de/ada/components_4_80.tgz">components_4_80.tgz</a>
 		(<b>tar</b> + <b>gzip</b>, Windows users may use WinZip)</td>
 		<td>&nbsp;</td>
 		<td align="center" colspan="4">
-		<a href="http://www.dmitry-kazakov.de/ada/components_4_79.tgz">
+		<a href="http://www.dmitry-kazakov.de/ada/components_4_80.tgz">
 <img src="download.jpg" align=middle alt="[Download]" width="29" height="29"></a></td>
 	</tr>
 </table>
@@ -8682,6 +8682,9 @@ present in <b>Right</b>.</p>
   Boolean;</tt></p>
 </blockquote>
 <p>This function returns<font color="#800000"> <i>true</i></font> is if both sets contain same items.</p>
+<p>The package Discrete_Integer_Set is an instance of 
+<a href="#Generic_Indefinite_Set">Generic_Discrete_Set</a> with the type 
+Integer.</p>
 <p align="right">
   <a name="3.2"></a><a href="#3.1"><IMG src="prev.gif" alt="[Back]" width="29"
       height="29"></a><A href="#22"><IMG
@@ -16094,11 +16097,13 @@ Is_Connected</a>.</p>
 <blockquote>
 	<p><tt><font color="#0000FF"><a name="Generic_Directed_Graph.Get_Children">
 	</a>function</font> Get_Children (<b>Parent</b> : 
-	<a href="#Generic_Directed_Graph.Node">Node</a>) <font color="#0000FF">return</font> Nodes_Array;<font color="#0000FF"><br>
+	<a href="#Generic_Directed_Graph.Node">Node</a>) <font color="#0000FF">return</font> 
+	<a href="#Generic_Directed_Graph.Nodes_Array">Nodes_Array</a>;<font color="#0000FF"><br>
 	function</font> Get_Children (<b>Parent</b> : 
-	<a href="#Generic_Directed_Graph.Node">Node</a>) <font color="#0000FF">return</font> Node_Sets.Set;</tt></p>
+	<a href="#Generic_Directed_Graph.Node">Node</a>) <font color="#0000FF">return</font> 
+	<a href="#Generic_Directed_Graph.Node_Sets">Node_Sets</a>.Set;</tt></p>
 </blockquote>
-<p>This function returns the array containing the children nodes of <b>Parent</b>. 
+<p>These function return the children nodes of <b>Parent</b> as an array or set. 
 Constraint_Error is propagated when <b>Parent</b> is <font color="#0000FF">null</font>.</p>
 <blockquote>
 	<p><tt><font color="#0000FF">
@@ -16133,12 +16138,13 @@ or else <b>Child</b> is <font color="#0000FF">null</font>.</p>
 <blockquote>
 	<p><tt><font color="#0000FF"><a name="Generic_Directed_Graph.Get_Parents">
 	</a>function</font> Get_Parents (<b>Child</b> : 
-	<a href="#Generic_Directed_Graph.Node">Node</a>) <font color="#0000FF">return</font> Nodes_Array;<font color="#0000FF"><br>
+	<a href="#Generic_Directed_Graph.Node">Node</a>) <font color="#0000FF">return</font> 
+	<a href="#Generic_Directed_Graph.Nodes_Array">Nodes_Array</a>;<font color="#0000FF"><br>
 	function</font> Get_Parents (<b>Child</b> : 
-	<a href="#Generic_Directed_Graph.Node">Node</a>) <font color="#0000FF">return</font> Node_Sets.Set;</tt></p>
+	<a href="#Generic_Directed_Graph.Node">Node</a>) <font color="#0000FF">return</font> 
+	<a href="#Generic_Directed_Graph.Node_Sets">Node_Sets</a>.Set;</tt></p>
 </blockquote>
-<p>This function returns the array or set containing the parent nodes of <b>Child</b>. 
-Constraint_Error is propagated when <b>Child</b> is <font color="#0000FF">null</font>.</p>
+<p>This function returns the parent nodes of <b>Child</b> as an array or set. Constraint_Error is propagated when <b>Child</b> is <font color="#0000FF">null</font>.</p>
 <blockquote>
 	<p><tt><font color="#0000FF">
 	<a name="Generic_Directed_Graph.Get_Parents_Number"></a>function</font> 
@@ -16196,7 +16202,8 @@ either <b>Left</b> or <b>Right</b> is <font color="#0000FF">null</font>.</p>
 <p>Comparison of nodes used in node sets, induced by the formal function <i>Less</i>. The value <font color="#0000FF">null</font> 
 is considered preceding all valid access values.</p>
 <blockquote>
-	<p><tt><font color="#0000FF"><a name="Generic_Directed_Graph.Related"></a>function</font> Related (<b>Parent</b> : 
+	<p><tt><font color="#0000FF"><a name="Generic_Directed_Graph.Related"></a>function</font> Related (<b>Parent</b> 
+	: 
 	<a href="#Generic_Directed_Graph.Node">Node</a>;
 	<b>Child</b> : <a href="#Generic_Directed_Graph.Node">Node</a>) <font color="#0000FF">return</font> Boolean;</tt></p>
 </blockquote>
@@ -16234,23 +16241,24 @@ type
 	<a href="#Generic_Directed_Graph.Node">Node</a>, Nodes_Array,
 	<font color="#0000FF">null</font>);<font color="#0000FF"><br>
 	<a name="Generic_Directed_Graph.Node_Sets"></a>package</font> Node_Sets <font color="#0000FF">is<br>
-&nbsp;&nbsp; new</font> Generic_Set (Node, <font color="#0000FF">null</font>, &quot;<font color="#FF0000">=</font>&quot; 
+&nbsp;&nbsp; new</font> Generic_Set (<a href="#Generic_Directed_Graph.Node">Node</a>, <font color="#0000FF">null</font>, &quot;<font color="#FF0000">=</font>&quot; 
 	=&gt; Same, &quot;<font color="#FF0000">&lt;</font>&quot; 
 	=&gt; Precedes);</tt></p>
 </blockquote>
 <p align="right">
 <a name="9.2"></a><a href="#9.1"><IMG src="prev.gif" alt="[Back]" width="29"
       height="29"></a><A href="#22"><IMG
-      src="index.gif" alt="[TOC]" width="29" height="29"></A><a href="#10"><IMG src="next.gif" alt="[Next]" width="29" height="29"></a></p>
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><a href="#9.3"><IMG src="next.gif" alt="[Next]" width="29" height="29"></a></p>
 <h3>9.2. Directed weighted graphs</h3>
 <p><a name="Generic_Directed_Weighted_Graph"></a>The package 
 <a href="#Generic_Directed_Weighted_Graph">Generic_Directed_Weighted_Graph</a> 
-provides a generic implementation of directed weighted graphs:</p>
+provides a generic implementation of directed weighted graphs. In a weighted 
+graph each edge has weight associated with it:</p>
 <blockquote>
 	<p><tt><font color="#0000FF">generic<br>
 &nbsp;&nbsp; type </font>Node_Type (&lt;&gt;) <font color="#0000FF">is limited 
 	private;<br>
-&nbsp;&nbsp; type </font>Weight_Type (&lt;&gt;) <font color="#0000FF">is  
+&nbsp;&nbsp; <a name="Generic_Directed_Weighted_Graph.Weight_Type"></a>type </font>Weight_Type (&lt;&gt;) <font color="#0000FF">is  
 	private;&nbsp; <br>
 &nbsp;&nbsp; </font>Pool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 	: <font color="#0000FF">in out </font>Root_Storage_Pool'Class;<br>
@@ -16262,14 +16270,16 @@ provides a generic implementation of directed weighted graphs:</p>
 	<font color="#0000FF">access</font> Node_Type&nbsp; ) <font color="#0000FF">
 	return</font> Boolean <font color="#0000FF">is</font> &lt;&gt;;<br>
 &nbsp;&nbsp; <font color="#0000FF">with function </font>Equal (Left, Right :
-	<font color="#0000FF">access</font> Weight_Type) <font color="#0000FF">
+	<font color="#0000FF">access</font> 
+	<a href="#Generic_Directed_Weighted_Graph.Weight_Type">Weight_Type</a>) <font color="#0000FF">
 	return</font> Boolean <font color="#0000FF">is</font> &lt;&gt;;<br>
 &nbsp;&nbsp; <font color="#0000FF">with function </font>Less&nbsp; (Left, Right 
 	: <font color="#0000FF">access</font> Node_Type&nbsp; )
 	<font color="#0000FF">return</font> Boolean <font color="#0000FF">is</font> 
 	&lt;&gt;;<br>
 &nbsp;&nbsp; <font color="#0000FF">with function </font>Less&nbsp; (Left, Right 
-	: <font color="#0000FF">access</font> Weight_Type) <font color="#0000FF">
+	: <font color="#0000FF">access</font> 
+	<a href="#Generic_Directed_Weighted_Graph.Weight_Type">Weight_Type</a>) <font color="#0000FF">
 	return</font> Boolean <font color="#0000FF">is</font> &lt;&gt;;<font color="#0000FF"><br>
 	package </font>Generic_Directed_Weighted_Graph<font color="#0000FF"> is</font> ...</tt></p>
 </blockquote>
@@ -16277,7 +16287,7 @@ provides a generic implementation of directed weighted graphs:</p>
 <ul>
 	<li><i>Node_Type</i> is the type of the graph nodes. It can be any type 
 	including limited and indefinite ones;</li>
-	<li>Weight_Type is the type of the weight;</li>
+	<li><i>Weight_Type</i> is the type of the weight;</li>
 	<li><i>Pool</i> is the storage pool used to allocate the nodes;</li>
 	<li><i>Minimal_Parents_Size</i> is the minimal number of nodes by which the 
 	set of parents of a node is enlarged;</li>
@@ -16336,7 +16346,8 @@ Generic_Directed_Graph</a>. The following entities are equivalent:</p>
 	<a href="#Generic_Directed_Graph.Get_Child">Get_Child</a>,
 	<a href="#Generic_Directed_Graph.Get_Children">Get_Children</a> (returning 
 an array) are different in that respect that they are using the order determined 
-by the comparisons of <font color="#0000FF">access</font> Weight_Type specified 
+by the comparisons of <font color="#0000FF">access</font> 
+<a href="#Generic_Directed_Weighted_Graph.Weight_Type">Weight_Type</a> specified 
 by the corresponding formal functions <i>Equal</i> and <i>Less</i>.</p>
 <p>The following operations are different or new:</p>
 <blockquote>
@@ -16346,7 +16357,7 @@ by the corresponding formal functions <i>Equal</i> and <i>Less</i>.</p>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (&nbsp; <b>Parent</b> : 
 	Node; <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>
-	Weight</b> : Weight_Type;<br>
+	Weight</b> : <a href="#Generic_Directed_Weighted_Graph.Weight_Type">Weight_Type</a>;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>
 	Lower</b>&nbsp; : <font color="#0000FF">out</font> Natural;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>
@@ -16354,18 +16365,23 @@ by the corresponding formal functions <i>Equal</i> and <i>Less</i>.</p>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; );</tt></p>
 </blockquote>
 <p>This procedure classifies the children of <b>Parent</b> according to the 
-value of <b>Weight</b>. The output <b>Lower</b> is the position of the child 
-node with the greatest weight less or equal to the value of <b>Weight</b>. When 
-there is no such child <b>Lower</b> is 0. The output <b>Upper</b> is the 
-position of the child node with the least weight greater or equal to the value
-<b>Weight</b>. When there is no such child <b>Upper</b> is the number of 
-children + 1. The behaviour of
-<a href="#Generic_Directed_Weighted_Graph.Classify">Classify</a> ensures that when there is a child node with the 
-weight equal to the value <b>Weight</b>, then <b>Lower</b> = <b>Upper</b> = the 
-position of the child. Otherwise <b>Lower</b> + 1 = <b>Upper</b>. When <b>Lower</b> and 
-<b>Upper</b> are 
-valid positions of nodes, then the interval of weights corresponding to these nodes contains 
-<b>Weight</b>. Constraint_Error is&nbsp; propagated when <b>Parent</b> is
+value of <b>Weight</b>:</p>
+<ul>
+	<li>When there is a child with <b>Weight</b> then <b>Lower</b> = <b>Upper</b> 
+	= the position of the child;</li>
+	<li>When <b>Weight</b> is within the range of children weights then <b>Lower</b> = <b>Upper</b> 
+	+ 1 and the weight of the child positioned at <b>Lower</b> is greater than
+	<b>Weight</b>;</li>
+	<li>When <b>Weight</b> is less than the weight of the first child then <b>
+	Lower</b> = 1, <b>Upper</b> = 0 (<b>Lower</b>&nbsp; = <b>Upper </b>+ 1);</li>
+	<li>When <b>Weight</b> is greater than the weight of the last child then <b>
+	Lower</b> =
+	<a href="#Generic_Directed_Graph.Get_Children_Number">Get_Children_Number</a> 
+	+ 2, <b>Upper</b> =
+	<a href="#Generic_Directed_Graph.Get_Children_Number">Get_Children_Number</a> 
+	+ 1 (<b>Lower</b>&nbsp; = <b>Upper </b>+ 1).</li>
+</ul>
+<p>Constraint_Error is&nbsp; propagated when <b>Parent</b> is
 <font color="#0000FF">null</font>.</p>
 <blockquote>
 	<p><tt><font color="#0000FF">
@@ -16376,7 +16392,7 @@ valid positions of nodes, then the interval of weights corresponding to these no
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>
 	Child</b>&nbsp;&nbsp; : Node;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>
-	Weight</b>&nbsp; : Weight_Type;<br>
+	Weight</b>&nbsp; : <a href="#Generic_Directed_Weighted_Graph.Weight_Type">Weight_Type</a>;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>
 	Acyclic</b> : Boolean := True<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; );</tt></p>
@@ -16403,11 +16419,11 @@ Constraint_Error is also propagated when either <b>Parent</b> or <b>Child</b> is
 	<a name="Generic_Directed_Weighted_Graph.Get_Weight"></a>function</font> 
 	Get_Weight (<b>Parent</b> : 
 	Node; <b>Child</b> : Positive) <font color="#0000FF">return</font> 
-	Weight_Type;<font color="#0000FF"><br>
+	<a href="#Generic_Directed_Weighted_Graph.Weight_Type">Weight_Type</a>;<font color="#0000FF"><br>
 	function</font> 
 	Get_Weight (<b>Parent</b> : 
 	Node; <b>Child</b> : Node&nbsp;&nbsp;&nbsp; ) <font color="#0000FF">return</font> 
-	Weight_Type;</tt></p>
+	<a href="#Generic_Directed_Weighted_Graph.Weight_Type">Weight_Type</a>;</tt></p>
 </blockquote>
 <p>These functions return the weight of the edge <b>Parent</b> - <b>
 Child</b>. The child can be specified either by its position or else directly as 
@@ -16622,6 +16638,238 @@ use</font> Test_Suffix_Tree;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs
 &nbsp;sippi<br>
 &nbsp;&nbsp; ssippi</tt></p>
 </blockquote>
+<h4 align="right"><a name="9.3"></a><a href="#9.2"><IMG src="prev.gif" alt="[Back]" width="29"
+      height="29"></a><A href="#22"><IMG
+      src="index.gif" alt="[TOC]" width="29" height="29"></A><a href="#10"><IMG src="next.gif" alt="[Next]" width="29" height="29"></a></h4>
+<h4>9.3. Undirected graph</h4>
+<p><a name="Generic_Undirected_Graph"></a>The package
+<a href="#Generic_Undirected_Graph">Generic_Undirected_Graph</a> provides an 
+implementation of undirected graphs. An undirected graph <i>G</i> is a symmetric 
+relation of nodes:
+	&#8704;<i>a,b&nbsp;&nbsp;a</i>G<i>b = b</i>G<i>a</i>.</p>
+<blockquote>
+	<p><tt><font color="#0000FF">generic<br>
+&nbsp;&nbsp; type </font>Node_Type (&lt;&gt;)<font color="#0000FF"> is limited private</font>;<br>
+&nbsp;&nbsp; Pool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :<font color="#0000FF"> 
+	in out </font>Root_Storage_Pool'Class;<br>
+&nbsp;&nbsp; Minimal_Size : Positive := <font color="#800000">16</font>;<br>
+&nbsp;&nbsp; Increment&nbsp;&nbsp;&nbsp; : Natural&nbsp; :=
+	<font color="#800000">50</font>;<font color="#0000FF"><br>
+&nbsp;&nbsp; with function </font>Equal<font color="#0000FF"> </font>(<b>Left</b>,
+	<b>Right</b> : <font color="#0000FF">access</font> Node_Type)<font color="#0000FF"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return </font>Boolean<font color="#0000FF"> is </font>
+	&lt;&gt;;<font color="#0000FF"><br>
+&nbsp;&nbsp; with function </font>Less (<b>Left</b>, <b>Right</b> : <font color="#0000FF">
+	access </font>Node_Type)<font color="#0000FF"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return </font>Boolean <font color="#0000FF">is 
+	&lt;&gt;;<br>
+	package </font>Generic_Undirected_Graph<font color="#0000FF"> is</font> ...</tt></p>
+</blockquote>
+<p>The formal parameters are:</p>
+<ul>
+	<li><i>Node_Type</i> is the type of the graph nodes. It can be any type 
+	including limited and indefinite ones;</li>
+	<li><i>Pool</i> is the storage pool used to allocate the nodes;</li>
+	<li><i>Minimal_Size</i> is the minimal number of nodes by which the 
+	set of adjacent nodes of a node is enlarged;</li>
+	<li><i>Increment</i> controls adjacent node sets enlargements. The 
+	sets are enlarged by <i>n</i>*<i>Increment</i>/100,
+    where <i> n</i> is the current set size. If the evaluated increment of 
+  the set is less than the corresponding minimal size parameter, then the
+    later is used instead;</li>
+	<li><i>Equal</i> is the equivalence relation defined on graph nodes. The 
+	relation is used in the sets of nodes. Note that the function uses access 
+	types rather than objects. Thus an implementation may use address comparison 
+	when nodes are considered unique independently on their actual values;</li>
+	<li><i>Less</i> is the order relation used in sets of nodes.</li>
+</ul>
+<p>The formal operations <i>Equal</i> and <i>Less</i> are required for the sets 
+of nodes, which has to be sorted. They are also 
+used for enumeration of the adjacent nodes. The node position in the 
+operations like <a href="#Generic_Directed_Graph.Get_Child">Get_Child</a> is 
+determined by this order. An implementation of <i>Equal</i> and <i>Less</i> can 
+be based on the contents of the nodes. In other cases, when the order of nodes 
+in is of no importance, the helper 
+	package <a href="#Generic_Address_Order">Generic_Address_Order</a> can be used to produce the operations 
+<i>Equal</i> 
+	and <i>Less</i> for Node_Type. In this case the nodes will be ordered 
+according to their memory addresses.</p>
+<p>The graph nodes are referenced using the access type
+<a href="#Generic_Undirected_Graph.Node">Node</a> defined in the package:</p>
+<blockquote>
+	<p><tt><font color="#0000FF"><a name="Generic_Undirected_Graph.Node"></a>type </font>
+	Node<font color="#0000FF"> is access </font>Node_Type;</tt></p>
+</blockquote>
+<p>The type is a pool specific access type bound to the storage pool defined in the 
+package. The pool is a proxy pool, which ultimately takes storage from the pool 
+specified by the formal parameter <i>Pool</i>. The proxy storage pool maintains the sets of 
+parent and children nodes transparently to the node object. Thus there is no 
+need to derive graph nodes from a dedicated parent type or interface related 
+specifically to the graph implementation.</p>
+<p>The array of nodes:</p>
+<blockquote>
+	<p><tt><font color="#0000FF"><a name="Generic_Undirected_Graph.Nodes_Array">
+	</a>type </font>
+	Nodes_Array<font color="#0000FF"> 
+	is array </font>(Positive <font color="#0000FF">range </font>&lt;&gt;)<font color="#0000FF"> 
+	of </font><a href="#Generic_Undirected_Graph.Node">Node</a>;</tt></p>
+</blockquote>
+<p>The following operations are defined on
+<a href="#Generic_Undirected_Graph.Node">Node</a>:</p>
+<blockquote>
+	<p><tt><font color="#0000FF">
+	<a name="Generic_Undirected_Graph.Connect"></a>procedure</font> 
+	Connect (<b>Left</b>, <b>Right</b> 
+	: <a href="#Generic_Undirected_Graph.Node">Node</a>);</tt></p>
+</blockquote>
+<p>This procedure creates an edge connecting <b>Left</b> and <b>Right</b>. 
+When the edge already exists this operation is void. In the case when <b>Left</b> 
+or <b>Right</b> are connected to equivalent but different nodes according to the 
+provided comparison Argument_Error is propagated. Constraint_Error is also propagated when either
+<b>Left</b> or <b>Right</b> is
+<font color="#0000FF">null</font>. </p>
+<blockquote>
+	<p><tt><font color="#0000FF">
+	<a name="Generic_Undirected_Graph.Delete"></a>procedure</font> 
+	Delete (<b>Vertex</b> :
+	<font color="#0000FF">in out</font> <a href="#Generic_Undirected_Graph.Node">Node</a>);</tt></p>
+</blockquote>
+<p>This procedure deletes a subgraph connected to <b>Vertex</b>, then <b>Vertex</b> is set 
+to <font color="#0000FF">null</font>. All nodes of the deleted subgraph are 
+freed. The operation is void when <b>Vertex</b> 
+is <font color="#0000FF">null</font>.
+See also <a href="#Generic_Undirected_Graph.Remove_vertex">Remove</a>.</p>
+<blockquote>
+	<p><tt><font color="#0000FF">
+	<a name="Generic_Undirected_Graph.Disconnect"></a>procedure</font> 
+	Disconnect (<b>Left</b>, <b>Right</b> : 
+	<a href="#Generic_Undirected_Graph.Node">Node</a>);</tt></p>
+</blockquote>
+<p>This procedure removes the edge between <b>Left</b> to <b>Right</b> if the 
+edge exist. Otherwise the operation is void. Constraint_Error is propagated when either
+<b>Left</b> 
+or <b>Right</b> is <font color="#0000FF">null</font>.</p>
+<blockquote>
+	<p><tt><font color="#0000FF"><a name="Generic_Undirected_Graph.Find"></a>function</font> Find (<b>Left</b>,
+	<b>Right</b> : 
+	<a href="#Generic_Undirected_Graph.Node">Node</a>) <font color="#0000FF">return</font> Natural;</tt></p>
+</blockquote>
+<p>This function returns the position of <b>Right</b> in the list of adjacent 
+nodes of <b>Left</b>. 
+All adjacent nodes are enumerated from 1 according to the formal functions
+<i>Equal</i> and <i>Less</i>. See also 
+<a href="#Generic_Undirected_Graph.Get_Adjacent_by_no">Get_Adjacent</a>. The result is 
+0 when <b>Left</b> and <b>Right</b> are not adjacent. Constraint_Error is 
+propagated when <b>Left </b>or <b>Right</b> is <font color="#0000FF">null</font>.</p>
+<blockquote>
+	<p><tt><font color="#0000FF"><a name="Generic_Undirected_Graph.Free"></a>procedure</font> Free <font color="#0000FF">is 
+	new</font> Ada.Unchecked_Deallocation (Node_Type,
+	<a href="#Generic_Undirected_Graph.Node">Node</a>);</tt></p>
+</blockquote>
+<p>This procedure deletes the node object. Program_Error is propagated when the 
+node is in a graph. See the function
+<a href="#Generic_Undirected_Graph.Is_Connected">Is_Connected</a>.</p>
+<blockquote>
+	<p><tt><font color="#0000FF">
+	<a name="Generic_Undirected_Graph.Get_Adjacent"></a>function</font> Get_Adjacent (<b>Vertex</b> : 
+	<a href="#Generic_Undirected_Graph.Node">Node</a>) <font color="#0000FF">return</font> 
+	<a href="#Generic_Undirected_Graph.Nodes_Array">Nodes_Array</a>;<font color="#0000FF"><br>
+	function</font> Get_Adjacent (<b>Vertex</b> : 
+	<a href="#Generic_Undirected_Graph.Node">Node</a>) <font color="#0000FF">return</font> 
+	<a href="#Generic_Undirected_Graph.Node_Sets">Node_Sets</a>.Set;</tt></p>
+</blockquote>
+<p>These functions return nodes adjacent to <b>Vertex</b> as am array or a set 
+of nodes. Constraint_Error is propagated when <b>Vertex </b>is <font color="#0000FF">null</font>.</p>
+<blockquote>
+	<p><tt><font color="#0000FF">
+	<a name="Generic_Undirected_Graph.Get_Adjacent_by_no"></a>function</font> 
+	Get_Adjacent (<b>Vertex</b> : 
+	<a href="#Generic_Undirected_Graph.Node">Node</a>; <b>No</b> : Positive) <font color="#0000FF">return</font> 
+	<a href="#Generic_Undirected_Graph.Node">Node</a>;</tt></p>
+</blockquote>
+<p>This function returns an adjacent node of the node <b>Vertex</b> by its position 
+<b>
+No</b>. Constraint_Error is propagated when <b>No</b> &gt;
+<a href="#Generic_Undirected_Graph.Get_Adjacent_Number">Get_Adjacent_Number</a> (<b>Vertex</b>) 
+or else <b>Vertex</b> is <font color="#0000FF">null</font>.</p>
+<blockquote>
+	<p><tt><font color="#0000FF">
+	<a name="Generic_Undirected_Graph.Get_Adjacent_Number"></a>function</font> 
+	Get_Adjacent_Number (<b>Vertex</b> : 
+	<a href="#Generic_Undirected_Graph.Node">Node</a>) <font color="#0000FF">return</font> 
+	Natural;</tt></p>
+</blockquote>
+<p>This function returns the number of children of the node <b>Vertex</b>. 
+Constraint_Error is propagated when <b>Vertex</b> is <font color="#0000FF">null</font>.</p>
+<blockquote>
+	<p><tt><font color="#0000FF">
+	<a name="Generic_Undirected_Graph.Is_Connected"></a>function</font> Is_Connected (<b>Vertex</b> : 
+	<a href="#Generic_Undirected_Graph.Node">Node</a>) <font color="#0000FF">return</font> Boolean;</tt></p>
+</blockquote>
+<p>This function returns <font color="#800000"><i>true</i></font> when the node 
+<b>Vertex</b> is connected by an edge. Constraint_Error is propagated when <b>Vertex</b> is
+<font color="#0000FF">null</font>.</p>
+<blockquote>
+	<p><tt><font color="#0000FF">
+	<a name="Generic_Undirected_Graph.Is_Connected_dyadic"></a>function</font> Is_Connected (<b>Left</b>,
+	<b>Right</b> : 
+	<a href="#Generic_Undirected_Graph.Node">Node</a>) <font color="#0000FF">return</font> Boolean;</tt></p>
+</blockquote>
+<p>This function evaluates the transitive closure of G. The 
+result is <i><font color="#800000">true</font></i> when <b>Left</b> G<sup>*</sup>
+<b>Right</b>, i.e. when there is a path in G connecting <b>Left
+</b>and <b>Right</b>. Constraint_Error is propagated when either <b>Left</b> 
+or <b>Right</b> is <font color="#0000FF">null</font>.</p>
+<blockquote>
+	<p><tt><font color="#0000FF"><a name="Generic_Undirected_Graph.Precedes">
+	</a>function</font> 
+	Precedes (<b>Left</b>, <b>Right</b> 
+	: <a href="#Generic_Undirected_Graph.Node">Node</a>) <font color="#0000FF">return</font> Boolean;</tt></p>
+</blockquote>
+<p>Comparison of nodes used in node sets, induced by the formal function <i>Less</i>. The value <font color="#0000FF">null</font> 
+is considered preceding all valid access values.</p>
+<blockquote>
+	<p><tt><font color="#0000FF"><a name="Generic_Undirected_Graph.Remove"></a>function</font> Related (<b>Left</b>, <b>Right</b> 
+	: <a href="#Generic_Undirected_Graph.Node">Node</a>) <font color="#0000FF">return</font> Boolean;</tt></p>
+</blockquote>
+<p>This function evaluates G. The result is <i><font color="#800000">true</font></i> 
+when <b>Left</b> G <b>Right</b>, i.e. when there is an edge between <b>
+Left</b> to <b>Right</b>. Constraint_Error is propagated when either <b>Left</b> 
+or <b>Right</b> is <font color="#0000FF">null</font>.</p>
+<blockquote>
+	<p><tt><font color="#0000FF">
+	<a name="Generic_Undirected_Graph.Remove_vertex"></a>procedure</font> Remove (<b>Vertex</b> : 
+	<a href="#Generic_Undirected_Graph.Node">Node</a>);</tt></p>
+</blockquote>
+<p>This procedure removes <b>Vertex</b> from the graph. All nodes adjacent to <b>
+Vertex</b> are connected, thus the graph remains connected. The effect of the 
+operation is obtaining an equivalent graph, such that <i>a</i>G<i>'b</i> = <i>a</i>G<i>b</i> 
+for all nodes except the removed. The object pointed by <b>Vertex</b> is not deleted. 
+Constraint_Error is propagated when <b>Vertex</b> is <font color="#0000FF">null</font>.</p>
+<blockquote>
+	<p><tt><font color="#0000FF"><a name="Generic_Undirected_Graph.Same"></a>function</font> 
+	Same (<b>Left</b>, <b>Right</b> 
+	: <a href="#Generic_Undirected_Graph.Node">Node</a>) <font color="#0000FF">return</font> Boolean;</tt></p>
+</blockquote>
+<p>The nodes comparison function used in node sets, induced by the formal function <i>Equal</i>. The value <font color="#0000FF">null</font> 
+is considered preceding all valid access values.</p>
+<p>The package instantiates the packages <a href="#Generic_Unbounded_Array">
+Generic_Unbounded_Array</a> and <a href="#Generic_Set">Generic_Set</a> with the 
+type
+<a href="#Generic_Undirected_Graph.Node">Node</a>:</p>
+<blockquote>
+	<p><tt><font color="#0000FF"><a name="Generic_Undirected_Graph.Node_Arrays">
+	</a>package</font> Node_Arrays<font color="#0000FF"> 
+	is<br>
+&nbsp;&nbsp; new </font>Generic_Unbounded_Array (Positive,
+	<a href="#Generic_Undirected_Graph.Node">Node</a>, Nodes_Array,
+	<font color="#0000FF">null</font>);<font color="#0000FF"><br>
+	<a name="Generic_Undirected_Graph.Node_Sets"></a>package</font> Node_Sets <font color="#0000FF">is<br>
+&nbsp;&nbsp; new</font> Generic_Set (<a href="#Generic_Undirected_Graph.Node">Node</a>, <font color="#0000FF">null</font>, &quot;<font color="#FF0000">=</font>&quot; 
+	=&gt; Same, &quot;<font color="#FF0000">&lt;</font>&quot; 
+	=&gt; Precedes);</tt></p>
+</blockquote>
+<p>&nbsp;</p>
 <hr>
 <p align="right">
   <A name="10"></A><a href="#9.2"><IMG src="prev.gif" alt="[Back]" width="29"
@@ -26556,6 +26804,35 @@ Strings_Edit.NumberBase := <font color="#800000">10</font>)<br>
 <p>This function creates a pattern that matches natural number in the base <b>
 Base</b>. Matching is case-insensitive.</p>
 <blockquote>
+<p><tt>
+<font color="#0000FF">function</font> Natural_Number_Range<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (<b>&nbsp; Low&nbsp; </b> : 
+Natural;<br>
+<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; High </b> 
+: Natural;<b><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Base</b> : 
+Strings_Edit.NumberBase := <font color="#800000">10<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>)&nbsp; <font color="#0000FF">return</font>
+<a href="#Parsers.Generic_Source.Patterns.Pattern_Type">Pattern_Type</a>;</tt></p>
+</blockquote>
+<p>This function creates a pattern that matches a natural number from the range <b>
+Low</b>..<b>High</b> in the base <b>
+Base</b>. Matching is case-insensitive. Constraint_Error is propagated when <b>
+Low</b> &gt; <b>High</b>.</p>
+<blockquote>
+<p><tt>
+<font color="#0000FF">function</font> Natural_Number_Set<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (<b>&nbsp; Set&nbsp; </b> : 
+Discrete_Integer_Set.<a href="#Generic_Discrete_Set.Set">Set</a>;<br>
+<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Base</b> : 
+Strings_Edit.NumberBase := <font color="#800000">10<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>)&nbsp; <font color="#0000FF">return</font>
+<a href="#Parsers.Generic_Source.Patterns.Pattern_Type">Pattern_Type</a>;</tt></p>
+</blockquote>
+<p>This function creates a pattern that matches a natural number from the set <b>
+Set</b> in the base <b>
+Base</b>. Matching is case-insensitive.</p>
+<blockquote>
 <p><tt><font color="#0000FF"><a name="Parsers.Generic_Source.Patterns.Text"></a>
 function</font> Text (<b>Text</b> : String) <font color="#0000FF">return</font>
 <a href="#Parsers.Generic_Source.Patterns.Pattern_Type">Pattern_Type</a>;</tt></p>
@@ -26613,7 +26890,15 @@ specified order. Now in combination with catenation:</p>
 <p><tt>(&quot;<font color="#FF0000">a</font>&quot; <font color="#0000FF">or</font> &quot;<font color="#FF0000">b</font>&quot;) 
 &amp; &quot;<font color="#FF0000">c</font>&quot;</tt></p>
 </blockquote>
-<p>will match <i>ac</i> or <i>bc</i>.</p>
+<p>will match <i>ac</i> or <i>bc</i>. In combination with Empty the result is 
+optional matching:</p>
+<blockquote>
+	<p><tt>&quot;<font color="#FF0000">a</font>&quot; <font color="#0000FF">or</font> Empty</tt></p>
+</blockquote>
+<p>It can also be specified using null:</p>
+<blockquote>
+	<p><tt>&quot;<font color="#FF0000">a</font>&quot; <font color="#0000FF">or null</font></tt></p>
+</blockquote>
 <blockquote>
 <p><tt><font color="#0000FF">function </font>&quot;<font color="#FF0000">not</font>&quot; 
 (<b>Left</b>, <a href="#Parsers.Generic_Source.Patterns.Pattern_Type">
@@ -26672,20 +26957,31 @@ to this infinite pattern:</p>
 <p>Constraint_Error is propagate when <b>Left</b> can match an empty substring. 
 The reason is that otherwise the repeater pattern will match infinitely.</p>
 <blockquote>
-<p><tt><font color="#0000FF">function </font>Proceed (<b>Left</b> 
-: <a href="#Parsers.Generic_Source.Patterns.Pattern_Type">Pattern_Type</a>)
-<font color="#0000FF">return </font>
+<p><tt><font color="#0000FF">function </font>Proceed<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (<b>&nbsp; Pattern </b>: <a href="#Parsers.Generic_Source.Patterns.Pattern_Type">Pattern_Type</a>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Maximum</b> 
+: Positive := Positive'Last<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )
+<font color="#0000FF">&nbsp;return </font>
 <a href="#Parsers.Generic_Source.Patterns.Pattern_Type">Pattern_Type</a>;<font color="#0000FF"><br>
-function </font>Proceed (<b>Left</b> : String&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-) <font color="#0000FF">return </font>
+function </font>Proceed<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (<b>&nbsp; Pattern </b>: String;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Maximum</b> 
+: Positive := Positive'Last<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+) <font color="#0000FF">&nbsp;return </font>
 <a href="#Parsers.Generic_Source.Patterns.Pattern_Type">Pattern_Type</a>;</tt></p>
 </blockquote>
 <p>These functions create a pattern that repeats another pattern. The pattern 
 uses eager strategy without returns. It matches the repeated pattern as many times as possible. 
-Differently to &quot;<font color="#FF0000">+</font>&quot; it does tries alternatives in <b>
-Left</b> once matched. Typically alternatives in <b>Left</b> do not overlap. For 
-example, the pattern can be used for matching lines of a file. Constraint_Error is propagate when <b>Left</b> can match an empty substring. 
-The reason is that otherwise the repeater pattern will match infinitely.</p>
+Differently to &quot;<font color="#FF0000">+</font>&quot; it does tries alternatives in 
+<b>
+Pattern</b> once matched. Typically alternatives in <b>
+Pattern</b> do not overlap. For 
+example, the pattern can be used for matching lines of a file. <b>Maximum</b> 
+specifies the maximum number of matches. Constraint_Error is propagate when <b>
+Pattern</b> can match an empty substring and <b>Maximum</b> is Positive'Last. 
+The reason is that otherwise the repeater pattern will match (almost) infinitely.</p>
 <blockquote>
 <p><tt><font color="#0000FF">function </font>&quot;<font color="#FF0000">-</font>&quot; (<b>Left</b> 
 : <a href="#Parsers.Generic_Source.Patterns.Pattern_Type">Pattern_Type</a>)
@@ -37119,6 +37415,34 @@ Layout_Error is propagated when
 <b>Pointer</b> is not in the range <b>Source</b>'First .. <b>Source</b>'Last + 
 1.</p>
 <BLOCKQUOTE>
+  <tt><font color="#0000FF">procedure</FONT> Get_Vulgar<BR>
+  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;( &nbsp;<b>Source</b>
+  &nbsp;: String;<BR>
+  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+  &nbsp;<b>Pointer</b> : <font color="#0000FF">in
+  out</FONT> Integer;<BR>
+  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+  &nbsp;<b>Value</b> &nbsp;&nbsp;: <font color="#0000FF">out</FONT> 
+	<a href="#Unbounded_Rrationals.Unbounded_Rrational">Unbounded_Rational</a>;<BR>
+  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+  &nbsp;<b>Base</b> &nbsp;&nbsp; : NumberBase&nbsp;:= <FONT color="#800000">10</FONT><BR>
+  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;);</tt></BLOCKQUOTE>
+<P>
+This procedure gets a number from the string
+<b>Source</b>. The number can be specified in the fixed point format with or without 
+the exponent part. It can also have Unicode vulgar fraction symbols. For 
+example:</p>
+<blockquote>
+	<tt>&#8533;<br>
+	2&#8533;</tt>
+</blockquote>
+<P>
+The process starts from <b>Source </b>(<b>Pointer</b>). The parameter <b>Base</b> indicates the base
+of the expected number. The exception Data_Error indicates a syntax error in the number. End_Error is raised when
+no number was detected. Layout_Error is propagated when
+<b>Pointer</b> is not in the range <b>Source</b>'First
+.. <b>Source</b>'Last + 1.</p>
+<BLOCKQUOTE>
   <tt><font color="#0000FF">function</FONT> Value<BR>
   &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;( &nbsp;<b>Source</b> : String;<BR>
   &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<b>Base</b>
@@ -37137,6 +37461,16 @@ number was detected.</p>
   &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<b>Base</b>
   &nbsp; : NumberBase&nbsp;:= <FONT color="#800000">10</FONT><BR>
   &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;)&nbsp; <font color="#0000FF">return</FONT>  
+	<a href="#Unbounded_Rrationals.Unbounded_Rrational">Unbounded_Rational</a>;</tt></BLOCKQUOTE>
+<P>
+This function gets a number from the string <b>Source</b>.
+The number can be surrounded by spaces and tabs. The whole string
+<b>Source</b> should be matched. Otherwise the exception Data_Error
+is propagated. Also Data_Error indicates a syntax error in the number. End_Error is raised when no
+number was detected.</p>
+<BLOCKQUOTE>
+  <tt><font color="#0000FF">function</FONT> Value_Vulgar&nbsp;(<b>Source</b> : 
+	String) <font color="#0000FF">return</FONT>  
 	<a href="#Unbounded_Rrationals.Unbounded_Rrational">Unbounded_Rational</a>;</tt></BLOCKQUOTE>
 <P>
 This function gets a number from the string <b>Source</b>.
@@ -37221,6 +37555,41 @@ there is no room for the output. Note that depending on the denominator the
 recurring part can be very large which would lead to a long computation time. 
 This procedure must be used with a great care.</p>
 <BLOCKQUOTE>
+  <tt><font color="#0000FF">procedure</FONT> Put_Vulgar<BR>
+  &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;(
+  &nbsp;<b>Destination</b> : <font color="#0000FF">in
+  out</FONT> String;<BR>
+  &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+  &nbsp;&nbsp;<b>Pointer</b>&nbsp; &nbsp;&nbsp; : <font color="#0000FF">in
+  out</FONT> Integer;<BR>
+  &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+  &nbsp;&nbsp;<b>Value</b>&nbsp; &nbsp;&nbsp; &nbsp; : 
+	<a href="#Unbounded_Rrationals.Unbounded_Rrational">Unbounded_Rational</a>;<BR>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
+  &nbsp;&nbsp;<b>PutPlus</b>&nbsp; &nbsp; &nbsp;: Boolean &nbsp; := False;<BR>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>
+	Fraction</b>&nbsp;&nbsp;&nbsp; : Natural&nbsp;&nbsp;&nbsp;:=
+	<font color="#800000">6</font>;<br>
+  &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+  &nbsp;&nbsp;<b>Field</b>&nbsp; &nbsp;&nbsp; &nbsp; : Natural &nbsp; := 
+  <FONT color="#800000">0</FONT>;<BR>
+  &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+  &nbsp;&nbsp;<b>Justify</b> &nbsp; &nbsp;&nbsp;: Alignment := Left;<BR>
+  &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+  &nbsp;&nbsp;<b>Fill</b> &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;: Character := ' '<BR>
+  &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;);</tt></BLOCKQUOTE>
+<P>
+This procedure places the number specified by the parameter
+<b>Value</b> into the output string <b>Destination</b>.
+The string is written starting from <b>Destination </b>(<b>Pointer</b>). The 
+Unicode vulgar fractions like &#8533; are used when possible. The parameter
+<b>PutPlus</b> indicates whether the plus sign should be placed
+if the number is positive. The parameter <b>Fraction</b> specifies the number of 
+digits after the point. When zero no point is output. The output is rounded to 
+the last digit. Zero is always output as &quot;0&quot;. The exception Layout_Error is propagated when
+<b>Pointer</b> is not in <b>Destination</b>'Range or
+there is no room for the output.</p>
+<BLOCKQUOTE>
   <tt><font color="#0000FF">function</FONT> Image<BR>
   &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;( &nbsp;<b>Value</b>
   &nbsp;&nbsp;: 
@@ -37256,6 +37625,23 @@ This function converts <b>Value</b> to string using a recurring part in the
 fraction if necessary. The parameter
 <b>Base</b> indicates the number base used for the output. The
 base itself does not appear in the output. The parameter
+<b>PutPlus</b> indicates whether the plus sign should be placed
+if the number is positive.
+
+Note that the function is limited by the stack size.<BLOCKQUOTE>
+  <tt><font color="#0000FF">function</FONT> Image_Vulgar<BR>
+  &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;( &nbsp;<b>Value</b>
+  &nbsp;&nbsp;: 
+	<a href="#Unbounded_Rrationals.Unbounded_Rrational">Unbounded_Rational</a>;<BR>
+  &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
+  &nbsp;&nbsp;<b>PutPlus</b> : Boolean &nbsp;:= False;<BR>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Fraction</b> 
+	: Natural&nbsp;:= <font color="#800000">6</font><br>
+  &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;)
+  &nbsp;<font color="#0000FF">return</FONT> String;</tt></BLOCKQUOTE>
+<P>
+This function converts <b>Value</b> to string. The Unicode vulgar fractions are 
+used when posible. The parameter
 <b>PutPlus</b> indicates whether the plus sign should be placed
 if the number is positive.
 
@@ -39176,12 +39562,12 @@ selects the architecture:</p>
   </TR>
   <tr>
     <TD valign="top">
-i686</TD>
+i686, armhf</TD>
     <TD valign="top">32-bit architecture</TD>
   </tr>
   <tr>
     <TD valign="top">
-x86_64</TD>
+x86_64, aarch64</TD>
     <TD valign="top">64-bit architecture</TD>
   </tr>
   </TABLE>
@@ -70625,6 +71011,11 @@ Block_Streams</a></TD>
     <TD>The type <a href="#Unbounded_Ptr_Array">Unbounded_Ptr_Array</a></TD>
   </tr>
   <tr>
+    <TD colspan="21">
+<a href="#Generic_Undirected_Graph">Generic_Undirected_Graph</a></TD>
+    <TD>Undirected graphs</TD>
+  </tr>
+  <tr>
     <TD colspan="21">GNAT.Sockets</TD>
     <TD>GNAT sockets implementation</TD>
   </tr>
@@ -73929,7 +74320,7 @@ Simple Components for Ada are installed using
 Installer</a> without GNADE, APQ, SQLite etc, then the installation of the corresponding 
 parts of the Simple Components will fail. These faults can be safely ignored 
 during the installation.</p>
-<TABLE border="5" cellpadding="3" cellspacing="0" style="border-top-width: 0px">
+<TABLE border="5" cellpadding="3" cellspacing="0">
   <TR>
     <TD valign="bottom" bgcolor="#008080" rowspan="22"><FONT color="#FFFFFF"><B>Project files </B>
 	*.gpr</FONT></TD>
@@ -74965,6 +75356,21 @@ The following versions were tested with the compilers:</i>
 <ul>
 	<li><i>GtkAda 3.14.15</i></li>
 	<li><i>GtkAda April 5, 2022 (GTK 3.24.33)</i></li>
+</ul>
+<P>Changes (29 March 2026) to the version 4.79:</p>
+<ul>
+	<li>The package Generic_Undirected_Graph was added;</li>
+	<li>The package Discrete_Integer_Set an instance of Generic_Discrete_Set 
+	with Integer was added;</li>
+	<li>The Natural_Number_Range pattern was added to Parsers.Generic_Source.Patterns 
+	to match a number from a range of natural numbers;</li>
+	<li>The Natural_Number_Range pattern was added to Parsers.Generic_Source.Patterns 
+	to match a number from a set of natural numbers;</li>
+	<li>The&nbsp; maximum number of matches was added to the pattern Proceed in 
+	the package Parsers.Generic_Source.Patterns;</li>
+	<li>The form &quot;or null&quot; was added to Parsers.Generic_Source.Patterns as an 
+	equivalent of &quot;or Empty;&quot;</li>
+	<li>Bug fix in Unbounded_Unsigneds causing memory leak.</li>
 </ul>
 <P>Changes (16 February 2026) to the version 4.78:</p>
 <ul>
@@ -76254,7 +76660,8 @@ indicator</a><br>
 <b><big><big>9</big></big></b>&nbsp;<a href="#9"><big>Graphs</big></a><br>
 &nbsp;&nbsp;&nbsp; <a href="#9.1">9.1. Directed graphs</a><br>
 &nbsp;&nbsp;&nbsp; <a href="#9.2">9.2. Directed weighted graphs</a><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <A href="#9.2.1">9.2.1. Suffix tree example</a></td>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <A href="#9.2.1">9.2.1. Suffix tree example</a><br>
+&nbsp;&nbsp;&nbsp; <a href="#9.3">9.3. Undirected graphs</a></td>
 <td valign="top">
 <b><big><big>10</big></big></b>&nbsp;<a href="#10"><big>Lock-free structures</big></a><br>
 &nbsp;&nbsp;&nbsp; <a href="#10.1">10.1. FIFO</a><BR>

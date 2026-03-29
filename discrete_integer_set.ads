@@ -1,7 +1,7 @@
 --                                                                    --
---  package Test_String_Graph       Copyright (c)  Dmitry A. Kazakov  --
---  Test instantiation                             Luebeck            --
---                                                 Winter, 2009       --
+--  package Discrete_Integer_Set    Copyright (c)  Dmitry A. Kazakov  --
+--  Instantiation                                  Luebeck            --
+--                                                 Spring, 2026       --
 --                                                                    --
 --                                Last revision :  12:14 29 Mar 2026  --
 --                                                                    --
@@ -24,30 +24,8 @@
 --  exception  does not however invalidate any other reasons why the  --
 --  executable file might be covered by the GNU Public License.       --
 --____________________________________________________________________--
+--
 
-with Generic_Directed_Graph;
-with Generic_Undirected_Graph;
-with Generic_Unbounded_Array;
-with Generic_Address_Order;
+with Generic_Discrete_Set;
 
-package Test_String_Graph is
-   type Default is access String;
-   package Order is new Generic_Address_Order (String);
-   use Order;
-   package Directed is
-      new Generic_Directed_Graph (String, Default'Storage_Pool);
-
-   package Undirected is
-      new Generic_Undirected_Graph (String, Default'Storage_Pool);
-
-   type Node_Set_Array is
-      array (Positive range <>) of Undirected.Node_Sets.Set;
-
-   package Node_Set_Arrays is
-      new Generic_Unbounded_Array
-          (  Index_Type        => Positive,
-             Object_Type       => Undirected.Node_Sets.Set,
-             Object_Array_Type => Node_Set_Array,
-             Null_Element      => Undirected.Node_Sets.Create
-          );
-end Test_String_Graph;
+package Discrete_Integer_Set is new Generic_Discrete_Set (Integer);
